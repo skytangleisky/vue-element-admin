@@ -24,10 +24,10 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
+          <router-link to="/profile/index" replace>
             <el-dropdown-item>Profile</el-dropdown-item>
           </router-link>
-          <router-link to="/">
+          <router-link to="/" replace>
             <el-dropdown-item>Dashboard</el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
@@ -76,7 +76,9 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`) // tanglei
+      // this.$router.replace(`/login`)
+      this.$router.replace(`login`)
     }
   }
 }

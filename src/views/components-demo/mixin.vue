@@ -7,32 +7,32 @@
         </div>
         <div style="margin-bottom:50px;">
           <el-col :span="4" class="text-center">
-            <router-link class="pan-btn blue-btn" to="/documentation/index">
+            <router-link class="pan-btn blue-btn" to="/documentation/index" replace>
               Documentation
             </router-link>
           </el-col>
           <el-col :span="4" class="text-center">
-            <router-link class="pan-btn light-blue-btn" to="/icon/index">
+            <router-link class="pan-btn light-blue-btn" to="/icon/index" replace>
               Icons
             </router-link>
           </el-col>
           <el-col :span="4" class="text-center">
-            <router-link class="pan-btn pink-btn" to="/excel/export-excel">
+            <router-link class="pan-btn pink-btn" to="/excel/export-excel" replace>
               Excel
             </router-link>
           </el-col>
           <el-col :span="4" class="text-center">
-            <router-link class="pan-btn green-btn" to="/table/complex-table">
+            <router-link class="pan-btn green-btn" to="/table/complex-table" replace>
               Table
             </router-link>
           </el-col>
           <el-col :span="4" class="text-center">
-            <router-link class="pan-btn tiffany-btn" to="/example/create">
+            <router-link class="pan-btn tiffany-btn" to="/example/create" replace>
               Form
             </router-link>
           </el-col>
           <el-col :span="4" class="text-center">
-            <router-link class="pan-btn yellow-btn" to="/theme/index">
+            <router-link class="pan-btn yellow-btn" to="/theme/index" replace>
               Theme
             </router-link>
           </el-col>

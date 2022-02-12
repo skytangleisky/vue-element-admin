@@ -70,7 +70,7 @@ export default {
       this.show = false
     },
     change(val) {
-      this.$router.push(val.path)
+      this.$router.replace(val.path)
       this.search = ''
       this.options = []
       this.$nextTick(() => {
