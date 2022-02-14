@@ -7,8 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= webpackConfig.name %></title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/libs/zTree_v3-master/js/jquery.ztree.core.js"></script>
+    <script src="/libs/zTree_v3-master/js/jquery.ztree.excheck.js"></script>
+    <script src="/libs/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
+    <script src="/libs/indexdb/index.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//at.alicdn.com/t/font_2524885_awpqrzv87sb.js"></script>
+    <link href="//at.alicdn.com/t/font_2524885_awpqrzv87sb.css" rel="stylesheet">
   </head>
   <body>
+    <div id="loading" style="width:100%;height:100%;position:absolute;top:0;display:flex;justify-content:center;align-items:center;z-index:-1">
+      <div class='solar-syst'>
+        <div class='sun'></div>
+        <div class='mercury'></div>
+        <div class='venus'></div>
+        <div class='earth'></div>
+        <div class='mars'></div>
+        <div class='jupiter'></div>
+        <div class='saturn'></div>
+        <div class='uranus'></div>
+        <div class='neptune'></div>
+        <div class='pluto'></div>
+        <div class='asteroids-belt'></div>
+      </div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="transition.css">
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
