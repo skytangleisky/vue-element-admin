@@ -19,6 +19,12 @@ const componentsRouter = {
       meta: { title: 'Tinymce' }
     },
     {
+      path: 'mavon-editor',
+      component: () => import('@/views/components-demo/mavon-editor'),
+      name: 'MavonEditor',
+      meta: { title: 'Mavoneditor' }
+    },
+    {
       path: 'markdown',
       component: () => import('@/views/components-demo/markdown'),
       name: 'MarkdownDemo',
