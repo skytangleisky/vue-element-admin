@@ -1,4 +1,3 @@
-
 const tokens = {
   admin: {
     token: 'admin-token'
@@ -28,10 +27,9 @@ module.exports = [
   {
     url: '/vue-element-admin/user/login',
     type: 'post',
-    response: config => {
-      const { username } = config.body
-      const token = tokens[username]
-
+    response: (req, res) => {
+      const { username } = req.body
+      const { token } = tokens[username]
       // mock error
       if (!token) {
         return {
@@ -39,10 +37,9 @@ module.exports = [
           message: 'Account and password are incorrect.'
         }
       }
-
+      res.cookie('Admin-Token', token)
       return {
-        code: 20000,
-        data: token
+        code: 20000
       }
     }
   },
@@ -52,8 +49,7 @@ module.exports = [
     url: '/vue-element-admin/user/info\.*',
     type: 'get',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
+      const info = users[config.cookies['Admin-Token']]
 
       // mock error
       if (!info) {
@@ -73,7 +69,7 @@ module.exports = [
   // user logout
   {
     url: '/vue-element-admin/user/logout',
-    type: 'post',
+    type: 'delete',
     response: _ => {
       return {
         code: 20000,

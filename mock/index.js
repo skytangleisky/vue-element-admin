@@ -28,6 +28,7 @@ function mockXHR() {
         this.custom.xhr.responseType = this.responseType
       }
     }
+
     this.proxy_send(...arguments)
   }
 
@@ -45,7 +46,11 @@ function mockXHR() {
       } else {
         result = respond
       }
-      return Mock.mock(result)
+      if (options.url === `${process.env.VUE_APP_BASE_MOCK}/vue-element-admin/routes`) { // 因为含有@特殊符号且无法使用转义符号正常转义，所以不应该对路由里面的数据进行Mock处理(prod)
+        return result
+      } else {
+        return Mock.mock(result)
+      }
     }
   }
 

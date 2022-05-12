@@ -7,17 +7,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= webpackConfig.name %></title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/libs/localforage/index.min.js"></script>
+    <script src="/libs/vue/index.min.js"></script>
+    <script src="/libs/vuex/index.min.js"></script>
+    <script src="/libs/vue-router/index.min.js"></script>
+    <script src="/libs/axios/index.min.js"></script>
+    <script src="/libs/element/index.min.js"></script>
+    <link href="/libs/element/index.min.css" rel="stylesheet">
+    <script src="/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="/libs/zTree_v3-master/js/jquery.ztree.core.js"></script>
     <script src="/libs/zTree_v3-master/js/jquery.ztree.excheck.js"></script>
     <script src="/libs/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
-    <script src="/libs/indexdb/index.js"></script>
-    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <script src="/libs/indexdb/index.js"></script> -->
+    <link href="/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//at.alicdn.com/t/font_2524885_awpqrzv87sb.js"></script>
+    <link href="//at.alicdn.com/t/font_2524885_76l33aglg9w.css" rel="stylesheet">
+    <!-- <link href="<%= process.env.VUE_APP_BASE_API %>/css/scroll.css" rel="stylesheet"> -->
+    <link href="/libs/scroll/index.css" rel="stylesheet">
+    <script src="/libs/ace-builds-master/src/ace.js"></script>
+    <script src="/libs/ace-builds-master/src/ext-settings_menu.js"></script>
+    <script src="/libs/ace-builds-master/src/ext-beautify.js"></script>
+    <script src="/libs/ace-builds-master/src/ext-language_tools.js"></script>
+    <script src="/libs/markdown/editormd.js"></script>
+    <link rel="stylesheet" href="/libs/markdown/css/editormd.css">
+    <script src="/libs/tab/index.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script> -->
+    <script type="text/javascript" src="/libs/echarts/echarts.min.js"></script>
+    <link rel="stylesheet" href="/libs/tab/index.css">
     <script src="//at.alicdn.com/t/font_2524885_awpqrzv87sb.js"></script>
     <link href="//at.alicdn.com/t/font_2524885_awpqrzv87sb.css" rel="stylesheet">
+<!--    <script src="/libs/terminal/index.js"></script>-->
+<!--    <link href="/libs/terminal/index.css" rel="stylesheet">-->
+    <script src="/libs/jquery-qrcode/index.min.js"></script>
+    <script src="/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script>
+      /**
+       * @return {string}
+       */
+      Date.prototype.Format = function(format){
+        let that = this;
+        if(format==undefined) format = "yyyy-MM-dd HH:mm:ss SSS";
+        return format.replace(/yyyy|MM|dd|HH|mm|ss|SSS|S/g, function(a){
+          switch(a){
+            case 'yyyy':
+              return function(i){return (i < 10 ? '0' : '') + i}(that.getFullYear());
+            case 'MM':
+              return function(i){return (i < 10 ? '0' : '') + i}(that.getMonth() + 1);
+            case 'dd':
+              return function(i){return (i < 10 ? '0' : '') + i}(that.getDate());
+            case 'HH':
+              return function(i){return (i < 10 ? '0' : '') + i}(that.getHours());
+            case 'mm':
+              return function(i){return (i < 10 ? '0' : '') + i}(that.getMinutes());
+            case 'ss':
+              return function(i){return (i < 10 ? '0' : '') + i}(that.getSeconds());
+            case 'S':
+              return function(i){return i}(Math.floor(that.getMilliseconds()*10/1000));
+            case 'SSS':
+              return function(i){return (i < 10 ? '00' : i<100 ? '0' : '') + i}(that.getMilliseconds());
+            case 'q':
+              return Math.floor((that.getMonth() + 3) / 3)+'';
+          }
+        });
+      };
+
+var ws;
+connect();
+function connect(){
+    // ws = new WebSocket("ws://127.0.0.1:9999");
+    ws = new WebSocket("ws://websocket.tanglei.top");
+    ws.onopen = function () {
+      ws.send(JSON.stringify({'type': 'login', 'content': Math.ceil(Math.random()*10000)}));
+    };
+    ws.onmessage = function (e) {
+        var msg = JSON.parse(e.data);
+        document.getElementById("user_num").innerHTML = msg.content;
+        // switch (msg.type) {
+        //     case 'handshake':
+        //     case 'login':
+        //     case 'logout':
+        //       console.log(msg);
+        //     return;
+        // }
+    };
+    ws.onerror = function () {
+    };
+    ws.onclose = function(){
+      document.getElementById("user_num").innerHTML = '-';
+      connect();
+    }
+}
+
+    </script>
   </head>
-  <body>
-    <div id="loading" style="width:100%;height:100%;position:absolute;top:0;display:flex;justify-content:center;align-items:center;z-index:-1">
+  <body class="sandcastle-loading">
+    <div id="loading" style="width:100vw;height:100vh;position:fixed;top:0;display:flex;justify-content:center;align-items:center;z-index:-1">
       <div class='solar-syst'>
         <div class='sun'></div>
         <div class='mercury'></div>
@@ -32,8 +116,9 @@
         <div class='asteroids-belt'></div>
       </div>
     </div>
-    <link rel="stylesheet" type="text/css" href="transition.css">
+    <link rel="stylesheet" type="text/css" href="/transition.css">
     <div id="app"></div>
+    <div id="user_num" style="color:green;position: fixed;left: 0;top:0;z-index: 99999;font-size: 40px;font-weight: bold;"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>

@@ -1,4 +1,13 @@
 module.exports = {
+  globals: {
+    AMap: false,
+    AMapUI: false,
+    $: false,
+    ace: false,
+    editormd: false,
+    localforage: false,
+    echarts: false
+  },
   root: true,
   parserOptions: {
     parser: 'babel-eslint',

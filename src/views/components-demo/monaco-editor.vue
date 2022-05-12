@@ -14,11 +14,16 @@ export default {
     event: 'change'
   },
   props: {
-    'content': null,
+    content: {
+      type: String,
+      default: ''
+    },
     'language': {
-      default: 'javascript'
+      type: String,
+      default: 'html'
     },
     'readOnly': {
+      type: Boolean,
       default: false
     }
   },
@@ -77,8 +82,8 @@ export default {
       if (this.value !== value && language === 'json') {
         this.$emit('on-cursor-change', { offSet: offSet })
       }
-      if (language == 'json' && offSet !== 0) {
-        this.jsonPath = getJsonPath(value, offSet)
+      if (language === 'json' && offSet !== 0) {
+        // this.jsonPath = getJsonPath(value, offSet)
         this.$emit('on-jsonpath-change', { jsonPath: this.jsonPath })
       }
     })

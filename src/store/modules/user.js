@@ -1,4 +1,5 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo } from '@/api/login'
+// import { login, logout, getInfo } from '@/api/login_mock'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -35,8 +36,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        if (data) {
+          commit('SET_TOKEN', data.token)
+          setToken(data.token)
+        }
         resolve()
       }).catch(error => {
         reject(error)
@@ -47,9 +50,9 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
         const { data } = response
-
+        console.log(state)
         if (!data) {
           reject('Verification failed, please Login again.')
         }

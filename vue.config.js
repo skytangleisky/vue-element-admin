@@ -24,28 +24,72 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
+  runtimeCompiler: true,
+  filenameHashing: true,
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
-  productionSourceMap: true,
+  productionSourceMap: false,
   devServer: {
+    // public: 'union.tanglei.top',
+    useLocalIp: true,
+    disableHostCheck: true,
     port: port,
     open: true,
     overlay: {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    // before: require('./mock/mock-server.js'),
+    after: require('./mock/mock-server.js'),
+    proxy: {
+      [process.env.VUE_APP_BASE_API]: {
+        // logLevel: 'silent', // debug|silent|warn
+        target: 'http://127.0.0.1:9999', // 你请求的第三方接口
+        changeOrigin: true,
+        pathRewrite: { // 路径重写
+          ['^' + process.env.VUE_APP_BASE_API]: '' // 替换的请求地址
+        }
+      },
+      'tanglei/': {
+        target: 'http://127.0.0.1:81',
+        changeOrgin: true,
+        pathRewrite: {
+          'tanglei/': ''
+        }
+      },
+      'test/': {
+        // target: 'http://depend.tanglei.top',
+        target: 'http://192.168.0.180:9527',
+        // target: 'http://172.20.10.6:9527',
+        // target: 'http://localhost:9528',
+        // target: 'http://ycl.tanglei.top:9527',
+        // target: 'http://yhl.tanglei.top',
+        changeOrgin: true,
+        pathRewrite: {
+          'test/': ''
+        }
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     name: name,
+    devtool: 'source-map',
     resolve: {
       alias: {
         '@': resolve('src')
       }
+    },
+    externals: {
+      'vue': 'Vue',
+      'vue-router': 'VueRouter',
+      'vuex': 'Vuex',
+      'element-ui': 'ELEMENT',
+      'axios': 'axios',
+      'AMap': 'AMap'
     }
   },
   chainWebpack(config) {

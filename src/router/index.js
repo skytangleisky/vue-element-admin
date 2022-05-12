@@ -123,12 +123,35 @@ export const constantRoutes = [
     ]
   }
 ]
-
 /**
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  {
+    path: '/unit',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: '@/views/components/unit/index',
+        name: 'Unit',
+        meta: { title: 'Unit', icon: 'fighter', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/amap',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/amap/index'),
+        name: 'AMap',
+        meta: { title: 'AMap', icon: 'position', affix: true }
+      }
+    ]
+  },
   {
     path: '/permission',
     component: Layout,
@@ -170,7 +193,6 @@ export const asyncRoutes = [
       }
     ]
   },
-
   {
     path: '/icon',
     component: Layout,
@@ -197,7 +219,7 @@ export const asyncRoutes = [
     name: 'Example',
     meta: {
       title: 'Example',
-      icon: 'el-icon-s-help'
+      icon: 'example'
     },
     children: [
       {

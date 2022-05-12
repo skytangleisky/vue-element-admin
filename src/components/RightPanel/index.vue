@@ -80,7 +80,8 @@ export default {
 .showRightPanel {
   overflow: hidden;
   position: relative;
-  width: calc(100% - 15px);
+  /* width: calc(100% - 15px); // tanglei */
+  width: 100%;
 }
 </style>
 

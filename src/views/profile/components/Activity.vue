@@ -1,6 +1,6 @@
 <template>
   <div class="user-activity">
-    <div class="post">
+    <div class="post" sytle="border:1px solid red">
       <div class="user-block">
         <img class="img-circle" :src="'https://wpimg.wallstcn.com/57ed425a-c71e-4201-9428-68760c0537c4.jpg'+avatarPrefix">
         <span class="username text-muted">Iron Man</span>
@@ -108,6 +108,7 @@ export default {
     .description {
       display: block;
       margin-left: 50px;
+      margin-top: 20px;
       padding: 2px 0;
     }
 
@@ -139,6 +140,7 @@ export default {
     margin-bottom: 15px;
     padding-bottom: 15px;
     color: #666;
+    position: relative;
 
     .image {
       width: 100%;

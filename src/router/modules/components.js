@@ -1,10 +1,10 @@
 /** When your routing table is too long, you can split it into small modules **/
 
-import Layout from '@/layout'
+// import Layout from '@/layout'
 
 const componentsRouter = {
   path: '/components',
-  component: Layout,
+  component: '/src/layout', // '@/layout'  () => import('@/layout')  resolve => require(['@/layout'], resolve)  // Layout
   redirect: 'noRedirect',
   name: 'ComponentDemo',
   meta: {
@@ -17,6 +17,12 @@ const componentsRouter = {
       component: () => import('@/views/components-demo/tinymce'),
       name: 'TinymceDemo',
       meta: { title: 'Tinymce' }
+    },
+    {
+      path: 'aside',
+      component: '@/views/components/test',
+      name: 'Aside',
+      meta: { title: 'Aside', affix: true, noCache: false }
     },
     {
       path: 'monaco-editor',

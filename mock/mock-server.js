@@ -2,6 +2,7 @@ const chokidar = require('chokidar')
 const bodyParser = require('body-parser')
 const chalk = require('chalk')
 const path = require('path')
+const cookieParser = require('cookie-parser')
 const Mock = require('mockjs')
 
 const mockDir = path.join(process.cwd(), 'mock')
@@ -34,11 +35,15 @@ function unregisterRoutes() {
 // for mock server
 const responseFake = (url, type, respond) => {
   return {
-    url: new RegExp(`${process.env.VUE_APP_BASE_API}${url}`),
+    url: new RegExp(`${process.env.VUE_APP_BASE_MOCK}${url}`),
     type: type || 'get',
     response(req, res) {
       console.log('request invoke:' + req.path)
-      res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
+      if (req.path === `${process.env.VUE_APP_BASE_MOCK}/vue-element-admin/routes`) { // 因为含有@特殊符号且无法使用转义符号正常转义，所以不应该对路由里面的数据进行Mock处理(dev)
+        res.json(respond instanceof Function ? respond(req, res) : respond)
+      } else {
+        res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))
+      }
     }
   }
 }
@@ -46,10 +51,13 @@ const responseFake = (url, type, respond) => {
 module.exports = app => {
   // parse app.body
   // https://expressjs.com/en/4x/api.html#req.body
+  // app.use(bodyParser.raw())
+  // app.use(bodyParser.text())
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({
     extended: true
   }))
+  app.use(cookieParser())
 
   const mockRoutes = registerRoutes(app)
   var mockRoutesLength = mockRoutes.mockRoutesLength
