@@ -59,7 +59,7 @@
           <span v-else>0</span>
         </template>
       </el-table-column>
-      <el-table-column width="180px" align="center" label="UUID">
+      <el-table-column width="180px" align="center" label="UUID" show-overflow-tooltip>
         <template slot-scope="{row}">
           <span>{{ row.uuid }}</span>
         </template>

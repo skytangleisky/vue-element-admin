@@ -62,7 +62,7 @@
           <span v-else>0</span>
         </template>
       </el-table-column>
-      <el-table-column width="180px" align="center" label="UUID">
+      <el-table-column width="180px" align="center" label="UUID" show-overflow-tooltip>
         <template slot-scope="{row}">
           <span>{{ row.uuid }}</span>
         </template>
@@ -77,12 +77,12 @@
           <span>{{ row.updatetime }}</span>
         </template>
       </el-table-column>
-      <el-table-column width="110px" align="center" label="账户名">
+      <el-table-column width="110px" align="center" label="账户名" show-overflow-tooltip>
         <template slot-scope="{row}">
           <span>{{ row.username }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="昵称" min-width="120px" align="center">
+      <el-table-column label="昵称" min-width="120px" align="center" show-overflow-tooltip>
         <template slot-scope="{row}">
           <span>{{ row.nickname }}</span>
         </template>
@@ -92,7 +92,7 @@
           <img :src="row.avatar.indexOf('http')===0||row.avatar.indexOf('https')===0 ? row.avatar : baseURL + '/' + row.avatar" class="user-avatar">
         </template>
       </el-table-column>
-      <el-table-column label="访问路径" min-width="120px" align="center">
+      <el-table-column label="访问路径" min-width="120px" align="center" show-overflow-tooltip>
         <template slot-scope="{row}">
           <span>{{ row.user_path }}</span>
         </template>
@@ -127,7 +127,7 @@
           <span>{{ row.two_factor_recovery_codes }}</span>
         </template>
       </el-table-column>
-      <el-table-column min-width="300px" label="TOKEN">
+      <el-table-column min-width="300px" label="TOKEN" show-overflow-tooltip>
         <template slot-scope="{row}">
           <span>{{ row.remember_token }}</span>
         </template>

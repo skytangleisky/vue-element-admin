@@ -36,52 +36,46 @@ const constantRoutes = [
 
 const asyncRoutes = [
   {
-    path: '/unit',
+    path: '/实时监控',
     component: '@/layout',
     children: [
       {
         path: 'index',
-        component: '@/views/components/unit/index',
+        component: '@/views/components/company/lcc',
         name: 'Unit',
         meta: { title: '实时监控', icon: 'eye_fill', affix: true }
       }
     ]
   },
   {
-    path: '/permission',
+    path: '/apply',
     component: '@/layout',
     // redirect: '/permission/index',
     alwaysShow: true,
     meta: {
-      title: '空域申请',
+      title: '空域计划',
       icon: 'fly',
       roles: ['admin', 'editor']
     },
     children: [
       {
-        path: 'page',
-        component: '@/views/permission/page',
-        name: 'PagePermission',
+        path: 'yhl',
+        component: '@/views/components/company/yhl',
+        name: 'Yhl',
         meta: {
           title: '空域申请',
-          roles: ['admin']
+          roles: ['admin'],
+          affix: true
         }
       },
       {
-        path: 'directive',
-        component: '@/views/permission/directive',
-        name: 'DirectivePermission',
+        path: 'tl',
+        component: '@/views/components/company/tl',
+        name: 'Tl',
         meta: {
-          title: '计划申请'
-        }
-      },
-      {
-        path: 'role',
-        component: '@/views/permission/role',
-        name: 'RolePermission',
-        meta: {
-          title: 'Role Permission',
-          roles: ['admin']
+          title: '计划申请',
+          roles: ['admin'],
+          affix: true
         }
       }
     ]

@@ -46,7 +46,7 @@ module.exports = {
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         // logLevel: 'silent', // debug|silent|warn
-        target: 'http://127.0.0.1:9999', // 你请求的第三方接口
+        target: 'http://websocket.tanglei.top', // 你请求的第三方接口
         changeOrigin: true,
         pathRewrite: { // 路径重写
           ['^' + process.env.VUE_APP_BASE_API]: '' // 替换的请求地址
@@ -69,6 +69,29 @@ module.exports = {
         changeOrgin: true,
         pathRewrite: {
           'test/': ''
+        }
+      },
+      'lcc/': {
+        target: 'http://lcc.tanglei.top',
+        changeOrgin: true,
+        pathRewrite: {
+          'lcc/': ''
+        }
+      },
+      'yhl/': {
+        target: 'http://yhl.tanglei.top',
+        // target: 'http://172.20.10.6:9527',
+        changeOrgin: true,
+        pathRewrite: {
+          'yhl/': ''
+        }
+      },
+      'tl/': {
+        target: 'http://tl.tanglei.top',
+        // target: 'http://172.20.10.6:9528',
+        changeOrgin: true,
+        pathRewrite: {
+          'tl/': ''
         }
       }
     }

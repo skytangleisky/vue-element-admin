@@ -74,6 +74,51 @@ const constantRoutes = [
 
 const asyncRoutes = [
   {
+    path: '/实时监控',
+    component: '@/layout',
+    children: [
+      {
+        path: 'index',
+        component: '@/views/components/company/lcc',
+        name: 'Unit',
+        meta: { title: '实时监控', icon: 'eye_fill', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/apply',
+    component: '@/layout',
+    // redirect: '/permission/index',
+    alwaysShow: true,
+    meta: {
+      title: '空域计划',
+      icon: 'fly',
+      roles: ['admin', 'editor']
+    },
+    children: [
+      {
+        path: 'yhl',
+        component: '@/views/components/company/yhl',
+        name: 'Yhl',
+        meta: {
+          title: '空域申请',
+          roles: ['admin'],
+          affix: true
+        }
+      },
+      {
+        path: 'tl',
+        component: '@/views/components/company/tl',
+        name: 'Tl',
+        meta: {
+          title: '计划申请',
+          roles: ['admin'],
+          affix: true
+        }
+      }
+    ]
+  },
+  {
     path: '/unit',
     component: '@/layout',
     children: [
@@ -354,7 +399,42 @@ const asyncRoutes = [
       }
     ]
   },
-
+  {
+    path: '/table',
+    component: '@/layout',
+    redirect: '/table/complex-table',
+    name: 'Table',
+    meta: {
+      title: 'Table',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: 'dynamic-table',
+        component: '@/views/table/dynamic-table/index',
+        name: 'DynamicTable',
+        meta: { title: 'Dynamic Table' }
+      },
+      {
+        path: 'drag-table',
+        component: '@/views/table/drag-table',
+        name: 'DragTable',
+        meta: { title: 'Drag Table' }
+      },
+      {
+        path: 'inline-edit-table',
+        component: '@/views/table/inline-edit-table',
+        name: 'InlineEditTable',
+        meta: { title: 'Inline Edit' }
+      },
+      {
+        path: 'complex-table',
+        component: '@/views/table/complex-table',
+        name: 'ComplexTable',
+        meta: { title: 'Complex Table' }
+      }
+    ]
+  },
   {
     path: '/example',
     component: '@/layout',
