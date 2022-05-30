@@ -82,7 +82,7 @@ function connect(){
     };
     ws.onmessage = function (e) {
         var msg = JSON.parse(e.data);
-        document.getElementById("user_num").innerHTML = msg.content;
+        document.getElementById("user_num").innerHTML = '<br />'+msg.content;
         // switch (msg.type) {
         //     case 'handshake':
         //     case 'login':
@@ -94,7 +94,7 @@ function connect(){
     ws.onerror = function () {
     };
     ws.onclose = function(){
-      document.getElementById("user_num").innerHTML = '-';
+      document.getElementById("user_num").innerHTML = '<br />-';
       connect();
     }
 }
@@ -118,7 +118,33 @@ function connect(){
       </div>
     </div>
     <div id="app"></div>
-    <div id="user_num" style="color:green;position: fixed;left: 0;top:0;z-index: 99999;font-size: 40px;font-weight: bold;"></div>
+    <div id="user_num" style="color:green;position: fixed;left: 0;top:0;z-index: 99999;font-size: 20px;font-weight: bold;"></div>
+    <div id="FPS" style="color:green;position: fixed;left: 0;top:0;z-index: 99999;font-size: 20px;font-weight: bold;"></div>
+    <script>
+      var FPS = document.getElementById('FPS');
+      var frame = 0;
+      var lastTime = Date.now();
+      var loop = function () {
+        var now = Date.now();
+        frame++;
+        if (now > 500 + lastTime) {
+          FPS.innerHTML = ((frame * 1000) / (now - lastTime)).toFixed(2);
+          frame = 0;
+          lastTime = now;
+        };
+        rAF(loop);
+      }
+      var rAF = function () {
+        return (
+          window.requestAnimationFrame ||
+          window.webkitRequestAnimationFrame ||
+          function (callback) {
+              window.setTimeout(callback, 1000 / 60);
+          }
+        );
+      }();
+      loop();
+    </script>
     <!-- built files will be auto injected -->
   </body>
 </html>
