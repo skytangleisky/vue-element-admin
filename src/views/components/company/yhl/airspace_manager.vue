@@ -6,9 +6,9 @@
 <script>
 import remoteImport from '@/utils/vue-remote-import'
 export default {
-  'name': 'Yhl',
+  'name': 'AirspaceManager',
   components: {
-    test: () => remoteImport('/yhl/entry.html', 'test')
+    test: () => remoteImport('/yhl/entry.html', 'airspaceManager')
   },
   data() {
     return {
@@ -24,11 +24,6 @@ export default {
         duration: 1000
       })
     })
-  },
-  methods: {
-    resize() {
-      console.log('resize')
-    }
   }
 }
 </script>

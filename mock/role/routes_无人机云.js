@@ -60,10 +60,20 @@ const asyncRoutes = [
     children: [
       {
         path: 'yhl',
-        component: '@/views/components/company/yhl',
-        name: 'Yhl',
+        component: '@/views/components/company/yhl/dev',
+        name: 'Dev',
         meta: {
-          title: '空域申请',
+          title: 'YHL',
+          roles: ['admin'],
+          affix: true
+        }
+      },
+      {
+        path: 'airspace_manager',
+        component: '@/views/components/company/yhl/airspace_manager',
+        name: 'airspace-manager',
+        meta: {
+          title: '空域管理',
           roles: ['admin'],
           affix: true
         }
