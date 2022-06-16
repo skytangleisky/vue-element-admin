@@ -166,7 +166,7 @@ export default {
       if (['.md'].indexOf(ext) > -1) {
         that.processFilename(filename, 'Markdown')
         return true
-      } else if (['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.ico', '.cur'].indexOf(ext) > -1) {
+      } else if (['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.ico', '.cur', '.svg'].indexOf(ext) > -1) {
         that.processFilename(filename, 'Image')
         return true
       } else if (['.php', '.html', '.css', '.js', '.md', '.txt', '.json', '.ini', '.less', '.bat', '.vue'].indexOf(ext) > -1) {

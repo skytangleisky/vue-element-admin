@@ -18,7 +18,7 @@ export default {
   mounted() {
     const that = this
     that.$bus.$on('Message', that.processMessage)
-    that.openfile('/' + encodeURI(that.filename))
+    that.openfile('/' + that.filename)
   },
   destroyed() {
     const that = this
@@ -36,6 +36,7 @@ export default {
     openfile(src) {
       const that = this
       src = baseURL + src
+      src = src.split('/').slice(0, -1).join('/') + '/' + encodeURIComponent(src.split('/').slice(-1).join())
       console.log(src)
       $(that.$refs['img']).attr('src', src + '?t=' + Math.random())
     }

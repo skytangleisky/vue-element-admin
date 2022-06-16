@@ -183,7 +183,8 @@ export default {
       resizer_show: true,
       iconSkinLoading: 'fa fa-spin iconfont iconloading',
       iconSkinOpen: 'fa fa-folder-open iconSkinOpen',
-      iconSkinClose: 'fa fa-folder iconSkinClose'
+      iconSkinClose: 'fa fa-folder iconSkinClose',
+      baseURL
     }
   },
   mounted() {
@@ -222,6 +223,13 @@ export default {
     // that.emitMessage.data = { nickname: 'admin', user_path: '/', sessionid: 'er201hrpd0e2hmgbtqghqgdl05' }
     // that.emitMessage.type = '用户登录后获取的数据'
     // that.$bus.$emit('Message', that.emitMessage)
+
+    window.info().then((user) => {
+      that.emitMessage.data = user
+      that.emitMessage.type = '用户登录后获取的数据2'
+      that.$bus.$emit('Message', that.emitMessage)
+      console.log(that.emitMessage)
+    })
   },
   beforeDestroy() {
     const that = this
@@ -302,7 +310,7 @@ export default {
       const that = this
       if (emitMessage.type === '在ztree中定位文件位置') {
         that.tab_active(emitMessage.data.filename)
-      } else if (emitMessage.type === '用户登录后获取的数据') {
+      } else if (emitMessage.type === '用户登录后获取的数据2') {
         that.ur = emitMessage.data
         // that.ztree = $.fn.zTree.init(that.$refs['treeDemo'],that.setting);
 
@@ -444,12 +452,12 @@ export default {
     onSuccess(res) {
       const that = this
       const node = that.ztree.getNodeByParam('id', this.DATA.path)
-      console.log(node)
       for (let i = 0; i < res.data.length; i++) {
         if (!node.children[i] || res.data[i].id !== node.children[i].id) {
           res.data[i].iconSkinOpen = that.iconSkinOpen
           res.data[i].iconSkinClose = that.iconSkinClose
           res.data[i].iconSkinLoading = that.iconSkinLoading
+          res.data[i].iconSkinDocu = res.data[i].Docu
 
           res.data[i].font = { 'color': '#bbb' }
           const ns = that.ztree.addNodes(node, i, res.data[i], true)
@@ -735,6 +743,7 @@ export default {
               res.data[i].iconSkinOpen = that.iconSkinOpen
               res.data[i].iconSkinClose = that.iconSkinClose
               res.data[i].iconSkinLoading = that.iconSkinLoading
+              res.data[i].iconSkinDocu = res.data[i].Docu
 
               res.data[i].font = { 'color': '#bbb' }
               const ns = that.ztree.addNodes(node, i, res.data[i], true)

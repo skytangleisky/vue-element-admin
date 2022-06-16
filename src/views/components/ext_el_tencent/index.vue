@@ -73,6 +73,32 @@
   </div>
 </template>
 <script>
+
+window.info = function() {
+  return new Promise((resolve, reject) => {
+    axios.get(process.env.VUE_APP_BASE_API + '/libs/db/src/login.php', { withCredentials: false, timeout: 10000 }).then(async res => {
+      await localforage.setDriver(localforage.INDEXEDDB)
+      const result = res.data
+      if (result.code === 20000) {
+        var user = await localforage.getItem('user')
+        if (!user) {
+          user = {}
+        }
+        user.sessionid = $.cookie('Admin-Token')// 将上次保存的SESSION_ID更新为当前使用的SESSION_ID
+        user.avatar = decodeURIComponent(result.data.avatar)
+        user.loginType = result.data.loginType
+        user.nickname = result.data.nickname
+        user.user_path = result.data.user_path
+        user.debug_enable = result.data.debug_enable
+        user.username = result.data.username
+        !user.expandStatus && (user.expandStatus = {})
+        await localforage.setItem('user', user)
+        resolve(user)
+      }
+    })
+  })
+}
+
 import { init, WX, QQ, Abort } from './js/index.js'
 import axios from 'axios'
 import { baseURL } from '@/utils/request2.js'
@@ -121,7 +147,7 @@ export default {
       that.emitMessage.type = '隐藏登录窗口'
       that.$bus.$emit('Message', that.emitMessage)
     })
-    that.info().then((user) => {
+    window.info().then((user) => {
       that.emitMessage.data = user
       that.emitMessage.type = '用户登录后获取的数据'
       that.$bus.$emit('Message', that.emitMessage)
@@ -133,7 +159,7 @@ export default {
       axios.post(process.env.VUE_APP_BASE_API + '/libs/db/src/login.php', { loginType: loginType, user: user }, { withCredentials: false, timeout: 10000 }).then(res => {
         const result = res.data
         if (result.code === 20000) {
-          that.info().then((user) => {
+          window.info().then((user) => {
             that.emitMessage.data = user
             that.emitMessage.type = '用户登录后获取的数据'
             that.$bus.$emit('Message', that.emitMessage)
@@ -219,7 +245,7 @@ export default {
             data: JSON.stringify(this.loginForm),
             success: function(res) {
               if (res.code === 20000) {
-                that.info().then((user) => {
+                window.info().then((user) => {
                   that.emitMessage.data = user
                   that.emitMessage.type = '用户登录后获取的数据'
                   that.$bus.$emit('Message', that.emitMessage)
@@ -249,30 +275,6 @@ export default {
           console.log('error submit!!')
           return false
         }
-      })
-    },
-    info() {
-      return new Promise((resolve, reject) => {
-        axios.get(process.env.VUE_APP_BASE_API + '/libs/db/src/login.php', { withCredentials: false, timeout: 10000 }).then(async res => {
-          await localforage.setDriver(localforage.INDEXEDDB)
-          const result = res.data
-          if (result.code === 20000) {
-            var user = await localforage.getItem('user')
-            if (!user) {
-              user = {}
-            }
-            user.sessionid = $.cookie('Admin-Token')// 将上次保存的SESSION_ID更新为当前使用的SESSION_ID
-            user.avatar = decodeURIComponent(result.data.avatar)
-            user.loginType = result.data.loginType
-            user.nickname = result.data.nickname
-            user.user_path = result.data.user_path
-            user.debug_enable = result.data.debug_enable
-            user.username = result.data.username
-            !user.expandStatus && (user.expandStatus = {})
-            await localforage.setItem('user', user)
-            resolve(user)
-          }
-        })
       })
     },
     checkCapslock(e) {
