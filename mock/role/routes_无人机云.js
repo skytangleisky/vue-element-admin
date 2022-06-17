@@ -69,11 +69,31 @@ const asyncRoutes = [
         }
       },
       {
-        path: 'airspace_manager',
-        component: '@/views/components/company/yhl/airspace_manager',
-        name: 'airspace-manager',
+        path: 'airspace_manage',
+        component: '@/views/components/company/yhl/airspace_manage',
+        name: 'airspace-manage',
         meta: {
           title: '空域管理',
+          roles: ['admin'],
+          affix: true
+        }
+      },
+      {
+        path: 'airspace_apply',
+        component: '@/views/components/company/yhl/airspace_apply',
+        name: 'airspace-apply',
+        meta: {
+          title: '空域申请',
+          roles: ['admin'],
+          affix: true
+        }
+      },
+      {
+        path: 'user',
+        component: '@/views/components/company/yhl/user',
+        name: 'user',
+        meta: {
+          title: '用户管理',
           roles: ['admin'],
           affix: true
         }

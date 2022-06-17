@@ -33,7 +33,7 @@ export default {
     var ws
     connect()
     function connect() {
-      ws = new WebSocket('ws://127.0.0.1:65535')
+      ws = new WebSocket('ws://192.168.0.112:65535')
       // ws = new WebSocket("ws://websocket.tanglei.top");
       ws.onopen = function() {
       // $('#start').hide();$('#stop').show();

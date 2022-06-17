@@ -8,7 +8,7 @@ import remoteImport from '@/utils/vue-remote-import'
 export default {
   'name': 'AirspaceManager',
   components: {
-    test: () => remoteImport('/yhl/entry.html', 'airspaceManager')
+    test: () => remoteImport('/yhl/entry.html', 'airspaceManage')
   },
   data() {
     return {

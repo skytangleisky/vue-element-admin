@@ -1,8 +1,8 @@
 const Mock = require('mockjs')
 const { deepClone } = require('../utils')
 // const { asyncRoutes, constantRoutes } = require('./routes_simple.js')
-// const { asyncRoutes, constantRoutes } = require('./routes_无人机云')
-const { asyncRoutes, constantRoutes } = require('./routes.js')
+const { asyncRoutes, constantRoutes } = require('./routes_无人机云')
+// const { asyncRoutes, constantRoutes } = require('./routes.js')
 
 const routes = deepClone([...constantRoutes, ...asyncRoutes])
 
