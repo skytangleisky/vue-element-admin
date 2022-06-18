@@ -193,3 +193,14 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+
+
+.container{
+  opacity: 1.0;
+  position: relative;
+  color: black;
+  min-height: calc(100vh - 50px);
+}
+.hasTagsView .container{
+  min-height: calc(100vh - 84px);
+}

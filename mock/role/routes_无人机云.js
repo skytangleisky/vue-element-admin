@@ -41,7 +41,8 @@ const asyncRoutes = [
     children: [
       {
         path: 'index',
-        component: '@/views/components/company/lcc',
+        remoteEntry: '/lcc/entry.html',
+        remoteComponent: 'test',
         name: 'Unit',
         meta: { title: '实时监控', icon: 'eye_fill', affix: true }
       }
@@ -59,19 +60,10 @@ const asyncRoutes = [
     },
     children: [
       {
-        path: 'yhl',
-        component: '@/views/components/company/yhl/dev',
-        name: 'Dev',
-        meta: {
-          title: 'YHL',
-          roles: ['admin'],
-          affix: true
-        }
-      },
-      {
         path: 'airspace_manage',
-        component: '@/views/components/company/yhl/airspace_manage',
-        name: 'airspace-manage',
+        remoteEntry: '/yhl/entry.html',
+        remoteComponent: 'airspaceManage',
+        name: 'AirspaceManage',
         meta: {
           title: '空域管理',
           roles: ['admin'],
@@ -80,8 +72,9 @@ const asyncRoutes = [
       },
       {
         path: 'airspace_apply',
-        component: '@/views/components/company/yhl/airspace_apply',
-        name: 'airspace-apply',
+        remoteEntry: '/yhl/entry.html',
+        remoteComponent: 'airspaceApply',
+        name: 'AirspaceApply',
         meta: {
           title: '空域申请',
           roles: ['admin'],
@@ -90,8 +83,9 @@ const asyncRoutes = [
       },
       {
         path: 'user',
-        component: '@/views/components/company/yhl/user',
-        name: 'user',
+        remoteEntry: '/yhl/entry.html',
+        remoteComponent: 'user',
+        name: 'User',
         meta: {
           title: '用户管理',
           roles: ['admin'],
@@ -100,13 +94,20 @@ const asyncRoutes = [
       },
       {
         path: 'tl',
-        component: '@/views/components/company/tl',
+        remoteEntry: '/tl/entry.html',
+        remoteComponent: 'test',
         name: 'Tl',
         meta: {
           title: '计划申请',
           roles: ['admin'],
           affix: true
         }
+      },
+      {
+        path: 'aside',
+        component: '@/views/components/test',
+        name: 'Aside',
+        meta: { title: 'Aside', affix: true, noCache: false }
       }
     ]
   },

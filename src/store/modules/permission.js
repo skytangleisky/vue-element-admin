@@ -1,5 +1,6 @@
 // import { constantRoutes } from '@/router'
 import { getRoutes } from '@/api/role'
+import remoteImport from '@/utils/vue-remote-import'
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -32,6 +33,8 @@ export function filterAsyncRoutes(routes, roles) {
         else if (tmp.component.indexOf('@/views') === 0) res.push({ ...tmp, ...{ component: resolve => require(['@/views' + tmp.component.replace(RegExp(`^@/views`), '')], resolve) }})
         else if (tmp.component.indexOf('@/layout') === 0) res.push({ ...tmp, ...{ component: resolve => require(['@/layout' + tmp.component.replace(RegExp(`^@/layout`), '')], resolve) }})
         else console.error(`The string path "${tmp.component}" of the component must be under the "@/views" or "@/layout" or "/src/views" or "/src/layout" or "../../views" or "../../layout" path`)
+      } else if (tmp.remoteEntry && tmp.remoteComponent) {
+        res.push({ ...tmp, ...{ component: () => remoteImport(tmp.remoteEntry, tmp.remoteComponent) }})
       } else res.push(tmp)
     }
   })
