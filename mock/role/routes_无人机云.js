@@ -102,7 +102,26 @@ const asyncRoutes = [
           roles: ['admin'],
           affix: true
         }
-      },
+      }
+      // {
+      //   path: 'aside',
+      //   component: '@/views/components/test',
+      //   name: 'Aside',
+      //   meta: { title: 'Aside', affix: true, noCache: false }
+      // }
+    ]
+  },
+  {
+    path: '/apply',
+    component: '@/layout',
+    // redirect: '/permission/index',
+    alwaysShow: true,
+    meta: {
+      title: '空域计划',
+      icon: 'fly',
+      roles: ['admin', 'editor']
+    },
+    children: [
       {
         path: 'aside',
         component: '@/views/components/test',

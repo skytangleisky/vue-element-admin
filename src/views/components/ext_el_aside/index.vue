@@ -338,7 +338,7 @@ export default {
             }
           },
           check: {
-            enable: false
+            enable: true
           },
           callback: {
             onDblClick: null,
@@ -416,6 +416,7 @@ export default {
           $(that.$refs['left']).show()
         }
         $(that.$refs['test01']).show()
+        $(that.$refs['left']).removeClass('hide')
         that.$emit('update:percent', 20)
         that.$emit('update:resizer_show', true)
       } else if (emitMessage.type === 'Favorites') {
@@ -432,6 +433,7 @@ export default {
         }
 
         $(that.$refs['test02']).show()
+        $(that.$refs['left']).removeClass('hide')
         that.$emit('update:percent', 20)
         that.$emit('update:resizer_show', true)
       } else if (emitMessage.type === '窗体左部分大小变化为50%') {
@@ -508,7 +510,18 @@ export default {
         // if (treeNode.getParentNode() !== null) {
         //   parentPath = treeNode.getParentNode().id
         // }
-        if (!treeNode.isParent) {
+        if (treeNode.isParent) {
+          // const selectNodes = this.ztree.getSelectedNodes()
+          // if (selectNodes.length && selectNodes.slice(-1)[0] === treeNode) {
+          //   for (const item of treeNode.children) {
+          //     that.ztree.selectNode(item, true, true)
+          //   }
+          // } else {
+          //   for (const item of treeNode.children) {
+          //     that.ztree.cancelSelectedNode(item, true, true)
+          //   }
+          // }
+        } else if (!treeNode.isParent) {
           // $('#rightPane').attr("src","?p="+parentPath+"&view="+treeNode.name);
           // $('#rightPane').attr("src","?p="+parentPath+"&edit="+treeNode.name+"&env=ace");
           // $('#rightPane').attr("src","?path="+treeNode.id.split('/').slice(0,-1).join('/')+"&view="+treeNode.name+"&quickView=0");

@@ -286,6 +286,14 @@ export default {
       } else if (prev.length) {
         id = prev.attr('tt')
       }
+      let tmp = false
+      for (let i = 0; i < that.filenames.length; i++) {
+        if (that.filenames[i].filename === $id) {
+          tmp = true
+        }
+      }
+      if (!tmp) return // 移除的 文件或文件夹 不在ext_el_tags中，不做处理。
+
       for (let i = 0; i < that.filenames.length; i++) {
         if (that.filenames[i].filename === id) {
           that.filenames[i].show = true
