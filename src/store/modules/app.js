@@ -8,7 +8,6 @@ const state = {
   device: 'desktop',
   size: Cookies.get('size') || 'default'
 }
-console.log(state)
 
 const mutations = {
   TOGGLE_SIDEBAR: state => {
