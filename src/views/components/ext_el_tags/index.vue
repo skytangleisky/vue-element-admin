@@ -169,7 +169,7 @@ export default {
       } else if (['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.ico', '.cur', '.svg'].indexOf(ext) > -1) {
         that.processFilename(filename, 'Image')
         return true
-      } else if (['.php', '.html', '.css', '.js', '.md', '.txt', '.json', '.ini', '.less', '.bat', '.vue'].indexOf(ext) > -1) {
+      } else if (['.php', '.html', '.css', '.js', '.md', '.txt', '.json', '.ini', '.less', '.bat', '.vue', '.gltf'].indexOf(ext) > -1) {
         that.processFilename(filename, 'Ace')
         return true
       } else if (filename.split('/').pop().indexOf('.') === -1) {
@@ -199,7 +199,8 @@ export default {
           if (that.filenames[i].filename === oldFilename) {
             that.filenames[i].filename = newFilename
             if (!that.openfile(newFilename)) {
-              that.filenames.splice(i--, 1)
+              that.remove(that.oldFilename)
+              that.remove(that.newFilename)
               that.$notify({
                 title: '警告',
                 dangerouslyUseHTMLString: true,

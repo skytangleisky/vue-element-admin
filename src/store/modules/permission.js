@@ -1,5 +1,5 @@
 // import { constantRoutes } from '@/router'
-import { getRoutes } from '@/api/role'
+import { getRoutes } from '@/api/role_mock'
 import remoteImport from '@/utils/vue-remote-import'
 /**
  * Use meta.role to determine if the current user has permission

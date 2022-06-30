@@ -42,7 +42,7 @@ module.exports = {
       errors: true
     },
     // before: require('./mock/mock-server.js'),
-    after: require('./mock/mock-server.js'),
+    // after: require('./mock/mock-server.js'),
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         // logLevel: 'silent', // debug|silent|warn
@@ -50,6 +50,13 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: { // 路径重写
           ['^' + process.env.VUE_APP_BASE_API]: '' // 替换的请求地址
+        }
+      },
+      'dev-mock/': {
+        target: 'http://websocket.tanglei.top',
+        changeOrgin: true,
+        pathRewrite: {
+          'dev-mock/': ''
         }
       },
       'tanglei/': {
@@ -72,15 +79,16 @@ module.exports = {
         }
       },
       'lcc/': {
-        target: 'http://lcc.tanglei.top',
+        // target: 'http://lcc.tanglei.top',
+        target: 'http://127.0.0.1:2222',
         changeOrgin: true,
         pathRewrite: {
           'lcc/': ''
         }
       },
       'yhl/': {
-        target: 'http://yhl.tanglei.top',
-        // target: 'http://172.20.10.6:9527',
+        // target: 'http://yhl.tanglei.top',
+        target: 'http://127.0.0.1:2244',
         changeOrgin: true,
         pathRewrite: {
           'yhl/': ''
@@ -88,7 +96,7 @@ module.exports = {
       },
       'tl/': {
         target: 'http://tl.tanglei.top',
-        // target: 'http://172.20.10.6:9528',
+        // target: 'http://127.0.0.1:2233',
         changeOrgin: true,
         pathRewrite: {
           'tl/': ''
@@ -111,7 +119,7 @@ module.exports = {
       'vue-router': 'VueRouter',
       'vuex': 'Vuex',
       'element-ui': 'ELEMENT',
-      'axios': 'axios',
+      // 'axios': 'axios',
       'AMap': 'AMap'
     }
   },

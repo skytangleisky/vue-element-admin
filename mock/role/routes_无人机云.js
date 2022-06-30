@@ -67,7 +67,7 @@ const asyncRoutes = [
         meta: {
           title: '空域管理',
           roles: ['admin'],
-          affix: true
+          affix: false
         }
       },
       {
@@ -78,7 +78,7 @@ const asyncRoutes = [
         meta: {
           title: '空域申请',
           roles: ['admin'],
-          affix: true
+          affix: false
         }
       },
       {
@@ -89,18 +89,7 @@ const asyncRoutes = [
         meta: {
           title: '用户管理',
           roles: ['admin'],
-          affix: true
-        }
-      },
-      {
-        path: 'tl',
-        remoteEntry: '/tl/entry.html',
-        remoteComponent: 'test',
-        name: 'Tl',
-        meta: {
-          title: '计划申请',
-          roles: ['admin'],
-          affix: true
+          affix: false
         }
       }
       // {
@@ -112,16 +101,27 @@ const asyncRoutes = [
     ]
   },
   {
-    path: '/apply',
+    path: '/cesium',
     component: '@/layout',
     // redirect: '/permission/index',
     alwaysShow: true,
     meta: {
-      title: '空域计划',
-      icon: 'fly',
+      title: '三维地球',
+      icon: 'component', // fighter
       roles: ['admin', 'editor']
     },
     children: [
+      {
+        path: 'tl',
+        remoteEntry: '/tl/entry.html',
+        remoteComponent: 'test',
+        name: 'Tl',
+        meta: {
+          title: 'cesium',
+          roles: ['admin'],
+          affix: false
+        }
+      },
       {
         path: 'aside',
         component: '@/views/components/test',

@@ -38,8 +38,9 @@ const responseFake = (url, type, respond) => {
     url: new RegExp(`${process.env.VUE_APP_BASE_MOCK}${url}`),
     type: type || 'get',
     response(req, res) {
+      res.req.headers['content-type'] = 'application/json; charset=utf-8'
       console.log('request invoke:' + req.path)
-      if (req.path === `${process.env.VUE_APP_BASE_MOCK}/vue-element-admin/routes`) { // 因为含有@特殊符号且无法使用转义符号正常转义，所以不应该对路由里面的数据进行Mock处理(dev)
+      if (req.path === `${process.env.VUE_APP_BASE_MOCK}/vue-element-admin/routes`) { // tanglei 因为含有@特殊符号且无法使用转义符号正常转义，所以不应该对路由里面的数据进行Mock处理(dev)
         res.json(respond instanceof Function ? respond(req, res) : respond)
       } else {
         res.json(Mock.mock(respond instanceof Function ? respond(req, res) : respond))

@@ -36,10 +36,11 @@ import vueSpline from '@/components/vue-split-pane/src/index'
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
-if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('../mock')
-  mockXHR()
-}
+// if (process.env.NODE_ENV === 'production') {
+//   const { mockXHR } = require('../mock')
+//   mockXHR()
+// }
+
 Vue.use(Element, {
   size: Cookies.get('size') || 'default' // set element-ui default size
   // locale: enLang // 如果使用中文，无需设置，请删除

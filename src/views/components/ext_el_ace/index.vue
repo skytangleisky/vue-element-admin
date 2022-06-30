@@ -48,8 +48,8 @@ export default {
       that.editor.getSession().setMode({ path: 'ace/mode/javascript', inline: true })
     } else if (that.filename.endsWith('.html') || that.filename.endsWith('.htm')) {
       that.editor.getSession().setMode({ path: 'ace/mode/html', inline: true })
-    } else if (that.filename.endsWith('.json')) {
-      that.editor.getSession().setMode({ path: 'ace/mode/json', inline: true })
+    } else if (that.filename.endsWith('.json') || that.filename.endsWith('.gltf')) {
+      that.editor.getSession().setMode({ path: 'ace/mode/json', inline: false })
     } else if (that.filename.endsWith('.ini')) {
       that.editor.getSession().setMode({ path: 'ace/mode/ini', inline: true })
     } else if (that.filename.endsWith('.less')) {
@@ -85,7 +85,7 @@ export default {
           // 保存文件操作
           // editor.getSession().getValue();
           // document.getElementById("normal-editor").value;
-
+          /*
           const data = {
             ajax: 1,
             path: that.filename.split('/').slice(0, -1).join('/'),
@@ -99,6 +99,45 @@ export default {
             headers: { 'content-type': 'application/x-www-form-urlencoded' },
             data: Object.keys(data).map(function(key) { return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) }).join('&'),
             onUploadProgress: e => {
+              const percent = (e.loaded / e.total * 100).toFixed(2)
+              that.emitMessage.type = '进度'
+              that.emitMessage.data = { percentage: percent }
+              that.$bus.$emit('Message', that.emitMessage)
+            }
+          }).then((res) => {
+            if (res.data.code === 20000) {
+              console.log('保存成功')
+              that.$notify({
+                title: '保存成功',
+                dangerouslyUseHTMLString: true,
+                message: res.data.message,
+                duration: 3000,
+                type: 'success'
+              })
+            } else {
+              that.$notify({
+                title: '保存失败',
+                dangerouslyUseHTMLString: true,
+                message: res.data.message,
+                duration: 3000,
+                type: 'error'
+              })
+            }
+          })*/
+
+          const data = {
+            ajax: 1,
+            path: that.filename.split('/').slice(0, -1).join('/'),
+            content: editor.getSession().getValue(),
+            type: 'save',
+            edit: that.filename.split('/').slice(-1)[0]
+          }
+          axios({
+            url: baseURL + '/controller/test.php',
+            method: 'post',
+            data,
+            onUploadProgress: e => {
+              console.log('onUploadProgress', e)
               const percent = (e.loaded / e.total * 100).toFixed(2)
               that.emitMessage.type = '进度'
               that.emitMessage.data = { percentage: percent }
@@ -176,6 +215,7 @@ export default {
         params: { 'path': that.filename.split('/').slice(0, -1).join('/'), 'dl': that.filename.split('/').slice(-1)[0] },
         headers: { 'content-type': 'text/plain', 'Cache-Control': 'no cache' },
         onDownloadProgress: e => {
+          console.log('onDownloadProgress', e)
           const percent = (e.loaded / e.total * 100).toFixed(2)
           that.emitMessage.type = '进度'
           that.emitMessage.data = { percentage: percent }
@@ -185,7 +225,7 @@ export default {
         if (typeof (res.data) === 'string') {
           that.editor.getSession().setValue(res.data)
         } else {
-          that.editor.getSession().setValue(JSON.stringify(res.data))
+          that.editor.getSession().setValue(JSON.stringify(res.data, null, 2))
         }
         // that.editor.setValue(res.data);that.editor.moveCursorTo(0, 0);
         // that.editor.getSession().setValue(JSON.stringify(res.data));

@@ -830,6 +830,12 @@ export default {
                 const oldFilename = node.id
                 const newFilename = node.id.replace(e + '/' + t, e + '/' + n)
                 node.id = newFilename
+                for (let j = 0; j < res.data.length; j++) {
+                  if (res.data[j].id === node.id) {
+                    node.iconSkinDocu = res.data[j].Docu
+                  }
+                }
+
                 node.name = node.id.split('/').slice(-1).join()
                 that.ztree.updateNode(node)
                 that.emitMessage.data = { oldFilename: oldFilename, newFilename: newFilename }
