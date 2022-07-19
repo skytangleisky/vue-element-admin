@@ -204,3 +204,13 @@ aside {
 .hasTagsView .container{
   min-height: calc(100vh - 84px);
 }
+
+.fixed-container{
+  opacity: 1.0;
+  position: relative;
+  color: black;
+  height: calc(100vh - 50px);
+}
+.hasTagsView .fixed-container{
+  height: calc(100vh - 84px);
+}

@@ -9,7 +9,7 @@
         <el-avatar style="width:28px;height:28px;background: transparent;outline:none;" shape="square" :src="user.avatar" />
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-show="status=='unlogin'" @click.native="login">登&emsp;录</el-dropdown-item>
-          <el-dropdown-item>捐&emsp;赠</el-dropdown-item>
+          <el-dropdown-item @click.native="donation">捐&emsp;赠</el-dropdown-item>
           <el-dropdown-item>设&emsp;置</el-dropdown-item>
           <el-dropdown-item>帮&emsp;助</el-dropdown-item>
           <el-dropdown-item v-show="status=='logined'" divided @click.native="logout">退&emsp;出</el-dropdown-item>
@@ -20,6 +20,8 @@
   </el-header>
 </template>
 <script>
+
+import { setPay, Tips_Click } from './pay.js'
 import axios from 'axios'
 import { baseURL } from '@/utils/request2.js'
 export default {
@@ -42,11 +44,13 @@ export default {
   mounted() {
     const that = this
     that.$bus.$on('Message', that.processMessage)
-    console.log('mounted')
     this.timer = setInterval((function f() {
       document.getElementById('datetime').innerHTML = new Date().Format('yyyy-MM-dd HH:mm:ss')
       return f
     })(), 1000)
+    setPay(function() {
+      // 支付模块初始化完成
+    })
   },
   activated() {
     console.log('activated')
@@ -92,6 +96,15 @@ export default {
         that.user = { ...that.defaultUser }
         that.status = 'unlogin'
         // window.top.location.replace(window.top.location.origin+window.top.location.pathname)
+      })
+    },
+    donation() {
+      const Order = {}
+      Order.total_amount = 1
+      Order.subject = '捐赠'
+      Order.out_trade_no = Date.now()
+      Tips_Click('支付宝支付', Order, function() {
+        alert('支付成功')
       })
     }
   }

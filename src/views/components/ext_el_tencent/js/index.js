@@ -15,7 +15,7 @@ let qqXhr3 = ''
 
 const InvalidNumbers = 1// 二维码失效后，自动刷新次数
 let TMP = 0
-var debug = false
+var debug = true
 
 function wxTask() {
   debug && console.log('wx')

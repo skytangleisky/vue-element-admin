@@ -87,16 +87,19 @@ module.exports = {
         }
       },
       'yhl/': {
-        // target: 'http://yhl.tanglei.top',
-        target: 'http://127.0.0.1:2244',
+        target: 'http://yhl.tanglei.top',
+        // target: 'http://127.0.0.1:2244',
         changeOrgin: true,
         pathRewrite: {
           'yhl/': ''
         }
       },
       'tl/': {
-        target: 'http://tl.tanglei.top',
+        // target: 'http://tl.tanglei.top',
         // target: 'http://127.0.0.1:2233',
+        // target: 'http://192.168.43.108:9527',
+        target: 'http://192.168.0.5:9527',
+        // target: 'http://192.168.0.180:9527',
         changeOrgin: true,
         pathRewrite: {
           'tl/': ''

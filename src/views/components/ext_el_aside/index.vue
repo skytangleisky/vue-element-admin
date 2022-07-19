@@ -228,7 +228,6 @@ export default {
       that.emitMessage.data = user
       that.emitMessage.type = '用户登录后获取的数据2'
       that.$bus.$emit('Message', that.emitMessage)
-      console.log(that.emitMessage)
     })
   },
   beforeDestroy() {
@@ -964,6 +963,7 @@ export default {
                 res.data.data[i].iconSkinOpen = that.iconSkinOpen
                 res.data.data[i].iconSkinClose = that.iconSkinClose
                 res.data.data[i].iconSkinLoading = that.iconSkinLoading
+                res.data.data[i].iconSkinDocu = res.data.data[i].Docu
 
                 res.data.data[i].font = { 'color': '#bbb' }
                 const ns = that.ztree.addNodes(node, i, res.data.data[i], true)

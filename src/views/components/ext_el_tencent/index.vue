@@ -161,10 +161,16 @@ export default {
         if (result.code === 20000) {
           window.info().then((user) => {
             that.emitMessage.data = user
+            that.emitMessage.type = '用户登录后获取的数据2'
+            that.$bus.$emit('Message', that.emitMessage)
             that.emitMessage.type = '用户登录后获取的数据'
             that.$bus.$emit('Message', that.emitMessage)
             $(that.$refs['close']).click()
             that.loading = false
+
+            // that.$store.dispatch('user/changeRoles', ['admin']).then(() => {
+            //   this.$emit('change')
+            // })
           })
         } else if (result.code === 60204) {
           $('.btn-success').button('reset')
@@ -238,7 +244,7 @@ export default {
         if (valid) {
           this.loading = true
           $.ajax({
-            url: process.env.VUE_APP_BASE_API + '/libs/db/src/login.php',
+            url: baseURL + '/libs/db/src/login.php',
             type: 'post',
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
@@ -248,6 +254,8 @@ export default {
                 window.info().then((user) => {
                   that.emitMessage.data = user
                   that.emitMessage.type = '用户登录后获取的数据'
+                  that.$bus.$emit('Message', that.emitMessage)
+                  that.emitMessage.type = '用户登录后获取的数据2'
                   that.$bus.$emit('Message', that.emitMessage)
                   $(that.$refs['close']).click()
                   that.loading = false
