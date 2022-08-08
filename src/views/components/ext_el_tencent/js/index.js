@@ -15,7 +15,7 @@ let qqXhr3 = ''
 
 const InvalidNumbers = 1// 二维码失效后，自动刷新次数
 let TMP = 0
-var debug = true
+var debug = false
 
 function wxTask() {
   debug && console.log('wx')
@@ -100,7 +100,7 @@ function wxTask() {
     })
   }
 }
-function wx() {
+window.wx = function() {
   // 如果InvalidNumbers=0，大约5*60秒后需要调用此方法重新生成二维码
   $('#failure').remove()
   wxStatusUrl = ''
@@ -180,7 +180,7 @@ function qqTask() {
     })
   }
 }
-function qq() {
+window.qq = function() {
   // 如果InvalidNumbers=0，2*60秒后需要调用此方法重新生成二维码
   $('#failure').remove()
   qqStatusUrl = ''

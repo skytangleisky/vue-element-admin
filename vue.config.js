@@ -97,8 +97,9 @@ module.exports = {
       'tl/': {
         // target: 'http://tl.tanglei.top',
         // target: 'http://127.0.0.1:2233',
+        target: 'http://127.0.0.1:9500',
         // target: 'http://192.168.43.108:9527',
-        target: 'http://192.168.0.5:9527',
+        // target: 'http://192.168.0.5:9527',
         // target: 'http://192.168.0.180:9527',
         changeOrgin: true,
         pathRewrite: {
@@ -121,7 +122,7 @@ module.exports = {
       'vue': 'Vue',
       'vue-router': 'VueRouter',
       'vuex': 'Vuex',
-      'element-ui': 'ELEMENT',
+      // 'element-ui': 'ELEMENT',
       // 'axios': 'axios',
       'AMap': 'AMap'
     }

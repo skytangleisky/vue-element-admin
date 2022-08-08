@@ -5,7 +5,7 @@ const service = axios.create({
   // baseURL: '//tanglei.top/', // url = base url + request url
   baseURL,
   // withCredentials: true, // send cookies when cross-domain requests, vulnerable to CSRF attacks
-  timeout: 5000, // request timeout
+  // timeout: 5000, // request timeout
   headers: { 'Content-Type': 'text/plain' }
 })
 

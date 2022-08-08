@@ -74,7 +74,7 @@ export default {
       baseURL,
       listQuery: {
         page: 1,
-        limit: 50,
+        limit: 4,
         importance: undefined,
         title: undefined,
         type: undefined,

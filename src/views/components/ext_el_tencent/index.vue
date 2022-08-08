@@ -85,7 +85,7 @@ window.info = function() {
           user = {}
         }
         user.sessionid = $.cookie('Admin-Token')// 将上次保存的SESSION_ID更新为当前使用的SESSION_ID
-        user.avatar = decodeURIComponent(result.data.avatar)
+        user.avatar = result.data.avatar
         user.loginType = result.data.loginType
         user.nickname = result.data.nickname
         user.user_path = result.data.user_path
