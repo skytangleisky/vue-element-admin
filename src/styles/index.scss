@@ -198,21 +198,27 @@ aside {
 .container{
   opacity: 1.0;
   position: relative;
+  width:100%;
   color: black;
   min-height: calc(100vh - 50px);
 }
 .hasTagsView .container{
   position: relative;
+  width:100%;
   min-height: calc(100vh - 84px);
 }
 
 .fixed-container{
   opacity: 1.0;
   position: relative;
+  width:100%;
   color: black;
   height: calc(100vh - 50px);
+  max-height: calc(100vh - 50px);
 }
 .hasTagsView .fixed-container{
   position: relative;
+  width:100%;
   height: calc(100vh - 84px);
+  max-height: calc(100vh - 84px);
 }
