@@ -52,6 +52,13 @@ module.exports = {
           ['^' + process.env.VUE_APP_BASE_API]: '' // 替换的请求地址
         }
       },
+      'prod-mock/': {
+        target: 'http://websocket.tanglei.top',
+        changeOrgin: true,
+        pathRewrite: {
+          'dev-mock/': ''
+        }
+      },
       'dev-mock/': {
         target: 'http://websocket.tanglei.top',
         changeOrgin: true,

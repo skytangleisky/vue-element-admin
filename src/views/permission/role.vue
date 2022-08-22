@@ -101,8 +101,8 @@ export default {
     async getRoutes() {
       const res = await getRoutes()
       this.serviceRoutes = res.data
-      this.routes = res.data
-      // this.routes = this.generateRoutes(res.data)
+      // this.routes = res.data
+      this.routes = this.generateRoutes(res.data)
     },
     async getRoles() {
       const res = await getRoles()
@@ -111,7 +111,6 @@ export default {
 
     // Reshape the routes structure so that it looks the same as the sidebar
     generateRoutes(routes, basePath = '/') {
-      console.log('generateRoutes')
       const res = []
 
       for (let route of routes) {
@@ -166,7 +165,8 @@ export default {
       this.role = deepClone(scope.row)
       this.$nextTick(() => {
         // const routes = this.generateRoutes(this.role.routes)
-        const routes = filterAsyncRoutes(this.routes, [this.role.key])
+        const routes = filterAsyncRoutes(this.serviceRoutes, [this.role.key])
+        console.log(JSON.parse(JSON.stringify(this.generateArr(routes))))
         this.$refs.tree.setCheckedNodes(this.generateArr(routes))
         // set checked state of a node not affects its father and child nodes
         this.checkStrictly = false

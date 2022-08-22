@@ -66,7 +66,8 @@ export default {
           zIndex: 12,
           opacity: 1,
           zoom: [4, 15],
-          getTileUrl: 'http://tanglei.top:9091/googlemap/[z]/[x]/[y].jpg'
+          // getTileUrl: 'http://tanglei.top:9091/googlemap/[z]/[x]/[y].jpg'
+          getTileUrl: 'http://127.0.0.1:8000/[z]/[y]/[x]'
         })
       ],
       // viewMode: '3D',

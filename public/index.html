@@ -79,7 +79,7 @@ function connect(){
     };
     ws.onmessage = function (e) {
         var msg = JSON.parse(e.data);
-        document.getElementById("user_num").innerHTML = '<br />'+msg.content;
+        document.getElementById("user_num").innerHTML = msg.content;
         // switch (msg.type) {
         //     case 'handshake':
         //     case 'login':
@@ -91,7 +91,7 @@ function connect(){
     ws.onerror = function () {
     };
     ws.onclose = function(){
-      document.getElementById("user_num").innerHTML = '<br />-';
+      document.getElementById("user_num").innerHTML = '-';
       connect();
     }
 }
