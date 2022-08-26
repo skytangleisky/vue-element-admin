@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="mapContainer">
     <!-- <el-amap
       style="position:relative;width:100%;height:100%"
       class="amap-demo"
@@ -216,24 +216,25 @@ export default {
           }
         }
       })
-      $('<div id="loadingTip">加载数据，请稍候...</div>').appendTo(document.body)
-      $.get('https://a.amap.com/amap-ui/static/data/10w.txt',
-        function(csv) {
-          $('#loadingTip').remove()
-          var lines = csv.split('\n')
-          var lngLats = []
-          for (var i = 0, len = lines.length; i < len; i++) {
-            if (!lines[i]) {
-              continue
-            }
-            var parts = lines[i].split(',')
-            lngLats.push([parseFloat(parts[0]), parseFloat(parts[1])])
-          }
-          that.lngLatList = lngLats
-          that.groupedPointsCache['100000'] = lngLats
-          // 加载全国
-          that.switch2AreaNode(100000)
-        })
+      // $('<div id="loadingTip">加载数据，请稍候...</div>').appendTo(document.body)
+      // $.get('https://a.amap.com/amap-ui/static/data/10w.txt',
+      //   function(csv) {
+      //     $('#loadingTip').remove()
+      //     var lines = csv.split('\n')
+      //     var lngLats = []
+      //     for (var i = 0, len = lines.length; i < len; i++) {
+      //       if (!lines[i]) {
+      //         continue
+      //       }
+      //       var parts = lines[i].split(',')
+      //       lngLats.push([parseFloat(parts[0]), parseFloat(parts[1])])
+      //     }
+      //     that.lngLatList = lngLats
+      //     that.groupedPointsCache['100000'] = lngLats
+      //     // 加载全国
+      //     that.switch2AreaNode(100000)
+      //   }
+      // );
     })
   },
   beforeDestroy() {
@@ -486,7 +487,7 @@ export default {
 }
 </script>
 <style  lang="scss">
-  .container{
+  .mapContainer{
     position:relative;
     display: flex;
     flex-direction: row;
@@ -494,7 +495,7 @@ export default {
     height: calc(100vh - 50px);
     color:black;
   }
-  .hasTagsView .container{
+  .hasTagsView .mapContainer{
     height: calc(100vh - 84px);
   }
   #loadingTip {

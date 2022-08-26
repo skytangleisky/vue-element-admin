@@ -109,6 +109,7 @@
       @deleteList:删除
     -->
       <table-model
+        v-loading="loading"
         :table-col="tableCol"
         :list="list"
         :current-page="listQuery.currentPage"
@@ -125,8 +126,8 @@
       <pagination
         v-show="total>0"
         :total="total"
-        :current-page.sync="listQuery.currentPage"
-        :page-size.sync="listQuery.pageSize"
+        :current-page="listQuery.currentPage"
+        :page-size="listQuery.pageSize"
         @pagination="pagination"
       />
     </div>
@@ -148,7 +149,12 @@
         <div class="title">
           基本信息
         </div>
-
+        <el-form-item
+          label="id"
+          prop="id"
+        >
+          <el-input v-model="addData.id" />
+        </el-form-item>
         <el-form-item
           label="uuid"
           prop="uuid"
@@ -156,158 +162,32 @@
           <el-input v-model="addData.uuid" />
         </el-form-item>
         <el-form-item
-          label="path"
-          prop="path"
+          label="menu"
+          prop="menu"
         >
-          <el-input v-model="addData.path" />
-        </el-form-item>
-        <el-form-item
-          label="component"
-          prop="component"
-        >
-          <el-input v-model="addData.component" />
-        </el-form-item>
-        <el-form-item
-          label="redirect"
-          prop="redirect"
-        >
-          <el-input v-model="addData.redirect" />
-        </el-form-item>
-        <el-form-item
-          label="hidden"
-          prop="hidden"
-        >
-          <el-input v-model="addData.hidden" />
-        </el-form-item>
-        <el-form-item
-          label="name"
-          prop="name"
-        >
-          <el-select
-            v-model="addData.name"
-            placeholder="请选择证件类型"
-          >
-            <el-option
-              label="身份证"
-              :value="0"
-            />
-            <el-option
-              label="营业执照"
-              :value="1"
-            />
-            <el-option
-              label="护照"
-              :value="2"
-            />
-            <el-option
-              label="军人证"
-              :value="3"
-            />
-            <el-option
-              label="警官证"
-              :value="4"
-            />
-
-          </el-select>
-
-        </el-form-item>
-        <el-form-item
-          label="meta"
-          prop="meta"
-        >
-          <el-input v-model="addData.meta" />
-        </el-form-item>
-
-        <el-form-item
-          label="alwaysShow"
-          prop="alwaysShow"
-        >
-          <el-select
-            v-model="addData.alwaysShow"
-            placeholder="请选择用户类型"
-            disabled
-          >
-            <el-option
-              label="组织机构"
-              :value="1"
-            />
-            <el-option
-              label="个人"
-              :value="2"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          label="remoteEntry"
-          prop="remoteEntry"
-        >
-          <el-input v-model="addData.remoteEntry" />
-        </el-form-item>
-        <el-form-item
-          label="remoteComponent"
-          prop="remoteComponent"
-        >
-          <el-input v-model="addData.remoteComponent" />
-        </el-form-item>
-        <el-form-item label="营业执照">
-          <!--
-              on-preview: 点击文件列表中已上传的文件时的钩子
-              on-remove: 文件列表移除文件时的钩子
-              before-upload: 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。
-              limit: 最大允许上传个数
-              multiple: 是否支持多选文件
-              show-file-list: 是否显示已上传文件列表
-             -->
-
-          <el-upload
-            ref="uploadAdd"
-            class="avatar-uploader"
-            action="/tanglei/controller/test.php"
-            list-type="picture-card"
-            :data="fileCatalog"
-            :before-upload="beforeUpload"
-            :on-exceed="onExceed"
-            :on-preview="addImagePreview"
-            :on-remove="addImageRemove"
-            :on-success="addImageSuccess"
-            :on-error="onError"
-            :limit="1"
-            :auto-upload="true"
-            :multiple="true"
-            :show-file-list="true"
-          >
-            <i class="el-icon-plus" />
-            <el-dialog :visible.sync="uploadImageVisible">
-              <img
-                width="100%"
-                :src="uploadImageUrl"
-                alt=""
-              >
-            </el-dialog>
-            <div
-              slot="tip"
-              class="el-upload__tip"
-            >只能上传jpg/png文件，且不超过10M</div>
-          </el-upload>
+          <el-input v-model="addData.menu" />
         </el-form-item>
         <el-form-item
           label="created_date"
           prop="created_date"
         >
-          <el-cascader
+          <el-date-picker
             v-model="addData.created_date"
-            :options="created_dateData"
-            filterable
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择开始时间"
           />
         </el-form-item>
         <el-form-item
-          label="address"
-          prop="address"
+          label="modified_date"
+          prop="modified_date"
         >
-          <el-input v-model="addData.address" />
-        </el-form-item>
-        <el-form-item label="modified_date">
-          <el-switch v-model="addData.modified_date" />
+          <el-date-picker
+            v-model="addData.modified_date"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择修改时间"
+          />
         </el-form-item>
       </el-form>
       <div class="button">
@@ -336,173 +216,39 @@
         <div class="title">
           基本信息
         </div>
-
         <el-form-item
-          label="账号"
+          label="id"
+          prop="id"
+        >
+          <el-input v-model="editData.id" />
+        </el-form-item>
+        <el-form-item
+          label="uuid"
           prop="uuid"
         >
           <el-input v-model="editData.uuid" />
         </el-form-item>
         <el-form-item
-          label="密码"
-          prop="path"
+          label="menu"
+          prop="menu"
         >
-          <el-input v-model="editData.path" />
+          <div ref="editor" style="width:100%;height:150px;border-radius:16px;border:1px solid #2b2b2b;" />
         </el-form-item>
-        <el-form-item
-          label="真实姓名"
-          prop="component"
-        >
-          <el-input v-model="editData.component" />
-        </el-form-item>
-        <el-form-item
-          label="手机号"
-          prop="redirect"
-        >
-          <el-input v-model="editData.redirect" />
-        </el-form-item>
-        <el-form-item
-          label="邮箱"
-          prop="hidden"
-        >
-          <el-input v-model="editData.hidden" />
-        </el-form-item>
-        <el-form-item
-          label="证件类型"
-          prop="name"
-        >
-          <el-select
-            v-model="editData.name"
-            placeholder="请选择证件类型"
-          >
-            <el-option
-              label="身份证"
-              :value="0"
-            />
-            <el-option
-              label="营业执照"
-              :value="1"
-            />
-            <el-option
-              label="护照"
-              :value="2"
-            />
-            <el-option
-              label="军人证"
-              :value="3"
-            />
-            <el-option
-              label="警官证"
-              :value="4"
-            />
-
-          </el-select>
-
-        </el-form-item>
-        <el-form-item
-          label="证件号码"
-          prop="meta"
-        >
-          <el-input v-model="editData.meta" />
-        </el-form-item>
-
-        <el-form-item
-          label="用户类型"
-          prop="alwaysShow"
-        >
-          <el-select
-            v-model="editData.alwaysShow"
-            placeholder="请选择用户类型"
-            disabled
-          >
-            <el-option
-              label="组织机构"
-              :value="1"
-            />
-            <el-option
-              label="个人"
-              :value="2"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          label="公司名称"
-          prop="remoteEntry"
-        >
-          <el-input v-model="editData.remoteEntry" />
-        </el-form-item>
-        <el-form-item
-          label="统一社会信用代码"
-          prop="remoteComponent"
-        >
-          <el-input v-model="editData.remoteComponent" />
-        </el-form-item>
-        <el-form-item label="营业执照">
-          <!--
-              on-preview: 点击文件列表中已上传的文件时的钩子
-              on-remove: 文件列表移除文件时的钩子
-              before-upload: 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。
-              limit: 最大允许上传个数
-              on-exceed: 文件超出个数限制时的钩子
-              multiple: 是否支持多选文件
-              show-file-list: 是否显示已上传文件列表
-              file-list: 上传的文件列表
-             -->
-
-          <!--
-
-              -->
-
-          <el-upload
-            ref="uploadEdit"
-            action="/tanglei/controller/test.php"
-            list-type="picture-card"
-            :data="fileCatalog"
-            :before-upload="beforeUpload"
-            :limit="1"
-            :on-exceed="onExceed"
-            :on-error="onError"
-            :auto-upload="true"
-            :multiple="true"
-            :show-file-list="true"
-            :file-list="picArr"
-            :on-remove="editImageRemove"
-            :on-preview="editImagePreview"
-            :on-success="editImageSuccess"
-          >
-            <i class="el-icon-plus" />
-            <div
-              slot="tip"
-              class="el-upload__tip"
-            >只能上传jpg/png文件，且不超过10M</div>
-          </el-upload>
-          <el-dialog :visible.sync="editUploadImageVisible">
-            <img
-              width="100%"
-              :src="editImageUrl"
-              alt=""
-            >
-          </el-dialog>
-
-        </el-form-item>
-        <el-form-item
-          label="所在城市"
-          prop="created_date"
-        >
-          <el-cascader
-            v-model="editData.created_date"
-            :options="created_dateData"
-            filterable
+        <el-form-item label="modified_date">
+          <el-date-picker
+            v-model="editData.modified_date"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="修改时间"
           />
         </el-form-item>
-        <el-form-item
-          label="具体地址"
-          prop="address"
-        >
-          <el-input v-model="editData.address" />
-        </el-form-item>
-        <el-form-item label="是否启用">
-          <el-switch v-model="editData.modified_date" />
+        <el-form-item label="created_date">
+          <el-date-picker
+            v-model="editData.created_date"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="创建时间"
+          />
         </el-form-item>
       </el-form>
       <div class="button">
@@ -522,38 +268,11 @@
         详情
       </div>
       <el-descriptions :column="1">
-        <el-descriptions-item label="账号">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="密码">{{ detailData.path }}</el-descriptions-item>
-        <el-descriptions-item label="真实姓名">{{ detailData.component }}</el-descriptions-item>
-        <el-descriptions-item label="手机号">{{ detailData.redirect }}</el-descriptions-item>
-        <el-descriptions-item label="邮箱">{{ detailData.hidden }}</el-descriptions-item>
-        <el-descriptions-item label="证件类型">{{ detailData.name }}</el-descriptions-item>
-        <el-descriptions-item label="证件号码">{{ detailData.meta }}</el-descriptions-item>
-        <el-descriptions-item label="用户类型">{{ detailData.alwaysShow }}</el-descriptions-item>
-        <el-descriptions-item label="公司名称">{{ detailData.remoteEntry }}</el-descriptions-item>
-        <el-descriptions-item label="统一社会信用代码">{{ detailData.remoteComponent }}</el-descriptions-item>
-        <el-descriptions-item label="营业执照">
-          <div
-            v-for="(item,index) in orgImgs"
-            :key="index"
-            class="orgImgs"
-          >
-            <el-image
-              :src="item"
-              :preview-src-list="orgImgs"
-              fit="cover"
-            />
-          </div>
-        </el-descriptions-item>
-        <el-descriptions-item label="城市">{{ detailData.created_date }}</el-descriptions-item>
-        <el-descriptions-item label="具体地址">{{ detailData.address }}</el-descriptions-item>
-        <el-descriptions-item label="是否启用">
-          <el-switch
-            v-model="detailData.modified_date"
-            disabled
-          />
-        </el-descriptions-item>
-
+        <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
+        <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
+        <el-descriptions-item label="menu">{{ detailData.menu }}</el-descriptions-item>
+        <el-descriptions-item label="created_date">{{ detailData.created_date }}</el-descriptions-item>
+        <el-descriptions-item label="modified_date">{{ detailData.modified_date }}</el-descriptions-item>
       </el-descriptions>
 
       <div class="button">
@@ -565,11 +284,8 @@
 </template>
 
 <script>
-// import { provinceAndCityData, CodeToText } from '../../node_modules/element-china-area-data/src/app.js'
-import { provinceAndCityData, CodeToText, TextToCode } from 'element-china-area-data'
 // eslint-disable-next-line
 import { insertMenu, del, deleteMenu, updateMenu, selectMenu } from '/src/api/table/menu'
-import { insertFile, delFile, updateFile, selectFile } from '/src/api/table/t_file'
 // 过滤表单模块
 import filterForm from './components/filterForm.vue'
 // 表格组件
@@ -583,205 +299,26 @@ export default {
     filterForm, tableModel, Pagination
   },
   data() {
-    var usernameValidator = async(rule, value, callback) => {
-      const existCount = await this.addValIsExist(rule.field, value)
-      if (existCount > 0) {
-        return callback(new Error('该用户已存在'))
-      }
-    }
-    var redirectValidator = async(rule, value, callback) => {
-      const existCount = await this.addValIsExist(rule.field, value)
-      if (existCount > 0) {
-        callback(new Error('该手机号已存在'))
-      }
-    }
-    var hiddenValidator = async(rule, value, callback) => {
-      const existCount = await this.addValIsExist(rule.field, value)
-      if (existCount > 0) {
-        callback(new Error('该邮箱已存在'))
-      }
-    }
-    var editUsernameValidator = async(rule, value, callback) => {
-      const existCount = await this.editValIsExist(rule.field, value)
-      if (existCount > 0) {
-        callback(new Error('该用户已存在'))
-      }
-    }
-    var editPhoneValidator = async(rule, value, callback) => {
-      const existCount = await this.editValIsExist(rule.field, value)
-      if (existCount > 0) {
-        callback(new Error('该手机号已存在'))
-      }
-    }
-    var editEmailValidator = async(rule, value, callback) => {
-      const existCount = await this.editValIsExist(rule.field, value)
-      if (existCount > 0) {
-        callback(new Error('该邮箱已存在'))
-      }
-    }
     return {
+      editor: null,
+      loading: true,
       detailData: [],
       orgImgs: [],
-      /* 数据的规则
-     trigger: blur 失去焦点时进行验证;change 当值发生变化时进行验证
-     */
       addDataRules: {
-        uuid: [
-          { required: true, message: '请输入账号', trigger: 'blur' },
-          {
-            pattern: /[A-Za-z0-9_\-\u4e00-\u9fa5]$/,
-            message: '账号由字母/数字/“-”/“_”组成',
-            trigger: 'blur'
-          },
-          { validator: usernameValidator, trigger: 'blur' }
-        ],
-        path: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
-        ],
-        component: [
-          { required: true, message: '请输入真实姓名', trigger: 'blur' }
-        ],
-        hidden: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
-          {
-            pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-            message: '格式不正确',
-            trigger: 'blur'
-          },
-          {
-            validator: hiddenValidator, trigger: 'blur'
-          }
-        ],
-        redirect: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          {
-            pattern: /^1[3|4|5|7|8|9][0-9]\d{8}$/,
-            message: '格式不正确',
-            trigger: 'blur'
-          },
-          { validator: redirectValidator, trigger: 'blur' }
-        ],
-        remoteComponent: [
-          { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
-          {
-            pattern: /^([0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}|[1-9]\d{14})$/,
-            message: '格式不正确',
-            trigger: 'blur'
-          }
-        ],
-        name: [
-          { required: true, message: '请选择证件类型', trigger: 'change' }
-        ],
-        meta: [
-          // 身份证： /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
-          { required: true, message: '请输入证件号', trigger: 'blur' }
-        ],
-        alwaysShow: [
-          { required: false, message: '请选择用户类型', trigger: 'change' }
-        ],
-        remoteEntry: [
-          { required: true, message: '请输入公司名称', trigger: 'blur' }
-        ],
-        created_date: [
-          { required: true, message: '请选择所在城市', trigger: 'change' }
-        ],
-
-        address: [
-          { required: true, message: '请输入具体地址', trigger: 'blur' }
-
-        ],
-        first_name: [
-          { required: true, message: '请输入first_name', trigger: 'blur' }
-        ],
-
-        last_name: [
-          { required: true, message: '请输入last_name', trigger: 'blur' }
-
-        ]
-
       },
       editDataRules: {
-        uuid: [
-          { required: true, message: '请输入账号', trigger: 'blur' },
-          {
-            pattern: /[A-Za-z0-9_\-\u4e00-\u9fa5]$/,
-            message: '账号由字母/数字/“-”/“_”组成',
-            trigger: 'blur'
-          },
-          { validator: editUsernameValidator, trigger: 'blur' }
-        ],
-        path: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
-        ],
-        component: [
-          { required: true, message: '请输入真实姓名', trigger: 'blur' }
-        ],
-        hidden: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
-          {
-            pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-            message: '格式不正确',
-            trigger: 'blur'
-          },
-          {
-            validator: editEmailValidator, trigger: 'blur'
-          }
-        ],
-        redirect: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          {
-            pattern: /^1[3|4|5|7|8|9][0-9]\d{8}$/,
-            message: '格式不正确',
-            trigger: 'blur'
-          },
-          { validator: editPhoneValidator, trigger: 'blur' }
-        ],
-        name: [
-          { required: true, message: '请选择证件类型', trigger: 'change' }
-        ],
-        meta: [
-          // 身份证： /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
-          { required: true, message: '请输入证件号', trigger: 'blur' }
-        ],
-        alwaysShow: [
-          { required: false, message: '请选择用户类型', trigger: 'change' }
-        ],
-        remoteEntry: [
-          { required: true, message: '请输入公司名称', trigger: 'blur' }
-        ],
-
-        remoteComponent: [
-          { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
-          {
-            pattern: /^([0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}|[1-9]\d{14})$/,
-            message: '格式不正确',
-            trigger: 'blur'
-          }
-
-        ],
-        created_date: [
-          { required: true, message: '请输入所在城市', trigger: 'blur' }
-        ],
-
-        address: [
-          { required: true, message: '请输入具体地址', trigger: 'blur' }
-
-        ],
-        first_name: [
-          { required: true, message: '请输入first_name', trigger: 'blur' }
-        ],
-
-        last_name: [
-          { required: true, message: '请输入last_name', trigger: 'blur' }
-
-        ]
-
       },
       // 是否显示上传证件照的弹窗
       uploadDialogVisible: false,
-
       // 表格每列展示的数据
       tableCol: [
+        {
+          prop: 'id',
+          label: 'id',
+          width: 80,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
         {
           prop: 'uuid',
           label: 'uuid',
@@ -790,66 +327,8 @@ export default {
           sortable: 'custom'
         },
         {
-          prop: 'path',
-          label: 'path',
-          width: 120,
-          showOverflowTooltip: true,
-          sortable: false
-        },
-        {
-          prop: 'component',
-          label: 'component',
-          width: 80,
-          showOverflowTooltip: false,
-          sortable: false
-        },
-
-        {
-          prop: 'hidden',
-          label: 'hidden',
-          width: 200,
-          showOverflowTooltip: false,
-          sortable: false
-        },
-        {
-          prop: 'redirect',
-          label: 'redirect',
-          width: 120,
-          showOverflowTooltip: false,
-          sortable: false
-        },
-        {
-          prop: 'name',
-          label: 'name',
-          width: 120,
-          showOverflowTooltip: false,
-          sortable: 'custom'
-        },
-        {
-          prop: 'meta',
-          label: 'meta',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: false
-        },
-        {
-          prop: 'alwaysShow',
-          label: 'alwaysShow',
-          width: 100,
-          showOverflowTooltip: false,
-          sortable: 'custom'
-        },
-
-        {
-          prop: 'remoteEntry',
-          label: 'remoteEntry',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: false
-        },
-        {
-          prop: 'remoteComponent',
-          label: 'remoteComponent',
+          prop: 'menu',
+          label: 'menu',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
@@ -871,22 +350,13 @@ export default {
       ],
       idImages: [],
       // 新增数据
-      addData: {
+      addDataDefault: {
         uuid: null,
-        path: null,
-        component: null,
-        redirect: null,
-        hidden: null,
-        name: null,
-        meta: null,
-        alwaysShow: 1,
-        remoteEntry: null,
-        remoteComponent: null,
-        created_date: null,
-        address: null,
-        modified_date: false
+        menu: null,
+        created_date: new Date().Format('yyyy-MM-dd HH:mm:ss'),
+        modified_date: new Date().Format('yyyy-MM-dd HH:mm:ss')
       },
-
+      addData: {},
       // 编辑数据
       editData: {},
       // 表格中展示的数据
@@ -919,62 +389,7 @@ export default {
         },
         {
           relation: 'OR',
-          field: 'hidden',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'redirect',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'meta',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'component',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'first_name',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'last_name',
-          relationship: 'LIKE',
-          condition: ''
-        },
-
-        {
-          relation: 'OR',
-          field: 'remoteEntry',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'remoteComponent',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'created_date',
-          relationship: 'LIKE',
-          condition: ''
-        },
-        {
-          relation: 'OR',
-          field: 'address',
+          field: 'menu',
           relationship: 'LIKE',
           condition: ''
         }
@@ -1000,11 +415,11 @@ export default {
       uploadImageVisible: false,
       editUploadImageVisible: false,
       // 省市不带‘全部’的二级联动数据
-      created_dateData: provinceAndCityData,
+      created_dateData: null,
       // 点击编辑获取的已上传的图片
       picArr: [],
       // 所在城市代码
-      created_dateCode: []
+      modified_dateCode: null
     }
   },
   watch: {
@@ -1020,6 +435,22 @@ export default {
     this.fileCatalog.path = date.getFullYear() + '/' + nowMonth + '/' + date.getDate()
   },
   mounted() {
+    ace.config.set('basePath', '/libs/ace-builds-master/src/')
+    // var beautiful = ace.require('ace/ext/beautify')
+    ace.require('ace/ext/language_tools')
+    this.editor = ace.edit(this.$refs['editor'])
+    ace.require('ace/ext/settings_menu').init(this.editor)
+    this.editor.getSession().setMode({ path: 'ace/mode/javascript', inline: true })
+    this.editor.setPrintMarginColumn(80)
+    this.editor.setShowPrintMargin(false)
+    this.editor.setTheme('ace/theme/monokai')
+    this.editor.getSession().setTabSize(2)
+    // enable autocompletion and snippets
+    this.editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true
+    })
     this.selectList(this.listQuery)
   },
   activated() {
@@ -1029,54 +460,6 @@ export default {
     this.$refs.content.style.display = 'block'
   },
   methods: {
-    // 根据creator_id搜索t_file表
-    async getFileByCreatorId(user_no) {
-      const query = {
-        where: [
-          {
-            'relation': 'AND',
-            'field': 'creator_id',
-            'relationship': '=',
-            'condition': user_no
-          }
-        ]
-      }
-      const res = await selectFile(query)
-      if (res.data.results) {
-        return res.data.results
-      }
-    },
-
-    // 图片成功的操作
-    async addImageSuccess(res, file, fileList) {
-      // console.log("Success res", res, "file", file, "fileList", fileList)
-      const addFile = {}
-      addFile.name = res.name
-      addFile.ext = res.ext
-      addFile.size = res.size
-      addFile.path = res.path
-      const res01 = await insertFile(addFile)
-      if (this.resResult(res01, '文件')) {
-        const newData = await this.getAddData(res01, selectFile)
-        file.file_no = newData.file_no
-        this.addFileno.push(file.file_no)
-      }
-    },
-    // 点击上传证件文件列表中已上传的文件时,放大点击的图片
-    addImagePreview(file) {
-      this.uploadImageUrl = file.url
-      this.uploadImageVisible = true
-    },
-    addImageRemove(file, fileList) {
-      this.addFileno = this.removeFileno(file, this.addFileno)
-    },
-    removeFileno(file, data) {
-      delFile([{ file_no: file.file_no }])
-      const newData = data.filter(item => {
-        return item !== file.file_no
-      })
-      return newData
-    },
     // 图像上传前做限制
     beforeUpload(file) {
       const isJPG = file.type === 'image/jpeg' || 'image/png' || 'image/jpg'
@@ -1092,32 +475,6 @@ export default {
     // 超过limit设置的值时调用
     onExceed(files, fileList) {
       this.$message.error('只能上传1张图片！！！')
-    },
-    onError(err, file, fileList) {
-      console.error(err)
-      this.$message.error('图片上传失败！！！')
-    },
-    // 编辑资料时图片的移除
-    editImageRemove(file, fileList) {
-      this.editFileno = this.removeFileno(file, this.editFileno)
-    },
-    async editImageSuccess(res, file, fileList) {
-      // console.log("Success res", res, "file", file, "fileList", fileList)
-      const addFile = {}
-      addFile.name = res.name
-      addFile.ext = res.ext
-      addFile.size = res.size
-      addFile.path = res.path
-      const res01 = await insertFile(addFile)
-      if (this.resResult(res01, '文件')) {
-        const newData = await this.getAddData(res01, selectFile)
-        file.file_no = newData.file_no
-        this.editFileno.push(file.file_no)
-      }
-    },
-    editImagePreview(file) {
-      this.editImageUrl = file.url
-      this.editUploadImageVisible = true
     },
     /* 分类搜索 */
     searchAppType(val) {
@@ -1214,69 +571,70 @@ export default {
     },
     // 打开新增窗口
     addPageOpen() {
+      this.addData = Object.assign({}, this.addDataDefault)
       this.$refs.content.style.display = 'none'
       this.$refs.addPage.style.display = 'block'
     },
     // 关闭新增窗口
     addPageClose() {
-      // 关闭页面时清空上传成功文件的展示
-      this.$refs.uploadAdd.clearFiles()
       this.addFileno = []
       this.$refs.addPage.style.display = 'none'
       this.$refs.content.style.display = 'block'
-    },
-    // 当用户表新增与修改时，更新file表
-    updateFileDataBase(creator_id, filenoList) {
-      let editFileData = {}
-      // 遍历刚上传图片的uuid值
-      filenoList.forEach(async item => {
-        const listQuery = {
-          where: [
-            {
-              relation: 'AND',
-              field: 'file_no',
-              relationship: '=',
-              condition: item
-            }
-          ]
-        }
-
-        // 查询t_file表
-        const res = await selectFile(listQuery)
-        // 将查询到的file数据对象放到编辑数据editFileData中
-        editFileData = res.data.results[0]
-        // 删除更新时间
-        delete editFileData.modified_date
-        // 在编辑数据中添加creator_id
-        editFileData.creator_id = creator_id
-        // 更新文件表
-        updateFile(editFileData)
-      })
     },
     // 增
     insertList(data) {
       // 表单校验
       this.$refs.addForm.validate(async valid => {
         if (valid) {
-          if (data.modified_date) {
-            data.modified_date = '是'
-          } else {
-            data.modified_date = '否'
+          if (!data.uuid) {
+            data.uuid = 'uuid()'
+          }
+          if (!data.id) {
+            delete data.id
           }
           const res = await insertMenu(this.formatDataBase(data))
-          if (this.resResult(res, '数据')) {
-            /* 将用户uuid添加进文件表中*/
-            const newData = await this.getAddData(res, selectMenu)
-            const creator_id = newData.user_no
-            this.updateFileDataBase(creator_id, this.addFileno)
-
-            // 添加数据完成之后清空表单
-            this.addData = {}
-
-            this.addPageClose()
-            this.selectList(this.listQuery)
+          if (res.data.code && res.data.code === 50014) {
+            this.$message({
+              type: 'error',
+              message: res.data.err[0].reason.errno + ' - ' + res.data.err[0].reason.sqlMessage
+            })
           } else {
-            this.addPageOpen()
+            if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId > 0) {
+              // 添加数据完成之后恢复菜单
+              this.addData = Object.assign({}, this.addDataDefault)
+
+              this.addPageClose()
+              const tmpListQuery = Object.assign({}, this.listQuery)
+              tmpListQuery['select'] = ['id']
+              tmpListQuery.pageSize = 0
+              tmpListQuery.currentPage = 1
+              const tmpRes = await selectMenu(tmpListQuery)
+              for (let i = 0; i < tmpRes.data.results.length; i++) {
+                if (tmpRes.data.results[i].id === res.data.results[0].insertId) {
+                  this.total = tmpRes.data.results.length
+                  this.$set(this.listQuery, 'currentPage', Math.ceil((i + 1) / this.listQuery.pageSize))
+                  console.log(i % this.listQuery.pageSize)
+                  this.$message({
+                    message: `新增成功`,
+                    type: 'success'
+                  })
+                  break
+                }
+              }
+
+              // 计算新增数据在多少页,多少行
+              this.selectList(this.listQuery)
+            } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
+              this.$message({
+                message: '数据未修改',
+                type: 'warning'
+              })
+            } else if (res.data.results[0].affectedRows === 2 && res.data.results[0].insertId > 0) {
+              this.$message({
+                message: '数据修改成功',
+                type: 'warning'
+              })
+            }
           }
         } else {
           this.addPageOpen()
@@ -1292,19 +650,6 @@ export default {
     detailPageClose() {
       this.$refs.detailPage.style.display = 'none'
       this.$refs.content.style.display = 'block'
-      // 还原数据格式
-      this.detailData.created_date = this.detailData.created_date.split(' ')
-      // 转变modified_date的值
-      switch (this.detailData.modified_date) {
-        case true:
-          this.detailData.modified_date = '是'
-          break
-        case false:
-          this.detailData.modified_date = '否'
-          break
-        default:
-          break
-      }
       // 清空数据
       this.orgImgs = []
       this.detailData = {}
@@ -1312,27 +657,12 @@ export default {
     // 获取详情数据
     async getDetailData(data) {
       this.detailData = data
-      // 转变modified_date的值
-      switch (this.detailData.modified_date) {
-        case '是':
-          this.detailData.modified_date = true
-          break
-        case '否':
-          this.detailData.modified_date = false
-          break
-        default:
-          break
-      }
-      this.detailData.created_date = this.detailData.created_date.join(' ')
-      // console.log(this.detailData)
-      const files = await this.getFileByCreatorId(data.user_no)
-      files.forEach(item => {
-        this.orgImgs.push('/tanglei/' + item.path + '/' + item.name)
-      })
       this.detailPageOpen()
     },
     // 打开编辑窗口
     editPageOpen() {
+      console.log(new Function(this.editData.menu || '')())
+      this.editor.getSession().setValue(this.editData.menu || '')
       this.$refs.content.style.display = 'none'
       this.$refs.editPage.style.display = 'block'
     },
@@ -1347,56 +677,12 @@ export default {
       this.$refs.content.style.display = 'block'
     },
     cancelEdit() {
-      // 点击取消时，将“所在城市”的数据还原为表格显示格式
-      // 转变modified_date的值
-      switch (this.editData.modified_date) {
-        case true:
-          this.editData.modified_date = '是'
-          break
-        case false:
-          this.editData.modified_date = '否'
-          break
-        default:
-          break
-      }
-      const tmp = []
-      this.editData.created_date.forEach(item => {
-        tmp.push(CodeToText[item])
-      })
-      this.editData.created_date = tmp.join(',')
-      this.editData.created_date = this.editData.created_date.split(',')
-
       this.editPageClose()
     },
     // 打开编辑窗口+获取编辑的数据
     async getEditData(data) {
       this.editData = data
-      // 转变modified_date的值
-      switch (this.editData.modified_date) {
-        case '是':
-          this.editData.modified_date = true
-          break
-        case '否':
-          this.editData.modified_date = false
-          break
-        default:
-          break
-      }
-      // console.log('editdata:', this.editData)
-      // 将城市名称格式化为对应code
-      this.getCityCode(this.editData)
-
-      const files = await this.getFileByCreatorId(data.user_no)
-      // 将查询到的图片显示在界面
-
-      files.forEach(item => {
-        this.editFileno.push(item.file_no)
-        this.picArr.push({ url: '/tanglei/' + item.path + '/' + item.name, file_no: item.file_no })
-      })
-
-      this.$nextTick(() => {
-        this.editPageOpen()
-      })
+      this.editPageOpen()
     },
 
     // 改
@@ -1404,15 +690,30 @@ export default {
       // 表单校验
       this.$refs.editForm.validate(async valid => {
         if (valid) {
-          delete this.editData.modified_date
-          // console.log("this.editData", this.editData.created_date)
-          const res = await updateMenu(this.formatDataBase(this.editData))
-          // console.log(this.editData.user_no)
-          if (this.resResult(res, '数据')) {
-            this.updateFileDataBase(this.editData.user_no, this.editFileno)
-            this.selectList(this.listQuery)
+          const tmpEditData = Object.assign({}, this.editData)
+          delete tmpEditData.modified_date
+          tmpEditData.menu = this.editor.getSession().getValue()
+          const res = await updateMenu(this.formatDataBase(tmpEditData))
+          if (res.data.code && res.data.code === 50014) {
+            this.$message({
+              message: res.data.err[0].reason.errno + ' - ' + res.data.err[0].reason.sqlMessage,
+              type: 'error'
+            })
+          } else {
+            if (res.data.results[0].affectedRows === 2 && res.data.results[0].insertId > 0) {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+              this.selectList(this.listQuery)
+            } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
+              this.$message({
+                message: '数据未修改',
+                type: 'warning'
+              })
+            }
+            this.editPageClose()
           }
-          this.editPageClose()
         } else {
           this.editPageOpen()
         }
@@ -1420,21 +721,34 @@ export default {
     },
     // 查
     async selectList(data) {
+      this.loading = true
       const res = await selectMenu(data)
-      console.log(res)
-      if (res.data.results) {
-        // 格式化数据
-        this.list = this.formatList(res.data.results)
+      if (res.data.code && res.data.code === 50014) {
+        this.$message({
+          type: 'error',
+          message: res.data.err.errno + ' - ' + res.data.err.sqlMessage
+        })
+        this.list = []
+        this.total = 0
+        this.loading = false
+      } else {
+        this.listQuery.currentPage = data.currentPage
+        this.listQuery.pageSize = data.pageSize
+        this.loading = false
+        this.total = 0
+        if (res.data.results) {
+          // 格式化数据
+          this.list = this.formatList(res.data.results)
+          this.total = res.data.total
+        }
       }
-      this.total = res.data.total
-      // console.log('selectList', this.list)
     },
-
     // 分页
     pagination(query) {
-      this.listQuery.currentPage = query.currentPage
-      this.listQuery.pageSize = query.pageSize
-      this.selectList(this.listQuery)
+      const tmpListQuery = Object.assign({}, this.listQuery)
+      tmpListQuery.currentPage = query.currentPage
+      tmpListQuery.pageSize = query.pageSize
+      this.selectList(tmpListQuery)
     },
     // 排序
     tableSort(query) {
@@ -1442,56 +756,47 @@ export default {
       this.listQuery.order = query.order
       this.selectList(this.listQuery)
     },
-    // 将城市名称格式化为对应code
-    getCityCode(data) {
-      const created_dateCode = []
-      const provinceCode = TextToCode[data.created_date[0]].code
-      const countryCode = TextToCode[data.created_date[0]][data.created_date[1]].code
-      created_dateCode.push(provinceCode, countryCode)
-      data.created_date = created_dateCode
-    },
     // 删除
     deleteList(data) {
+      if (data.constructor === Array && data.length === 0) {
+        return
+      }
+      if (data.constructor === Object) {
+        data = [data]
+      }
       this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'error'
       }).then(async() => {
-        // 逻辑删除数据
         const deleteDate = []
-
-        if (data instanceof Array) {
-          data.forEach(item => {
-            this.getCityCode(item)
-            item.modified_date = 0
-            delete item.modified_date
-            deleteDate.push(this.formatDataBase(item))
-          })
-        } else {
-          this.getCityCode(data)
-          data.modified_date = 0
-          delete data.modified_date
-          deleteDate.push(this.formatDataBase(data))
-        }
+        data.forEach(item => {
+          deleteDate.push({ uuid: item.uuid })
+        })
         const delLength = deleteDate.length
-        // console.log("deleteDate", deleteDate)
-        const res = await deleteMenu(deleteDate)
-        console.log(res)
+        const res = await del(deleteDate)
         // 响应结束后的反馈信息
-        if (this.delResResult(res, '数据')) {
+        if (res.data.results[0].affectedRows > 0) {
+          this.$message({
+            type: 'success',
+            message: `删除成功`,
+            dangerouslyUseHTMLString: true
+          })
           /** 解决删除最后一页全部数据时，显示无数据的bug
           * 1.记录总页数：此时已经实现删除操作，所以total的值需要减删除的条数，Math.ceil是向上取整，保证始终大于等于1
           * 2.判断当前页是否超过总页数，如果超过则证明当前页码需要更新，跳转到最后一页
           */
-          const totalPage = Math.ceil((this.total - delLength) / this.listQuery.pageSize)
+          const totalPage = Math.max(1, Math.ceil((this.total - delLength) / this.listQuery.pageSize))
           this.listQuery.currentPage = this.listQuery.currentPage > totalPage ? totalPage : this.listQuery.currentPage
+          console.log(this.listQuery)
           this.selectList(this.listQuery)
+        } else if (res.data.results[0].affectedRows === 0) {
+          this.$message({
+            type: 'error',
+            message: '删除失败'
+          })
         }
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
       })
     },
     // 格式化表格展示的数据
@@ -1544,52 +849,6 @@ export default {
     },
     // 格式化存入数据库的数据
     formatDataBase(data) {
-      const tmp = []
-      data.created_date.forEach(item => {
-        tmp.push(CodeToText[item])
-      })
-      data.created_date = tmp.join(',')
-      switch (data.modified_date) {
-        case '否':
-          data.modified_date = 0
-          break
-        case '是':
-          data.modified_date = 1
-          break
-        default:
-          break
-      }
-      switch (data.alwaysShow) {
-        case '组织机构':
-          data.alwaysShow = 1
-          break
-        case '个人':
-          data.alwaysShow = 2
-          break
-        default:
-          break
-      }
-
-      switch (data.name) {
-        case '身份证':
-          data.name = 0
-          break
-        case '营业执照':
-          data.name = 1
-          break
-        case '护照':
-          data.name = 2
-          break
-        case '军人证':
-          data.name = 3
-          break
-        case '警官证':
-          data.name = 4
-          break
-        default:
-          break
-      }
-      data.user_no = 'uuid()'
       return data
     },
     // 关闭弹窗
@@ -1599,74 +858,6 @@ export default {
           done()
         })
         .catch(_ => { })
-    },
-    /** 响应结束后的反馈信息
-     *
-     *
-     **/
-    resResult(res, handle) {
-      if (!res.data.results) {
-        this.$message({
-          message: '数据格式错误',
-          type: 'error'
-        })
-        return false
-      } else {
-        if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId > 0) {
-          this.$message({
-            message: '新增' + handle + '成功',
-            type: 'success'
-          })
-          return true
-        } else if (res.data.results[0].affectedRows > 1 && res.data.results[0].insertId > 0) {
-          this.$message({
-            message: '编辑' + handle + '成功',
-            type: 'success'
-          })
-          return true
-        } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
-          /* this.$message({
-            message: handle + '未修改',
-            type: 'success'
-          }) */
-          return true
-        } else {
-          this.$message({
-            message: handle + '操作失败',
-            type: 'error'
-          })
-          return false
-        }
-      }
-    },
-    delResResult(res, handle) {
-      if (!res.data.results) {
-        this.$message({
-          message: '数据格式错误',
-          type: 'error'
-        })
-        return false
-      } else {
-        if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId > 0) {
-          this.$message({
-            message: '删除' + handle + '失败',
-            type: 'success'
-          })
-          return true
-        } else if (res.data.results[0].affectedRows > 1 && res.data.results[0].insertId > 0) {
-          this.$message({
-            message: '删除' + handle + '成功',
-            type: 'success'
-          })
-          return true
-        } else {
-          this.$message({
-            message: handle + '操作失败',
-            type: 'error'
-          })
-          return false
-        }
-      }
     }
   }
 }

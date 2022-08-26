@@ -59,6 +59,7 @@ export default {
   overflow: hidden;
   background: #f0f0f0;
   border-radius: 3px;
+  color: black;
 
   .board-column-header {
     height: 50px;

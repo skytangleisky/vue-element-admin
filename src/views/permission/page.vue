@@ -12,7 +12,7 @@ export default {
   components: { SwitchRoles },
   methods: {
     handleRolesChange() {
-      this.$router.replace({ path: '/permission/index?' + +new Date() })
+      this.$router.replace({ path: '/permission/page?' + +new Date() })
     }
   }
 }

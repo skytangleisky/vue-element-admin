@@ -1,5 +1,5 @@
 import request from '@/utils/request3'
-const url = 'db/menu'
+const url = 'db/menus'
 const headers = {
   'Content-Type': 'application/json'
 }
@@ -56,11 +56,11 @@ export function selectMenu(query) {
     headers,
     method: 'post',
     data: {
-      'select': ['*'],
+      'select': query.select || ['*'],
       'orderby': [
         {
-          'field': query.field || 'modified_date',
-          'order': query.order || 'DESC'
+          'field': query.field || 'id',
+          'order': query.order || 'ASC'
         }
       ],
       'offset': (query.currentPage - 1) * query.pageSize,

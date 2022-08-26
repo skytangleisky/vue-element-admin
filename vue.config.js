@@ -67,7 +67,7 @@ module.exports = {
         }
       },
       'tanglei/': {
-        target: 'http://127.0.0.1:81',
+        target: 'http://php.tanglei.top',
         changeOrgin: true,
         pathRewrite: {
           'tanglei/': ''

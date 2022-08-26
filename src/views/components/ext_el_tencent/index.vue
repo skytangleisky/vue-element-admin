@@ -76,7 +76,7 @@
 
 window.info = function() {
   return new Promise((resolve, reject) => {
-    axios.get(process.env.VUE_APP_BASE_API + '/libs/db/src/login.php', { withCredentials: false, timeout: 10000 }).then(async res => {
+    axios.get(process.env.VUE_APP_BASE_API + '/libs/db/src/login.php', { withCredentials: false }).then(async res => {
       await localforage.setDriver(localforage.INDEXEDDB)
       const result = res.data
       if (result.code === 20000) {
@@ -91,6 +91,7 @@ window.info = function() {
         user.user_path = result.data.user_path
         user.debug_enable = result.data.debug_enable
         user.username = result.data.username
+        user.roles = result.data.roles
         !user.expandStatus && (user.expandStatus = {})
         await localforage.setItem('user', user)
         resolve(user)
@@ -101,7 +102,6 @@ window.info = function() {
 
 import { init, WX, QQ, Abort } from './js/index.js'
 import axios from 'axios'
-import { baseURL } from '@/utils/request2.js'
 import { validUsername } from '@/utils/validate.js'
 export default {
   data() {
@@ -113,14 +113,13 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('The password can not be less than 5 digits'))
+      if (value.length < 4) {
+        callback(new Error('The password can not be less than 4 digits'))
       } else {
         callback()
       }
     }
     return {
-      baseURL,
       emitMessage: {
         from: this.$options.__file,
         type: '',
@@ -244,14 +243,18 @@ export default {
         if (valid) {
           this.loading = true
           $.ajax({
-            url: baseURL + '/libs/db/src/login.php',
+            url: process.env.VUE_APP_BASE_API + '/libs/db/src/login.php',
             type: 'post',
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify(this.loginForm),
-            success: function(res) {
+            success: (res) => {
               if (res.code === 20000) {
-                window.info().then((user) => {
+                window.info().then(user => {
+                  this.$store.dispatch('user/changeRoles', user.roles[0]).then(() => {
+                    this.$router.replace({ path: '/cesium/aside?' + +new Date() })
+                  })
+
                   that.emitMessage.data = user
                   that.emitMessage.type = '用户登录后获取的数据'
                   that.$bus.$emit('Message', that.emitMessage)

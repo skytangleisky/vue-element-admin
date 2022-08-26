@@ -108,6 +108,7 @@ export default {
 .dndList {
   background: #fff;
   padding-bottom: 40px;
+  color: black;
   &:after {
     content: "";
     display: table;

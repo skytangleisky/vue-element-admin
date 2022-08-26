@@ -1,7 +1,7 @@
 <template>
   <el-container direction="horizontal" style="height:100%">
-    <div id="editor" ref="editor" contenteditable="true" style="position:relative;box-sizing: border-box;height:100%;font-family: Consolas;width:100%;" />
-    <!--<textarea id="normal-editor" ref="normal-editor" style="width:50%;height:100%" readonly></textarea>-->
+    <div ref="editor" contenteditable="true" style="position:relative;box-sizing: border-box;height:100%;font-family: Consolas;width:100%;outline:none;" />
+    <!--<textarea id="normal-editor" ref="normal-editor" style="width:50%;height:100%;outline:none;" readonly></textarea>-->
   </el-container>
 </template>
 <script>
@@ -234,10 +234,4 @@ export default {
     }
   }
 }
-
 </script>
-<style>
-  #normal-editor,#editor{
-    outline:none;
-  }
-</style>

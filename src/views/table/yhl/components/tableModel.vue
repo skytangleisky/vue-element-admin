@@ -7,6 +7,7 @@
       @sort-change:当表格的排序条件发生变化的时候会触发该事件
     -->
     <el-table
+      :border="true"
       :data="list"
       style="width: 100%"
       highlight-current-row="true"
@@ -22,10 +23,16 @@
       <!-- 序号 -->
       <el-table-column
         label="序号"
+        width="60"
         type="index"
         :index="setIndex"
         fixed="left"
-      />
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span style="color:#74bdfe">{{ (currentPage-1)*pageSize+scope.$index+1 }}</span>
+        </template>
+      </el-table-column>
 
       <el-table-column
         v-for="item in tableCol"
@@ -41,24 +48,41 @@
         label="操作"
         fixed="right"
         width="150"
-        align="right"
+        align="center"
       >
         <template slot-scope="scope">
           <el-button
-            type="text"
+            type="primary"
+            circle
+            plain
+            icon="el-icon-view"
             size="small"
             @click="getDetailData(scope.row)"
-          >查看</el-button>
+          />
           <el-button
-            type="text"
+            type="primary"
+            circle
+            plain
+            icon="el-icon-edit-outline"
             size="small"
             @click="getEditData(scope.row)"
-          >编辑</el-button>
+          />
           <el-button
-            type="text"
+            type="danger"
+            circle
+            plain
+            icon="el-icon-delete"
             size="small"
             @click="deleteList(scope.row)"
-          >删除</el-button>
+          />
+          <el-button
+            style="display:none"
+            type="success"
+            circle
+            plain
+            icon="el-icon-plus"
+            size="small"
+          />
         </template>
       </el-table-column>
     </el-table>
@@ -130,7 +154,7 @@ export default {
   methods: {
     // 设置表格index值
     setIndex(index) {
-      return (this.currentPage - 1) * this.pageSize + 1 + index
+      return (this.currentPage - 1) * this.pageSize + index + 1
     },
 
     // 删除一条数据
