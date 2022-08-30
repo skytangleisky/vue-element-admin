@@ -70,6 +70,7 @@
 import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
 import SwitchRoles from './components/SwitchRoles'
+import path from 'path'
 
 export default {
   name: 'DirectivePermission',
@@ -80,10 +81,54 @@ export default {
       key: 1 // 为了能每次切换权限的时候重新初始化指令
     }
   },
+  computed: {
+    routes() {
+      return this.$store.state.permission.routes
+    }
+  },
   methods: {
+    filterAffixTags(routes, basePath = '/') {
+      let tags = []
+      routes.forEach(route => {
+        if (route.meta && route.meta.affix) {
+          const tagPath = path.resolve(basePath, route.path)
+          tags.push({
+            fullPath: tagPath,
+            path: tagPath,
+            name: route.name,
+            meta: { ...route.meta }
+          })
+        }
+        if (route.children) {
+          const tempTags = this.filterAffixTags(route.children, route.path)
+          if (tempTags.length >= 1) {
+            tags = [...tags, ...tempTags]
+          }
+        }
+      })
+      return tags
+    },
     checkPermission,
     handleRolesChange() {
+      this.initTags()
+      this.addTags()
       this.key++
+    },
+    initTags() {
+      const affixTags = this.affixTags = this.filterAffixTags(this.routes)
+      for (const tag of affixTags) {
+        // Must have tag name
+        if (tag.name) {
+          this.$store.dispatch('tagsView/addVisitedView', tag)
+        }
+      }
+    },
+    addTags() {
+      const { name } = this.$route
+      if (name) {
+        this.$store.dispatch('tagsView/addView', this.$route)
+      }
+      return false
     }
   }
 }

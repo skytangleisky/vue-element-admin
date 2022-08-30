@@ -1,4 +1,9 @@
 <script>
+// return {
+//   path: '/redirect/:path(.*)',
+//   component: '@/views/redirect/index',
+//   hidden: true,
+// };
 export default {
   created() {
     const { params, query } = this.$route
@@ -10,3 +15,4 @@ export default {
   }
 }
 </script>
+

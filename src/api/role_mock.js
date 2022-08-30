@@ -7,6 +7,14 @@ export function getRoutes() {
   })
 }
 
+export function updateRoutes(data) {
+  return request({
+    url: '/vue-element-admin/routes',
+    method: 'put',
+    data
+  })
+}
+
 export function getRoles() {
   return request({
     url: '/vue-element-admin/roles',

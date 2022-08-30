@@ -539,7 +539,7 @@ border-left:1px solid #eaeaea55;
 background:#ffffff55;
 }
 .scrollbar1::-webkit-scrollbar-track{
--webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
 background-color:#fff;
 }
 .scrollbar1::-webkit-scrollbar{
@@ -641,7 +641,7 @@ vertical-align:middle;
 margin:0;
 cursor:pointer;
 }
-@-webkit-keyframes rotate-forever{
+@keyframes rotate-forever{
 0%{
 -webkit-transform:rotate(0deg);
 }
@@ -650,7 +650,7 @@ cursor:pointer;
 }
 }
 .loading > .showHideBtn{
--webkit-animation:1s ease-in-out infinite rotate-forever;
+animation:1s ease-in-out infinite rotate-forever;
 }
 .showHideBtn:after{
 content:'';

@@ -1,4 +1,9 @@
 <script>
+// return {
+//   path: '/auth-redirect',
+//   component: '@/views/login/auth-redirect',
+//   hidden: true,
+// };
 export default {
   name: 'AuthRedirect',
   created() {

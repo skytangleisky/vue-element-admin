@@ -238,8 +238,8 @@ export default {
   },
   async activated() {
     const that = this
-    var user = await localforage.getItem('user')
-    if (user.menu !== undefined && user.menu.scrollTop !== undefined && user.menu.scrollLeft !== undefined) {
+    var user = await localforage.getItem('user') || {}
+    if (user.menu && user.menu.scrollTop !== undefined && user.menu.scrollLeft !== undefined) {
       $(that.$refs['menu']).animate({ scrollTop: user.menu.scrollTop, scrollLeft: user.menu.scrollLeft }, 0)
     }
   },
@@ -665,7 +665,7 @@ export default {
         console.log('completed')
         that.ztree.setting.view.expandSpeed = 'fast'// 1."fast" 2."slow" 3.""
         $(that.$refs['zTreeLoading']).css('display', 'none')
-        if (user.menu !== undefined && user.menu.scrollTop !== undefined && user.menu.scrollLeft !== undefined) {
+        if (user.menu && user.menu.scrollTop !== undefined && user.menu.scrollLeft !== undefined) {
           $(that.$refs['menu']).animate({ scrollTop: user.menu.scrollTop, scrollLeft: user.menu.scrollLeft }, 0)
         }
         $(that.$refs['menu']).bind('scrollstop', async function() {

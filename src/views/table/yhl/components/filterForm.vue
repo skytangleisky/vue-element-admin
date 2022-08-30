@@ -26,11 +26,11 @@
         class="fr"
         :xs="10"
         :sm="8"
-        :md="4"
+        :md="5"
       >
         <!-- @input:在 Input 值改变时触发 -->
         <el-input
-          v-model="value"
+          v-model="searchValue"
           placeholder="搜索"
           prefix-icon="el-icon-search"
           @input="getSearchContent "
@@ -54,16 +54,23 @@
 <script>
 export default {
   props: {
-
+    searchValue: {
+      default: '',
+      type: String
+    }
   },
   data() {
     return {
       // 选中的数据集合
       selectedData: [],
       // 搜索的条件
-      condition: '',
+      condition: ''
       // 搜索框input中v-model绑定的值
-      value: ''
+    }
+  },
+  watch: {
+    searchValue(newValue, oldValue) {
+      this.$emit('update:searchValue', newValue)
     }
   },
   created() {
