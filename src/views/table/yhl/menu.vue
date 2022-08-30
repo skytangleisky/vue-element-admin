@@ -302,9 +302,9 @@
       @node-expand="nodeExpand"
       @node-collapse="nodeCollapse"
     >
-      <template slot-scope="{ node, data }">
-        <span :style="{'font-size':'12px','color':data.hidden?'grey':'green'}">
-          <svg-icon v-if="data.meta" :icon-class="data.meta.icon" />
+      <template slot-scope="{ node, item }">
+        <span :style="{'font-size':'12px','color':item.hidden?'grey':'green'}">
+          <svg-icon v-if="item.meta" :icon-class="item.meta.icon" />
           &emsp;
           <span>{{ node.label }}</span>
         </span>
