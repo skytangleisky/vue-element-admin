@@ -8,6 +8,7 @@
       <el-radio-button label="editor" />
       <el-radio-button label="admin" />
       <el-radio-button label="prod" />
+      <el-radio-button label="guangzhou" />
     </el-radio-group>
   </div>
 </template>

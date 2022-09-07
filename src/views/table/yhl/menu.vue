@@ -131,6 +131,35 @@
         :page-size="listQuery.pageSize"
         @pagination="pagination"
       />
+      <el-tree
+        :data="treeData"
+        node-key="id"
+        :props="defaultProps"
+        :expand-on-click-node="false"
+        :default-expand-all="false"
+        :highlight-current="true"
+        :default-expanded-keys="expandedKeys"
+        :draggable="true"
+        :allow-drop="!allowDrop"
+        :allow-drag="!allowDrag"
+        @node-click="nodeClick"
+        @node-drag-start="handleDragStart"
+        @node-drag-enter="handleDragEnter"
+        @node-drag-leave="handleDragLeave"
+        @node-drag-over="handleDragOver"
+        @node-drag-end="handleDragEnd"
+        @node-drop="handleDrop"
+        @node-expand="nodeExpand"
+        @node-collapse="nodeCollapse"
+      >
+        <template slot-scope="{ node, data }">
+          <span :style="{'font-size':'12px','color':data.hidden?'red':'green'}">
+            <svg-icon v-if="data.meta" :icon-class="data.meta.icon" />
+          &emsp;
+            <span>{{ node.label }}</span>
+          </span>
+        </template>
+      </el-tree>
     </div>
     <!-- 新增窗口 -->
     <div
@@ -280,36 +309,6 @@
         <el-button @click="detailPageClose()">关闭</el-button>
       </div>
     </div>
-
-    <el-tree
-      :data="data"
-      node-key="id"
-      :props="defaultProps"
-      :expand-on-click-node="false"
-      :default-expand-all="false"
-      :highlight-current="true"
-      :default-expanded-keys="expandedKeys"
-      draggable
-      :allow-drop="allowDrop"
-      :allow-drag="allowDrag"
-      @node-click="nodeClick"
-      @node-drag-start="handleDragStart"
-      @node-drag-enter="handleDragEnter"
-      @node-drag-leave="handleDragLeave"
-      @node-drag-over="handleDragOver"
-      @node-drag-end="handleDragEnd"
-      @node-drop="handleDrop"
-      @node-expand="nodeExpand"
-      @node-collapse="nodeCollapse"
-    >
-      <template slot-scope="{ node, item }">
-        <span :style="{'font-size':'12px','color':item.hidden?'grey':'green'}">
-          <svg-icon v-if="item.meta" :icon-class="item.meta.icon" />
-          &emsp;
-          <span>{{ node.label }}</span>
-        </span>
-      </template>
-    </el-tree>
   </div>
 </template>
 
@@ -330,6 +329,18 @@ export default {
     filterForm, tableModel, Pagination
   },
   data() {
+    var idValidator = async(rule, value, callback) => {
+      const existCount = await this.addValIsExist(rule.field, value)
+      if (existCount > 0) {
+        return callback(new Error('id已经存在'))
+      }
+    }
+    var uuidValidator = async(rule, value, callback) => {
+      const existCount = await this.addValIsExist(rule.field, value)
+      if (existCount > 0) {
+        return callback(new Error('uuid已经存在'))
+      }
+    }
     return {
       expandedKeys: JSON.parse(localStorage.getItem('el-tree-expandedKeys')) || [],
       searchValue: '',
@@ -338,6 +349,12 @@ export default {
       detailData: [],
       orgImgs: [],
       addDataRules: {
+        id: [
+          { validator: idValidator, trigger: 'blur' }
+        ],
+        uuid: [
+          { validator: uuidValidator, trigger: 'blur' }
+        ]
       },
       editDataRules: {
       },
@@ -453,7 +470,7 @@ export default {
       picArr: [],
       // 所在城市代码
       modified_dateCode: null,
-      data: [],
+      treeData: [],
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -471,6 +488,7 @@ export default {
   },
   mounted() {
     getRoutes().then(res => {
+      console.log(res.data)
       function test(list) {
         list.map((v, k) => {
           list[k].label = v.path
@@ -481,7 +499,7 @@ export default {
         })
       }
       test(res.data)
-      this.data = res.data
+      this.treeData = res.data
     })
 
     ace.config.set('basePath', '/libs/ace-builds-master/src/')
@@ -765,7 +783,7 @@ export default {
                   })
                 }
                 test(res.data)
-                this.data = res.data
+                this.treeData = res.data
               })
             } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
               this.$message({
@@ -957,20 +975,20 @@ export default {
     },
     handleDragEnd(draggingNode, dropNode, dropType, ev) {
       console.log('tree drag end: ', dropNode && dropNode.label, dropType)
-      updateRoutes(this.data)
+      updateRoutes(this.treeData)
     },
     handleDrop(draggingNode, dropNode, dropType, ev) {
       console.log('tree drop: ', dropNode.label, dropType)
     },
     allowDrop(draggingNode, dropNode, type) {
-      if (dropNode.data.label === '二级 3-1') {
-        return type !== 'inner'
-      } else {
-        return true
-      }
+      // if (dropNode.data.label === '二级 3-1') {
+      //   return type !== 'inner'
+      // } else {
+      //   return true
+      // }
     },
     allowDrag(draggingNode) {
-      return draggingNode.data.label.indexOf('三级 3-2-2') === -1
+      // return draggingNode.data.label.indexOf('三级 3-2-2') === -1
     }
   }
 }

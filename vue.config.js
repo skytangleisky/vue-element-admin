@@ -46,21 +46,28 @@ module.exports = {
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         // logLevel: 'silent', // debug|silent|warn
-        target: 'http://websocket.tanglei.top', // 你请求的第三方接口
+        target: 'http://127.0.0.1:9988', // 你请求的第三方接口
         changeOrigin: true,
         pathRewrite: { // 路径重写
           ['^' + process.env.VUE_APP_BASE_API]: '' // 替换的请求地址
         }
       },
+      'map/': {
+        target: 'http://127.0.0.1:8000',
+        changeOrgin: true,
+        pathRewrite: {
+          'map/': ''
+        }
+      },
       'prod-mock/': {
-        target: 'http://websocket.tanglei.top',
+        target: 'http://127.0.0.1:9988',
         changeOrgin: true,
         pathRewrite: {
           'dev-mock/': ''
         }
       },
       'dev-mock/': {
-        target: 'http://websocket.tanglei.top',
+        target: 'http://127.0.0.1:9988',
         changeOrgin: true,
         pathRewrite: {
           'dev-mock/': ''
@@ -85,9 +92,17 @@ module.exports = {
           'test/': ''
         }
       },
+      'ycl/': {
+        target: 'http://ycl.tanglei.top',
+        // target: 'http://127.0.0.1:2222',
+        changeOrgin: true,
+        pathRewrite: {
+          'ycl/': ''
+        }
+      },
       'lcc/': {
-        // target: 'http://lcc.tanglei.top',
-        target: 'http://127.0.0.1:2222',
+        target: 'http://lcc.tanglei.top',
+        // target: 'http://127.0.0.1:2222',
         changeOrgin: true,
         pathRewrite: {
           'lcc/': ''

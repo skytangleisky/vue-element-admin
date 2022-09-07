@@ -143,10 +143,4 @@
   align-items: center;
   overflow: hidden;
 }
-.el-dropdown-menu__item{
-  line-height: inherit;
-  padding: 0 10px;
-}
-.el-dropdown-menu__item--divided:before{
-  margin:0 -10px;
-}
+

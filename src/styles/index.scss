@@ -222,3 +222,11 @@ aside {
   height: calc(100vh - 84px);
   max-height: calc(100vh - 84px);
 }
+
+.el-dropdown-menu__item{
+  line-height: inherit;
+  padding: 0 10px;
+}
+.el-dropdown-menu__item--divided:before{
+  margin:0 -10px;
+}

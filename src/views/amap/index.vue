@@ -67,7 +67,7 @@ export default {
           opacity: 1,
           zoom: [4, 15],
           // getTileUrl: 'http://tanglei.top:9091/googlemap/[z]/[x]/[y].jpg'
-          getTileUrl: 'http://127.0.0.1:8000/[z]/[y]/[x]'
+          getTileUrl: '/map/[z]/[y]/[x]'
         })
       ],
       // viewMode: '3D',
@@ -216,25 +216,25 @@ export default {
           }
         }
       })
-      // $('<div id="loadingTip">加载数据，请稍候...</div>').appendTo(document.body)
-      // $.get('https://a.amap.com/amap-ui/static/data/10w.txt',
-      //   function(csv) {
-      //     $('#loadingTip').remove()
-      //     var lines = csv.split('\n')
-      //     var lngLats = []
-      //     for (var i = 0, len = lines.length; i < len; i++) {
-      //       if (!lines[i]) {
-      //         continue
-      //       }
-      //       var parts = lines[i].split(',')
-      //       lngLats.push([parseFloat(parts[0]), parseFloat(parts[1])])
-      //     }
-      //     that.lngLatList = lngLats
-      //     that.groupedPointsCache['100000'] = lngLats
-      //     // 加载全国
-      //     that.switch2AreaNode(100000)
-      //   }
-      // );
+      $('<div id="loadingTip">加载数据，请稍候...</div>').appendTo(document.body)
+      $.get('https://a.amap.com/amap-ui/static/data/10w.txt',
+        function(csv) {
+          $('#loadingTip').remove()
+          var lines = csv.split('\n')
+          var lngLats = []
+          for (var i = 0, len = lines.length; i < len; i++) {
+            if (!lines[i]) {
+              continue
+            }
+            var parts = lines[i].split(',')
+            lngLats.push([parseFloat(parts[0]), parseFloat(parts[1])])
+          }
+          that.lngLatList = lngLats
+          that.groupedPointsCache['100000'] = lngLats
+          // 加载全国
+          that.switch2AreaNode(100000)
+        }
+      )
     })
   },
   beforeDestroy() {

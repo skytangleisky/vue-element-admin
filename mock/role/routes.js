@@ -1,7 +1,7 @@
 // Just a mock data
 
 const constantRoutes = [
-  {
+  /*{
     path: '/redirect',
     component: '@/layout',
     hidden: true,
@@ -69,11 +69,11 @@ const constantRoutes = [
         meta: { title: 'Guide', icon: 'guide', noCache: true }
       }
     ]
-  }
+  }*/
 ]
 
 const asyncRoutes = [
-  {
+  /*{
     path: '/实时监控',
     component: '@/layout',
     children: [
@@ -630,7 +630,7 @@ const asyncRoutes = [
     ]
   },
 
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true }*/
 ]
 
 module.exports = {

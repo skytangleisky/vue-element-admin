@@ -1,5 +1,6 @@
 module.exports = {
-  title: 'Vue Element Admin',
+  // title: 'Vue Element Admin',
+  title: '广州气象组网',
 
   /**
    * @type {boolean} true | false
@@ -11,7 +12,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether need tagsView
    */
-  tagsView: true,
+  tagsView: false,
 
   /**
    * @type {boolean} true | false
