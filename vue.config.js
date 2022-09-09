@@ -1,7 +1,7 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
-
+require('events').EventEmitter.defaultMaxListeners = 0
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -36,7 +36,7 @@ module.exports = {
     useLocalIp: true,
     disableHostCheck: true,
     port: port,
-    open: true,
+    open: false,
     overlay: {
       warnings: false,
       errors: true
@@ -81,12 +81,7 @@ module.exports = {
         }
       },
       'test/': {
-        // target: 'http://depend.tanglei.top',
         target: 'http://192.168.0.180:9527',
-        // target: 'http://172.20.10.6:9527',
-        // target: 'http://localhost:9528',
-        // target: 'http://ycl.tanglei.top:9527',
-        // target: 'http://yhl.tanglei.top',
         changeOrgin: true,
         pathRewrite: {
           'test/': ''
@@ -94,7 +89,6 @@ module.exports = {
       },
       'ycl/': {
         target: 'http://ycl.tanglei.top',
-        // target: 'http://127.0.0.1:2222',
         changeOrgin: true,
         pathRewrite: {
           'ycl/': ''
@@ -102,7 +96,6 @@ module.exports = {
       },
       'lcc/': {
         target: 'http://lcc.tanglei.top',
-        // target: 'http://127.0.0.1:2222',
         changeOrgin: true,
         pathRewrite: {
           'lcc/': ''
@@ -110,19 +103,13 @@ module.exports = {
       },
       'yhl/': {
         target: 'http://yhl.tanglei.top',
-        // target: 'http://127.0.0.1:2244',
         changeOrgin: true,
         pathRewrite: {
           'yhl/': ''
         }
       },
       'tl/': {
-        // target: 'http://tl.tanglei.top',
-        // target: 'http://127.0.0.1:2233',
         target: 'http://127.0.0.1:9500',
-        // target: 'http://192.168.43.108:9527',
-        // target: 'http://192.168.0.5:9527',
-        // target: 'http://192.168.0.180:9527',
         changeOrgin: true,
         pathRewrite: {
           'tl/': ''
