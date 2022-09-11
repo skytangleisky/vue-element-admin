@@ -89,6 +89,9 @@ export default {
       flag: false
     }
   },
+  created() {
+    this.$bus.$on('Message', this.processMessage)
+  },
   mounted() {
     const that = this
 
@@ -102,7 +105,6 @@ export default {
     $(that.$refs['tab']).bind('mousewheel', function(event, delta, deltaX, deltaY) {
       $(that.$refs['tab-menu']).css({ 'display': 'none' })
     })
-    that.$bus.$on('Message', that.processMessage)
     $(that.$refs['tags']).dragsort()
     $(that.$refs['tab']).scroll(function() {
       var scrollLeft = $(this).scrollLeft() // 滚动条的宽度

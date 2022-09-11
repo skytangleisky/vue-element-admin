@@ -187,12 +187,13 @@ export default {
       baseURL
     }
   },
+  created() {
+    this.$bus.$on('Message', this.processMessage)
+  },
   mounted() {
     const that = this
     // that.iconminusClick1()
     that.iconminusClick2()
-
-    that.$bus.$on('Message', that.processMessage)
 
     $(that.$refs['treeDemo']).focusout(function() {
       that.hideRMenu()

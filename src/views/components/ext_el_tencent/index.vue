@@ -138,24 +138,23 @@ export default {
       loading: false
     }
   },
-  mounted() {
+  async created() {
     const that = this
     var debug = false
-
-    $(that.$refs['close']).click(function() {
-      that.emitMessage.type = '隐藏登录窗口'
-      that.$bus.$emit('Message', that.emitMessage)
-    })
-    window.info().then((user) => {
+    await window.info().then((user) => {
       that.emitMessage.data = user
       that.emitMessage.type = '用户登录后获取的数据'
       that.$bus.$emit('Message', that.emitMessage)
     })
 
-    init((loginType, user) => {
+    await init(async(loginType, user) => {
       console.log(user)
       user.user_path = '/users/' + user.unionid
-      axios.post(process.env.VUE_APP_BASE_API + '/libs/db/src/login.php', { loginType: loginType, user: user }, { withCredentials: false, timeout: 10000 }).then(res => {
+      await axios({
+        method: 'post',
+        url: process.env.VUE_APP_BASE_API + '/libs/db/src/login.php',
+        data: { loginType: loginType, user: user }
+      }).then(res => {
         const result = res.data
         if (result.code === 20000) {
           window.info().then((user) => {
@@ -182,25 +181,13 @@ export default {
         console.error('red', 'Login failed.')
         // show_message("orange","Login timeout.")
       })
-
-      // user.user_path = '/users/'+user.unionid+'/'
-      // axios.post(apiUrl+'/login.php',{loginType:loginType,user:user},{withCredentials : true,timeout:10000}).then(res=>{
-      //   let result = res.data;
-      //   if(result.code===20000){
-      //       $('.btn-success').text('登录成功');
-      //       info();
-      //   }else if(result.code===60204){
-      //       $('.btn-success').button('reset');
-      //       console.error("red","Login failed. Invalid username or password");
-      //   }else{
-      //       document.write(result)
-      //   }
-      // }).catch(function (error) {
-      //   debug&&console.error(error)
-      //   $('.btn-success').button('reset');
-      //   console.error("red","Login failed.");
-      //   // show_message("orange","Login timeout.")
-      // });
+    })
+  },
+  mounted() {
+    const that = this
+    $(that.$refs['close']).click(function() {
+      that.emitMessage.type = '隐藏登录窗口'
+      that.$bus.$emit('Message', that.emitMessage)
     })
     $(function() {
       $('.card-body').css({ 'min-width': $('.card-body').width(), 'min-height': $('.card-body').height() + 20 })

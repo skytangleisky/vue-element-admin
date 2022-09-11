@@ -15,9 +15,11 @@ export default {
       baseURL
     }
   },
+  created() {
+    this.$bus.$on('Message', this.processMessage)
+  },
   mounted() {
     const that = this
-    that.$bus.$on('Message', that.processMessage)
     that.openfile('/' + that.filename)
   },
   destroyed() {

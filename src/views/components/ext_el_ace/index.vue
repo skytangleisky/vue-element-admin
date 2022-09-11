@@ -30,10 +30,11 @@ export default {
       editor: undefined
     }
   },
+  created() {
+    this.$bus.$on('Message', this.processMessage)
+  },
   mounted() {
     const that = this
-
-    that.$bus.$on('Message', that.processMessage)
 
     ace.config.set('basePath', '/libs/ace-builds-master/src/')
     var beautiful = ace.require('ace/ext/beautify')

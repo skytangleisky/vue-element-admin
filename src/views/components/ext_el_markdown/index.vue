@@ -26,9 +26,11 @@ export default {
       testEditor: null
     }
   },
+  created() {
+    this.$bus.$on('Message', this.processMessage)
+  },
   mounted() {
     const that = this
-    that.$bus.$on('Message', that.processMessage)
     axios({
       url: baseURL + '/controller/test.php',
       method: 'get',

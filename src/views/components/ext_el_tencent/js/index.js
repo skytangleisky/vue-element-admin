@@ -258,15 +258,18 @@ function authorized(loginType, user) {
 }
 
 export function init(back) {
-  callback = back
-  reset()
-  // wxTask();//默认微信登录
-  $('#tips>p').click(function() {
-    if ($(this).html() === '微信登录') {
-      QQ()
-    } else if ($(this).html() === '扣扣登录') {
-      WX()
-    }
+  return new Promise((resolve, reject) => {
+    callback = back
+    reset()
+    // wxTask();//默认微信登录
+    $('#tips>p').click(function() {
+      if ($(this).html() === '微信登录') {
+        QQ()
+      } else if ($(this).html() === '扣扣登录') {
+        WX()
+      }
+    })
+    resolve()
   })
 }
 export function Abort() {

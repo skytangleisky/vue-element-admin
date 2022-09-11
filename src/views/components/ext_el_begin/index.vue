@@ -49,6 +49,9 @@ export default {
   beforeCreate() {
     window.beginTime = new Date().getTime()
   },
+  created() {
+    this.$bus.$on('Message', this.processMessage)
+  },
   mounted() {
     var that = this
     window.unloginClose = this.unloginClose
@@ -61,19 +64,18 @@ export default {
         that.unlogin = true
       }
     })
-    that.$nextTick(() => {
-      this.$notify({
-        title: '页面加载时间',
-        message: (new Date().getTime() - window.beginTime) + 'ms',
-        duration: 1000
-      })
-    })
+    // that.$nextTick(() => {
+    //   this.$notify({
+    //     title: '页面加载时间',
+    //     message: (new Date().getTime() - window.beginTime) + 'ms',
+    //     duration: 1000
+    //   })
+    // })
 
     window.addEventListener('resize', () => {
       document.documentElement.style.setProperty('height', window.innerHeight + 'px')
     })
     document.documentElement.style.setProperty('height', window.innerHeight + 'px')
-    that.$bus.$on('Message', that.processMessage)
   },
   destroyed() {
     const that = this

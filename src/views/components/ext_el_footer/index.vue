@@ -45,9 +45,8 @@ export default {
       btnStyle: 'width:12px;height:12px'
     }
   },
-  mounted() {
-    const that = this
-    that.$bus.$on('Message', that.processMessage)
+  created() {
+    this.$bus.$on('Message', this.processMessage)
   },
   destroyed() {
     const that = this

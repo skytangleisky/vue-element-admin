@@ -41,9 +41,10 @@ export default {
       status: 'unlogin'
     }
   },
+  created() {
+    this.$bus.$on('Message', this.processMessage)
+  },
   mounted() {
-    const that = this
-    that.$bus.$on('Message', that.processMessage)
     this.timer = setInterval((function f() {
       document.getElementById('datetime').innerHTML = new Date().Format('yyyy-MM-dd HH:mm:ss')
       return f
