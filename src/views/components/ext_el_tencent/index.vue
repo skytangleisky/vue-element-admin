@@ -347,7 +347,7 @@ export default {
     width: 100%;
     background-color: $bg;
     overflow: hidden;
-    background-image: url('../../../assets/images/bg-small.png');
+    background-image: url('../../../assets/images/bg-small.jpg');
     background-size:cover;
 
     .login-form {

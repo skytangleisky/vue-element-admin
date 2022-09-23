@@ -61,6 +61,8 @@ export default {
       that.editor.getSession().setMode({ path: 'ace/mode/php', inline: true })
     } else if (that.filename.endsWith('.vue')) {
       that.editor.getSession().setMode({ path: 'ace/mode/html_elixir', inline: true })
+    } else if (that.filename.endsWith('.xml')) {
+      that.editor.getSession().setMode({ path: 'ace/mode/xml', inline: true })
     } else {
       that.editor.getSession().setMode({ path: 'ace/mode/txt', inline: true })
     }

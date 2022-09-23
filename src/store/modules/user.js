@@ -3,6 +3,8 @@ import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
+import store from '../../store'
+
 const state = {
   token: getToken(),
   name: '',
@@ -50,11 +52,12 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo().then(response => {
+      getInfo().then(async response => {
         const { data } = response
         if (!data) {
           reject('Verification failed, please Login again.')
         }
+        resetRouter()
 
         const { roles, name, avatar, introduction } = data
 
@@ -77,15 +80,18 @@ const actions = {
   // user logout
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
+      logout(state.token).then(async() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
         removeToken()
-        resetRouter()
 
         // reset visited views and cached views
         // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
         dispatch('tagsView/delAllViews', null, { root: true })
+
+        resetRouter()
+        const accessRoutes = await store.dispatch('permission/generateConstRoutes', 'defaultRole')
+        router.addRoutes(accessRoutes)
 
         resolve()
       }).catch(error => {

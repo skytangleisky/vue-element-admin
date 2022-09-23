@@ -171,7 +171,7 @@ export default {
       } else if (['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.ico', '.cur', '.svg'].indexOf(ext) > -1) {
         that.processFilename(filename, 'Image')
         return true
-      } else if (['.php', '.html', '.css', '.js', '.md', '.txt', '.json', '.ini', '.less', '.bat', '.vue', '.gltf'].indexOf(ext) > -1) {
+      } else if (['.php', '.html', '.css', '.js', '.md', '.txt', '.json', '.ini', '.less', '.bat', '.vue', '.gltf', '.xml'].indexOf(ext) > -1) {
         that.processFilename(filename, 'Ace')
         return true
       } else if (filename.split('/').pop().indexOf('.') === -1) {

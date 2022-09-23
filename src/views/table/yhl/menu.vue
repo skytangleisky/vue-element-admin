@@ -154,8 +154,9 @@
       >
         <template slot-scope="{ node, data }">
           <span :style="{'font-size':'12px','color':data.hidden?'red':'green'}">
-            <svg-icon v-if="data.meta" :icon-class="data.meta.icon" />
-          &emsp;
+            <i v-if="data.meta&&data.meta.icon&&data.meta.icon.includes('el-icon')" :class="[data.meta.icon,'sub-el-icon']" />
+            <svg-icon v-else-if="data.meta&&data.meta.icon" :icon-class="data.meta.icon" />
+            &emsp;
             <span>{{ node.label }}</span>
           </span>
         </template>

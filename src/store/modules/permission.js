@@ -1,6 +1,7 @@
 // import { constantRoutes } from '@/router'
-import { getRoutes } from '@/api/role_mock'
+import { getRoutes, getConstRoutes } from '@/api/role_mock'
 import remoteImport from '@/utils/vue-remote-import'
+
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -58,6 +59,16 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       getRoutes().then(res => {
+        const asyncRoutes = res.data
+        const accessedRoutes = asyncRoutes && filterAsyncRoutes(asyncRoutes, roles) || []
+        commit('SET_ROUTES', accessedRoutes)
+        resolve(accessedRoutes)
+      })
+    })
+  },
+  generateConstRoutes({ commit }, roles) {
+    return new Promise(resolve => {
+      getConstRoutes().then(res => {
         const asyncRoutes = res.data
         const accessedRoutes = asyncRoutes && filterAsyncRoutes(asyncRoutes, roles) || []
         commit('SET_ROUTES', accessedRoutes)

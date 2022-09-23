@@ -50,7 +50,7 @@ export default {
       return f
     })(), 1000)
     setPay(function() {
-      // 支付模块初始化完成
+      console.log('支付模块初始化完成')
     })
   },
   activated() {
@@ -103,8 +103,8 @@ export default {
       const Order = {}
       Order.total_amount = 1
       Order.subject = '捐赠'
-      Order.out_trade_no = Date.now()
-      Tips_Click('支付宝支付', Order, function() {
+      Order.out_trade_no = Date.now().toString()
+      Tips_Click('微信支付', Order, function() {
         alert('支付成功')
       })
     }

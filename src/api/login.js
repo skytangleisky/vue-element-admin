@@ -4,6 +4,7 @@ export function login(data) {
   return request({
     url: 'libs/db/src/login.php',
     method: 'post',
+    timeout: 5000,
     data
   })
 }

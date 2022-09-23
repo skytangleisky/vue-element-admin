@@ -9,16 +9,6 @@ function setPay(back) {
 }
 function init() {
   $('#pay-close').css('content', 'url(/libs/pay/image/close.png)')
-
-  $('#tipsPay').click(function() {
-    Order.out_trade_no = Date.now()
-    $('#out_trade_no').html(Order.out_trade_no)
-    if ($(this).html() === '支付宝支付') {
-      Tips_Click('微信支付')
-    } else if ($(this).html() === '微信支付') {
-      Tips_Click('支付宝支付')
-    }
-  })
   $('.close').click(function() {
     if (wxPayClient1 != null) wxPayClient1.abort()
     if (wxPayClient2 != null) wxPayClient2.abort()
@@ -59,7 +49,7 @@ function al() {
     $('#QRpay').empty()
     $('#tipsPay').html('支付宝支付')
     alPayClient1 = $.ajax({
-      url: '//tanglei.top/ali/dangmianfu_demo_php/f2fpay/qrpay.php',
+      url: '//pay.tanglei.top/ali/dangmianfu_demo_php/f2fpay/qrpay.php',
       type: 'post',
       cache: false,
       contentType: 'application/json',
@@ -87,7 +77,7 @@ function al() {
         }
       },
       error: function(e) {
-        console.error(e)
+        // console.error(e)
       }, complete: function() {
         alPayClient1.abort()
         alPayClient1 = null
@@ -142,7 +132,7 @@ function al() {
         // 2.服务器一直无数据返回
         // 3.主动关闭HTTP请求。
         // 其他
-        console.error(e)
+        // console.error(e)
 
         // 无网2194ms后System.Net.Http.HttpRequestException
         // 有网无返回10101ms后System.Threading.Tasks.TaskCanceledException（暂不考虑）
@@ -186,10 +176,10 @@ function wx() {
     $('#QRpay').empty()
     $('#tipsPay').html('微信支付')
     wxPayClient1 = $.ajax({
-      url: '//tanglei.top/WxpayAPI_php/php_sdk_v3.0.10/example/native2.php',
+      url: '//pay.tanglei.top/WxpayAPI_php/php_sdk_v3.0.10/example/native2.php',
       type: 'post',
       cache: false,
-      // contentType:'application/json',
+      contentType: 'application/json',
       dataType: 'json',
       data: JSON.stringify(Order),
       success: function(data) {
@@ -214,7 +204,7 @@ function wx() {
         }
       },
       error: function(e) {
-        throw e
+        // console.error(e)
         // document.write(e.responseText)
       }, complete: function() {
         wxPayClient1.abort()
@@ -257,7 +247,7 @@ function wx() {
         // 2.服务器一直无数据返回
         // 3.主动关闭HTTP请求。
         // 其他
-        console.error(e)
+        // console.error(e)
 
         // 无网2194ms后System.Net.Http.HttpRequestException
         // 有网无返回10101ms后System.Threading.Tasks.TaskCanceledException（暂不考虑）
@@ -295,6 +285,17 @@ function wx() {
 }
 
 function Tips_Click(arg, order, back) {
+  $('#tipsPay').unbind('click')
+  $('#tipsPay').click(function() {
+    Order.out_trade_no = Date.now().toString()
+    $('#out_trade_no').html(Order.out_trade_no)
+    if ($(this).html() === '支付宝支付') {
+      Tips_Click('微信支付')
+    } else if ($(this).html() === '微信支付') {
+      Tips_Click('支付宝支付')
+    }
+  })
+
   if (back !== undefined) {
     back2 = back
   }
@@ -311,8 +312,8 @@ function Tips_Click(arg, order, back) {
 
   if (wxPayClient1 != null)wxPayClient1.abort()
   if (wxPayClient2 != null)wxPayClient2.abort()
-  if (alPayClient1 != null) alPayClient1.abort()
-  if (alPayClient2 != null) alPayClient2.abort()
+  if (alPayClient1 != null)alPayClient1.abort()
+  if (alPayClient2 != null)alPayClient2.abort()
   wxPayStatusUrl = ''
   alPayStatusUrl = ''
   window.clearTimeout(wxPayDispatcherTimer)
@@ -324,6 +325,6 @@ function Tips_Click(arg, order, back) {
     wx()
   } else if (arg === '支付宝支付') {
     al()
-  } else { /* 其他支付方式*/ }
+  } else { alert()/* 其他支付方式*/ }
 }
 export { setPay, Tips_Click }

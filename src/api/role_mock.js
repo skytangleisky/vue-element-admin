@@ -7,6 +7,13 @@ export function getRoutes() {
   })
 }
 
+export function getConstRoutes() {
+  return request({
+    url: '/vue-element-admin/constRoutes',
+    method: 'get'
+  })
+}
+
 export function updateRoutes(data) {
   return request({
     url: '/vue-element-admin/routes',
