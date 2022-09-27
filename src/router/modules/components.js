@@ -25,12 +25,6 @@ const componentsRouter = {
       meta: { title: 'Aside', affix: true, noCache: false }
     },
     {
-      path: 'monaco-editor',
-      component: () => import('@/views/components-demo/monaco-editor'),
-      name: 'Monaco',
-      meta: { title: 'MonacoEditor' }
-    },
-    {
       path: 'mavon-editor',
       component: () => import('@/views/components-demo/mavon-editor'),
       name: 'MavonEditor',
