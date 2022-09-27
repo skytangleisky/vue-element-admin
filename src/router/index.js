@@ -52,9 +52,14 @@ export const constantRoutes = [
   // },
   {
     path: '/login',
-    component: () => import('@/views/login/index2'),
+    component: () => import('@/views/login/index'),
     hidden: true
   }
+  // { // 默认登录界面
+  //   path: '/login',
+  //   component: () => import('@/views/login/default'),
+  //   hidden: true
+  // }
   // {
   //   path: '/auth-redirect',
   //   component: () => import('@/views/login/auth-redirect'),

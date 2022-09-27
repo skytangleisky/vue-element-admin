@@ -3,8 +3,6 @@ import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
-import store from '../../store'
-
 const state = {
   token: getToken(),
   name: '',
@@ -57,7 +55,6 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
-        resetRouter()
 
         const { roles, name, avatar, introduction } = data
 
@@ -90,8 +87,6 @@ const actions = {
         dispatch('tagsView/delAllViews', null, { root: true })
 
         resetRouter()
-        const accessRoutes = await store.dispatch('permission/generateConstRoutes', 'defaultRole')
-        router.addRoutes(accessRoutes)
 
         resolve()
       }).catch(error => {
