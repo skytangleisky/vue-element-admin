@@ -1,9 +1,13 @@
 <template>
   <div class="login-container">
+    <div class="loginImgDiv">
+      广州气象雷达组网系统
+    </div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <div>欢迎登录</div>
+        <div class="titleLine" />
       </div>
 
       <el-form-item prop="username">
@@ -47,16 +51,7 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
-      <div style="position:relative">
-        <div class="tips">
-          <span>Username : admin</span>
-          <span>Password : any</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">Username : editor</span>
-          <span>Password : any</span>
-        </div>
-
+      <div style="position:relative;display:none">
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
           Or connect with
         </el-button>
@@ -271,26 +266,31 @@ $light_gray:#eee;
   align-items: center;
   justify-content: center;
 
-  .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 40px 35px 0;
-    overflow: hidden;
-    border-radius: 8px;
-    background: #00000022;
+  .loginImgDiv {
+    height: 600px;
+    width: 808px;
+    background: url(../../assets/images/bg01/2.jpg) no-repeat center;
+    background-size: cover;
+    font-family: 'SourceHanSansSC-Bold';
+    font-weight: bold;
+    text-align: left;
+    font-size: 46px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px 0 0 8px;
   }
 
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
-    }
+  .login-form {
+    position: relative;
+    width: 385px;
+    max-width: 100%;
+    padding: 0 35px;
+    overflow: hidden;
+    border-radius: 0 8px 8px 0;
+    background: #00000022;
+    height: 600px;
   }
 
   .svg-container {
@@ -303,14 +303,18 @@ $light_gray:#eee;
 
   .title-container {
     position: relative;
-
-    .title {
-      font-size: 26px;
-      // color: $light_gray;
-      color: #fff;
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-weight: bold;
+    background: none;
+    font-size: 30px;
+    font-family: Source Han Sans SC;
+    font-weight: 400;
+    color: #2C84F0;
+    padding-top: 120px;
+    margin-bottom: 55px;
+    .titleLine {
+      width: 200px;
+      height: 2px;
+      background: #2C84F0;
+      margin-top: 5px;
     }
   }
 
