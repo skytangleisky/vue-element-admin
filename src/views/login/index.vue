@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="loginImgDiv">
-      广州气象雷达组网系统
+      广州气象局雷达组网系统
     </div>
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
@@ -17,7 +17,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="账户"
           name="username"
           type="text"
           tabindex="1"
@@ -35,7 +35,7 @@
             ref="password"
             v-model="loginForm.password"
             :type="passwordType"
-            placeholder="Password"
+            placeholder="密码"
             name="password"
             tabindex="2"
             autocomplete="on"
@@ -250,7 +250,6 @@ $cursor: #fff;
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
-
 .login-container {
   height: 100%;
   width: 100%;
