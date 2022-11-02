@@ -160,13 +160,18 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="产品缩略图">
+          <el-form-item label="product_image">
             <el-input v-model="temp.product_image" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="产品预览地址">
-            <el-input v-model="temp.product_image" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
+          <el-form-item label="product_url">
+            <el-input v-model="temp.product_url" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="product_root">
+            <el-input v-model="temp.product_root" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
           </el-form-item>
         </el-col>
         <el-col :span="12">

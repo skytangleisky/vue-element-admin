@@ -390,7 +390,7 @@ export default {
                     childNodes[i].iconSkinDocu = childNodes[i].Docu
                   }
                   childNodes[i].font = { 'color': '#bbbbbb' }
-                  if (parentNode !== undefined && parentNode.checked)childNodes[i].checked = true// 确保复选框异步加载后的选中状态正确。
+                  if (parentNode && parentNode.checked)childNodes[i].checked = true// 确保复选框异步加载后的选中状态正确。
                 }
               }
               return childNodes
@@ -640,13 +640,12 @@ export default {
     async onAsyncSuccess(event, treeId, treeNode) {
       const that = this
       var user = await localforage.getItem('user')
-      const nodes = (treeNode === undefined) ? that.ztree.getNodes() : treeNode.children
+      const nodes = treeNode ? treeNode.children : that.ztree.getNodes()
       for (const index in nodes) {
         const node = nodes[index]
-        const open = user.expandStatus[node.id] === undefined ? false : user.expandStatus[node.id];
-
+        const open = user.expandStatus[node.id] ? user.expandStatus[node.id] : false;
         (!node.getParentNode() || node.getParentNode().open) && that.ztree.expandNode(node, open, false, false, false)
-        if (!open && node.id === that.openInfo.slice(0, 1)) { // 依次选中展开目标文件的有效路径，当目标文件无效时，可以获取原来目标文件有效时路径的一个现在有效的子路径
+        if (!open && node.id === that.openInfo.slice(0, 1)[0]) { // 依次选中展开目标文件的有效路径，当目标文件无效时，可以获取原来目标文件有效时路径的一个现在有效的子路径
           that.openInfo.shift()
           that.ztree.cancelSelectedNode()// 先取消所有的选中状态
           that.ztree.selectNode(node, false, false)// 将指定ID的节点选中
@@ -911,14 +910,14 @@ export default {
     },
     async tab_active($id) {
       const that = this
-      if ($id === undefined) {
+      if (!$id) {
         that.ztree.cancelSelectedNode()// 先取消所有的选中状态
         return// 表示welcome子frame被选中，需要返回，不继续做处理。
       }
       that.targetId = $id
       that.openInfo = []// 将需要异步展开的节点信息存储的临时数组清空。
       const node1 = that.ztree.getNodeByParam('id', $id)
-      if (node1 !== undefined) { // 说明ztree存在主键为id的节点，并可以直接展开。
+      if (node1) { // 说明ztree存在主键为id的节点，并可以直接展开。
         that.ztree.cancelSelectedNode()// 先取消所有的选中状态
         that.ztree.selectNode(node1, false, false)// 将指定ID的节点选中
         that.ztree.expandNode(node1, true, false, true, false)// 将指定ID节点展开
@@ -927,11 +926,11 @@ export default {
         let lastValidNode
         for (let i = 1; i < arr.length; i++) {
           const tmpNode = that.ztree.getNodeByParam('id', arr.slice(0, i).join('/'))
-          if (tmpNode === undefined && ((arr.slice(0, i).join('/').substr(0, (that.ur.user_path.trim('/') + '/').length) === that.ur.user_path.trim('/') + '/') || that.ur.user_path === '/')) {
+          if (!tmpNode && ((arr.slice(0, i).join('/').substr(0, (that.ur.user_path.trim('/') + '/').length) === that.ur.user_path.trim('/') + '/') || that.ur.user_path === '/')) {
             that.openInfo.push(arr.slice(0, i).join('/'))
           } else lastValidNode = tmpNode
         }
-        if (lastValidNode !== undefined && lastValidNode.isParent) {
+        if (lastValidNode && lastValidNode.isParent) {
           that.ztree.cancelSelectedNode()// 先取消所有的选中状态
           that.ztree.selectNode(lastValidNode, false, false)// 将指定ID的节点选中
           var user = await localforage.getItem('user')

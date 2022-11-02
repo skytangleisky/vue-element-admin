@@ -14,8 +14,11 @@
         <div class="card" style="position:relative;border-radius:8px;border:0px solid #00000044;box-shadow: 0px 0px 10px #909090;overflow:hidden;">
           <a target="_blank" :href="baseURL+'/'+o.product_root+o.product_url"><img :src="baseURL+'/'+o.product_root+o.product_image" style="user-drag:none;display:block;"></a>
           <div class="describe-top">
-            <img :src="baseURL + '/emoji/经典表情245/12/害羞.png'">
-            <span>{{ o.product_title }}</span>
+            <div style="display:flex;flex-direction:row;">
+              <img :src="baseURL + '/emoji/经典表情245/12/害羞.png'">
+              <span>{{ o.product_title }}</span>
+            </div>
+            <svg-icon icon-class="location" style="filter: drop-shadow(2px 2px 4px #000000);" @click="click(o)" />
           </div>
           <div class="describe-bottom">
             <time class="time">2021-11-02</time>
@@ -71,10 +74,15 @@ export default {
   },
   data() {
     return {
+      emitMessage: {
+        from: this.$options.__file,
+        type: '',
+        data: {}
+      },
       baseURL,
       listQuery: {
         page: 1,
-        limit: 10,
+        limit: 20,
         importance: undefined,
         title: undefined,
         type: undefined,
@@ -124,6 +132,12 @@ export default {
     this.percentage += 10
   },
   methods: {
+    click(e) {
+      const that = this
+      that.emitMessage.data = { filename: e.product_root + e.product_url }
+      that.emitMessage.type = '在ztree中定位文件位置'
+      that.$bus.$emit('Message', that.emitMessage)
+    },
     remoteMethod(query) {
       if (query !== '') {
         this.loading = true
@@ -184,14 +198,16 @@ export default {
     border-radius:0px;
   }
   .describe-top{
+    padding: 0 10px;
     display: none;
-    justify-content: flex-left;/*水平居中*/
+    justify-content: space-between;
     align-items: center;/*垂直居中*/
     text-shadow: .2rem 0rem .5rem black,-.2rem 0rem .5rem black,0rem .2rem .5rem black,0rem -.2rem .5rem black;
     color:white;
     position:absolute;
     top:0px;
-    width:100%;
+    left:0;
+    right:0;
     line-height:28px;
   }
   .card:hover .describe-top{

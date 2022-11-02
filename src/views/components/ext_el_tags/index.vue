@@ -229,6 +229,7 @@ export default {
     tab_position() {
       const that = this
       that.emitMessage.data = { filename: that.currentFilename }
+      console.log(that.currentFilename)
       that.emitMessage.type = '在ztree中定位文件位置'
       that.$bus.$emit('Message', that.emitMessage)
     },
