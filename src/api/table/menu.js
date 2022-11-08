@@ -5,7 +5,7 @@ const headers = {
 }
 
 // 增
-export function insertMenu(data) {
+export function insert(data) {
   const arr = []
   arr.push(data)
   return request({
@@ -13,16 +13,6 @@ export function insertMenu(data) {
     headers,
     method: 'put',
     data: arr
-  })
-}
-
-// 逻辑删除
-export function deleteMenu(data) {
-  return request({
-    url,
-    headers,
-    method: 'put',
-    data
   })
 }
 
@@ -37,7 +27,7 @@ export function del(data) {
 }
 
 // 改
-export function updateMenu(data) {
+export function update(data) {
   const arr = []
   arr.push(data)
   return request({
@@ -49,7 +39,7 @@ export function updateMenu(data) {
 }
 
 // 查
-export function selectMenu(query) {
+export function select(query) {
   // console.log("select", JSON.parse(JSON.stringify(query)))
   return request({
     url,

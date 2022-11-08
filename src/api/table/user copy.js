@@ -26,94 +26,92 @@ export function logout() {
   })
 }*/
 
-export function login(data) {
-  return request({
-    url: 'libs/db/src/login.php',
-    method: 'post',
-    data
-  })
-}
+// export function login (data) {
+//   return request({
+//     url: 'libs/db/src/login.php',
+//     method: 'post',
+//     data
+//   })
+// }
 
-export function getInfo(token) {
-  return request({
-    url: 'libs/db/src/login.php',
-    method: 'get',
-    params: { token }
-  })
-}
+// export function getInfo (token) {
+//   return request({
+//     url: 'libs/db/src/login.php',
+//     method: 'get',
+//     params: { token }
+//   })
+// }
 
-export function logout() {
-  const data = { 'logout': 'true' }
-  return request({
-    url: 'libs/db/src/login.php',
-    method: 'post',
-    data
-  })
-}
+// export function logout () {
+//   const data = { 'logout': 'true' }
+//   return request({
+//     url: 'libs/db/src/login.php',
+//     method: 'post',
+//     data
+//   })
+// }
 
-export function fetchList(query) {
-  if (query.sort === '+id') {
+export function paging(query) {
+  console.log('???')
+  if (query.order) {
     return request({
-      url: 'libs/db/src/expection.php',
+      url: 'db/userinfo',
       method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: {
+        'select': ['*'],
         'offset': (query.page - 1) * query.limit,
         'limit': query.limit,
-        'orderby': [{ 'field': 'id', 'order': 'ASC' }]
-      }
-    })
-  } else if (query.sort === '-id') {
-    return request({
-      url: 'libs/db/src/expection.php',
-      method: 'post',
-      data: {
-        'offset': (query.page - 1) * query.limit,
-        'limit': query.limit,
-        'orderby': [{ 'field': 'id', 'order': 'DESC' }]
+        'orderby': [
+          {
+            'field': query.field,
+            'order': query.order
+          }
+        ]
       }
     })
   } else {
     return request({
-      url: 'libs/db/src/expection.php',
+      url: 'db/userinfo',
       method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       data: {
+        'select': ['*'],
         'offset': (query.page - 1) * query.limit,
         'limit': query.limit,
-        'orderby': []
+        'orderby': [
+          {
+            'field': 'updatetime',
+            'order': 'DESC'
+          }
+        ]
       }
     })
   }
 }
 
-export function fetchUser(id) {
+export function save(data) {
   return request({
-    url: 'libs/db/src/expection.php',
-    method: 'get',
-    params: { id }
-  })
-}
-
-export function createUser(data) {
-  return request({
-    url: 'libs/db/src/expection.php',
-    method: 'post',
+    url: 'db/userinfo',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'put',
     data
   })
 }
 
-export function updateUser(data) {
+export function del(data) {
   return request({
-    url: 'libs/db/src/expection.php',
-    method: 'post',
-    data
-  })
-}
-
-export function deleteUser(data) {
-  return request({
-    url: 'libs/db/src/expection.php',
+    url: 'db/userinfo',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     method: 'delete',
     data
   })
 }
-

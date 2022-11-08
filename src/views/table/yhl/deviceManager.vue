@@ -131,36 +131,6 @@
         :page-size="listQuery.pageSize"
         @pagination="pagination"
       />
-      <el-tree
-        :data="treeData"
-        node-key="id"
-        :props="defaultProps"
-        :expand-on-click-node="false"
-        :default-expand-all="false"
-        :highlight-current="true"
-        :default-expanded-keys="expandedKeys"
-        :draggable="true"
-        :allow-drop="!allowDrop"
-        :allow-drag="!allowDrag"
-        @node-click="nodeClick"
-        @node-drag-start="handleDragStart"
-        @node-drag-enter="handleDragEnter"
-        @node-drag-leave="handleDragLeave"
-        @node-drag-over="handleDragOver"
-        @node-drag-end="handleDragEnd"
-        @node-drop="handleDrop"
-        @node-expand="nodeExpand"
-        @node-collapse="nodeCollapse"
-      >
-        <template slot-scope="{ node, data }">
-          <span :style="{'font-size':'12px','color':data.hidden?'red':'green'}">
-            <i v-if="data.meta&&data.meta.icon&&data.meta.icon.includes('el-icon')" :class="[data.meta.icon,'sub-el-icon']" />
-            <svg-icon v-else-if="data.meta&&data.meta.icon" :icon-class="data.meta.icon" />
-            &emsp;
-            <span>{{ node.label }}</span>
-          </span>
-        </template>
-      </el-tree>
     </div>
     <!-- 新增窗口 -->
     <div
@@ -193,10 +163,70 @@
           <el-input v-model="addData.uuid" />
         </el-form-item>
         <el-form-item
-          label="menu"
-          prop="menu"
+          label="device_name"
+          prop="device_name"
         >
-          <el-input v-model="addData.menu" />
+          <el-input v-model="addData.device_name" />
+        </el-form-item>
+        <el-form-item
+          label="device_type"
+          prop="device_type"
+        >
+          <el-input v-model="addData.device_type" />
+        </el-form-item>
+        <el-form-item
+          label="lng"
+          prop="lng"
+        >
+          <el-input v-model="addData.lng" />
+        </el-form-item>
+        <el-form-item
+          label="lat"
+          prop="lat"
+        >
+          <el-input v-model="addData.lat" />
+        </el-form-item>
+        <el-form-item
+          label="altitude"
+          prop="altitude"
+        >
+          <el-input v-model="addData.altitude" />
+        </el-form-item>
+        <el-form-item
+          label="height"
+          prop="height"
+        >
+          <el-input v-model="addData.height" />
+        </el-form-item>
+        <el-form-item
+          label="data_path"
+          prop="data_path"
+        >
+          <el-input v-model="addData.data_path" />
+        </el-form-item>
+        <el-form-item
+          label="color"
+          prop="color"
+        >
+          <el-input v-model="addData.color" />
+        </el-form-item>
+        <el-form-item
+          label="status"
+          prop="status"
+        >
+          <el-input v-model="addData.status" />
+        </el-form-item>
+        <el-form-item
+          label="speed"
+          prop="speed"
+        >
+          <el-input v-model="addData.speed" />
+        </el-form-item>
+        <el-form-item
+          label="orientation"
+          prop="orientation"
+        >
+          <el-input v-model="addData.orientation" />
         </el-form-item>
         <el-form-item
           label="createtime"
@@ -260,10 +290,70 @@
           <el-input v-model="editData.uuid" />
         </el-form-item>
         <el-form-item
-          label="menu"
-          prop="menu"
+          label="device_name"
+          prop="device_name"
         >
-          <div ref="editor" style="width:100%;height:150px;border-radius:16px;border:1px solid #2b2b2b;" />
+          <el-input v-model="editData.device_name" />
+        </el-form-item>
+        <el-form-item
+          label="device_type"
+          prop="device_type"
+        >
+          <el-input v-model="editData.device_type" />
+        </el-form-item>
+        <el-form-item
+          label="lng"
+          prop="lng"
+        >
+          <el-input v-model="editData.lng" />
+        </el-form-item>
+        <el-form-item
+          label="lat"
+          prop="lat"
+        >
+          <el-input v-model="editData.lat" />
+        </el-form-item>
+        <el-form-item
+          label="altiude"
+          prop="altiude"
+        >
+          <el-input v-model="editData.altitude" />
+        </el-form-item>
+        <el-form-item
+          label="height"
+          prop="height"
+        >
+          <el-input v-model="editData.height" />
+        </el-form-item>
+        <el-form-item
+          label="data_path"
+          prop="data_path"
+        >
+          <el-input v-model="editData.data_path" />
+        </el-form-item>
+        <el-form-item
+          label="color"
+          prop="color"
+        >
+          <el-input v-model="editData.color" />
+        </el-form-item>
+        <el-form-item
+          label="status"
+          prop="status"
+        >
+          <el-input v-model="editData.status" />
+        </el-form-item>
+        <el-form-item
+          label="speed"
+          prop="speed"
+        >
+          <el-input v-model="editData.speed" />
+        </el-form-item>
+        <el-form-item
+          label="orientation"
+          prop="orientation"
+        >
+          <el-input v-model="editData.orientation" />
         </el-form-item>
         <el-form-item label="updatetime">
           <el-date-picker
@@ -301,7 +391,17 @@
       <el-descriptions :column="1">
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="menu">{{ detailData.menu }}</el-descriptions-item>
+        <el-descriptions-item label="device_name">{{ detailData.device_name }}</el-descriptions-item>
+        <el-descriptions-item label="device_type">{{ detailData.device_type }}</el-descriptions-item>
+        <el-descriptions-item label="lng">{{ detailData.lng }}</el-descriptions-item>
+        <el-descriptions-item label="lat">{{ detailData.lat }}</el-descriptions-item>
+        <el-descriptions-item label="altitude">{{ detailData.altitude }}</el-descriptions-item>
+        <el-descriptions-item label="height">{{ detailData.height }}</el-descriptions-item>
+        <el-descriptions-item label="data_path">{{ detailData.data_path }}</el-descriptions-item>
+        <el-descriptions-item label="color">{{ detailData.color }}</el-descriptions-item>
+        <el-descriptions-item label="status">{{ detailData.status }}</el-descriptions-item>
+        <el-descriptions-item label="speed">{{ detailData.speed }}</el-descriptions-item>
+        <el-descriptions-item label="orientation">{{ detailData.orientation }}</el-descriptions-item>
         <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
         <el-descriptions-item label="updatetime">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
@@ -315,14 +415,14 @@
 
 <script>
 // eslint-disable-next-line
-import { insert, del, update, select } from '/src/api/table/menu'
+import { insert, del, update, select } from '/src/api/table/device'
 // 过滤表单模块
 import filterForm from './components/filterForm.vue'
 // 表格组件
 import tableModel from './components/tableModel.vue'
 // 分页组件
 import Pagination from './components/pagination.vue'
-import { getRoutes, updateRoutes } from '@/api/role_mock'
+import { getRoutes } from '@/api/role_mock'
 
 export default {
   // name: "User",
@@ -343,9 +443,7 @@ export default {
       }
     }
     return {
-      expandedKeys: JSON.parse(localStorage.getItem('el-tree-expandedKeys')) || [],
       searchValue: '',
-      editor: null,
       loading: true,
       detailData: [],
       orgImgs: [],
@@ -378,11 +476,95 @@ export default {
           sortable: 'custom'
         },
         {
-          prop: 'menu',
-          label: 'menu',
+          prop: 'device_name',
+          label: 'device_name',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
+        },
+        {
+          prop: 'device_type',
+          label: 'device_type',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'lng',
+          label: 'lng',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'lng',
+          label: 'lng',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'lat',
+          label: 'lat',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'lat',
+          label: 'lat',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'altitude',
+          label: 'altitude',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'height',
+          label: 'height',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'data_path',
+          label: 'data_path',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'color',
+          label: 'color',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'status',
+          label: 'status',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'speed',
+          label: 'speed',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
+          prop: 'orientation',
+          label: 'orientation',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
         },
         {
           prop: 'createtime',
@@ -403,7 +585,6 @@ export default {
       // 新增数据
       addDataDefault: {
         uuid: null,
-        menu: null,
         createtime: new Date().Format('yyyy-MM-dd HH:mm:ss'),
         updatetime: new Date().Format('yyyy-MM-dd HH:mm:ss')
       },
@@ -470,12 +651,7 @@ export default {
       // 点击编辑获取的已上传的图片
       picArr: [],
       // 所在城市代码
-      updatetimeCode: null,
-      treeData: [],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      }
+      updatetimeCode: null
     }
   },
   created() {
@@ -488,37 +664,6 @@ export default {
     this.fileCatalog.path = date.getFullYear() + '/' + nowMonth + '/' + date.getDate()
   },
   mounted() {
-    getRoutes().then(res => {
-      console.log(res.data)
-      function test(list) {
-        list.map((v, k) => {
-          list[k].label = v.path
-          list[k].id = v.uuid
-          if (v.children instanceof Array) {
-            test(v.children)
-          }
-        })
-      }
-      test(res.data)
-      this.treeData = res.data
-    })
-
-    ace.config.set('basePath', '/libs/ace-builds-master/src/')
-    // var beautiful = ace.require('ace/ext/beautify')
-    ace.require('ace/ext/language_tools')
-    this.editor = ace.edit(this.$refs['editor'])
-    ace.require('ace/ext/settings_menu').init(this.editor)
-    this.editor.getSession().setMode({ path: 'ace/mode/javascript', inline: true })
-    this.editor.setPrintMarginColumn(80)
-    this.editor.setShowPrintMargin(false)
-    this.editor.setTheme('ace/theme/monokai')
-    this.editor.getSession().setTabSize(2)
-    // enable autocompletion and snippets
-    this.editor.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true
-    })
     this.selectList(this.listQuery)
   },
   activated() {
@@ -651,6 +796,7 @@ export default {
     },
     // 增
     insertList(data) {
+      console.log(data)
       // 表单校验
       this.$refs.addForm.validate(async valid => {
         if (valid) {
@@ -729,8 +875,6 @@ export default {
     },
     // 打开编辑窗口
     editPageOpen() {
-      console.log(new Function(this.editData.menu || '')())
-      this.editor.getSession().setValue(this.editData.menu || '')
       this.$refs.content.style.display = 'none'
       this.$refs.editPage.style.display = 'block'
     },
@@ -760,7 +904,6 @@ export default {
         if (valid) {
           const tmpEditData = Object.assign({}, this.editData)
           delete tmpEditData.updatetime
-          tmpEditData.menu = this.editor.getSession().getValue()
           const res = await update(this.formatDataBase(tmpEditData))
           if (res.data.code && res.data.code === 50014) {
             this.$message({
@@ -939,47 +1082,7 @@ export default {
         })
         .catch(_ => { })
     },
-    nodeExpand(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      this.expandedKeys.push(obj.id)
-      localStorage.setItem('el-tree-expandedKeys', JSON.stringify(this.expandedKeys))
-    },
-    nodeCollapse(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      localStorage.setItem('el-tree-expandedKeys', JSON.stringify(this.expandedKeys))
-    },
-    nodeClick(obj, node, root) {
-      this.searchValue = obj.uuid
-      this.searchList(this.searchValue)
-    },
     nodeContextmenu(event, obj, node, root) {
-    },
-    handleDragStart(node, ev) {
-      console.log('drag start', node)
-    },
-    handleDragEnter(draggingNode, dropNode, ev) {
-      console.log('tree drag enter: ', dropNode.label)
-    },
-    handleDragLeave(draggingNode, dropNode, ev) {
-      console.log('tree drag leave: ', dropNode.label)
-    },
-    handleDragOver(draggingNode, dropNode, ev) {
-      console.log('tree drag over: ', dropNode.label)
-    },
-    handleDragEnd(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drag end: ', dropNode && dropNode.label, dropType)
-      updateRoutes(this.treeData)
-    },
-    handleDrop(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drop: ', dropNode.label, dropType)
     },
     allowDrop(draggingNode, dropNode, type) {
       // if (dropNode.data.label === '二级 3-1') {

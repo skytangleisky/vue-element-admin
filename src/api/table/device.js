@@ -1,5 +1,5 @@
 import request from '@/utils/request3'
-const url = 'db/userinfo'
+const url = 'db/device'
 const headers = {
   'Content-Type': 'application/json'
 }

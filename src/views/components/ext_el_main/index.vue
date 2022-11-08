@@ -63,13 +63,13 @@
 <script>
 // import '//at.alicdn.com/t/font_2524885_sglv1aoqywb.js'
 import datas from '/src/views/table/data'
-import users from '/src/views/table/tanglei'
+import users from '/src/views/table/userManager'
 import { baseURL } from '@/utils/request2.js'
 
 import { fetchList } from '@/api/data.js'
 export default {
   components: {
-    'table-users': users,
+    'tableUsers': users,
     'table-datas': datas
   },
   data() {

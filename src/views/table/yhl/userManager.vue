@@ -131,36 +131,6 @@
         :page-size="listQuery.pageSize"
         @pagination="pagination"
       />
-      <el-tree
-        :data="treeData"
-        node-key="id"
-        :props="defaultProps"
-        :expand-on-click-node="false"
-        :default-expand-all="false"
-        :highlight-current="true"
-        :default-expanded-keys="expandedKeys"
-        :draggable="true"
-        :allow-drop="!allowDrop"
-        :allow-drag="!allowDrag"
-        @node-click="nodeClick"
-        @node-drag-start="handleDragStart"
-        @node-drag-enter="handleDragEnter"
-        @node-drag-leave="handleDragLeave"
-        @node-drag-over="handleDragOver"
-        @node-drag-end="handleDragEnd"
-        @node-drop="handleDrop"
-        @node-expand="nodeExpand"
-        @node-collapse="nodeCollapse"
-      >
-        <template slot-scope="{ node, data }">
-          <span :style="{'font-size':'12px','color':data.hidden?'red':'green'}">
-            <i v-if="data.meta&&data.meta.icon&&data.meta.icon.includes('el-icon')" :class="[data.meta.icon,'sub-el-icon']" />
-            <svg-icon v-else-if="data.meta&&data.meta.icon" :icon-class="data.meta.icon" />
-            &emsp;
-            <span>{{ node.label }}</span>
-          </span>
-        </template>
-      </el-tree>
     </div>
     <!-- 新增窗口 -->
     <div
@@ -193,10 +163,76 @@
           <el-input v-model="addData.uuid" />
         </el-form-item>
         <el-form-item
-          label="menu"
-          prop="menu"
+          label="username"
+          prop="username"
         >
-          <el-input v-model="addData.menu" />
+          <el-input v-model="addData.username" />
+        </el-form-item>
+        <el-form-item
+          label="password"
+          prop="password"
+        >
+          <el-input v-model="addData.password" />
+        </el-form-item>
+        <el-form-item
+          label="nickname"
+          prop="nickname"
+        >
+          <el-input v-model="addData.nickname" />
+        </el-form-item>
+        <el-form-item
+          label="login_type"
+          prop="login_type"
+        >
+          <el-input v-model="addData.login_type" />
+        </el-form-item>
+        <el-form-item
+          label="email"
+          prop="email"
+        >
+          <el-input v-model="addData.email" />
+        </el-form-item>
+        <el-form-item
+          label="email_verified_at"
+          prop="email_verified_at"
+        >
+          <el-input v-model="addData.email_verified_at" />
+        </el-form-item>
+        <el-form-item
+          label="two_factor_recovery_codes"
+          prop="two_factor_recovery_codes"
+        >
+          <el-input v-model="addData.two_factor_recovery_codes" />
+        </el-form-item>
+        <el-form-item
+          label="remember_token"
+          prop="remember_token"
+        >
+          <el-input v-model="addData.remember_token" />
+        </el-form-item>
+        <el-form-item
+          label="avatar"
+          prop="avatar"
+        >
+          <el-input v-model="addData.avatar" />
+        </el-form-item>
+        <el-form-item
+          label="user_path"
+          prop="user_path"
+        >
+          <el-input v-model="addData.user_path" />
+        </el-form-item>
+        <el-form-item
+          label="debug_enable"
+          prop="debug_enable"
+        >
+          <el-input v-model="addData.debug_enable" />
+        </el-form-item>
+        <el-form-item
+          label="roles"
+          prop="roles"
+        >
+          <el-input v-model="addData.roles" />
         </el-form-item>
         <el-form-item
           label="createtime"
@@ -260,10 +296,76 @@
           <el-input v-model="editData.uuid" />
         </el-form-item>
         <el-form-item
-          label="menu"
-          prop="menu"
+          label="username"
+          prop="username"
         >
-          <div ref="editor" style="width:100%;height:150px;border-radius:16px;border:1px solid #2b2b2b;" />
+          <el-input v-model="editData.username" />
+        </el-form-item>
+        <el-form-item
+          label="password"
+          prop="password"
+        >
+          <el-input v-model="editData.password" />
+        </el-form-item>
+        <el-form-item
+          label="nickname"
+          prop="nickname"
+        >
+          <el-input v-model="editData.nickname" />
+        </el-form-item>
+        <el-form-item
+          label="login_type"
+          prop="login_type"
+        >
+          <el-input v-model="editData.login_type" />
+        </el-form-item>
+        <el-form-item
+          label="altiude"
+          prop="altiude"
+        >
+          <el-input v-model="editData.email" />
+        </el-form-item>
+        <el-form-item
+          label="email_verified_at"
+          prop="email_verified_at"
+        >
+          <el-input v-model="editData.email_verified_at" />
+        </el-form-item>
+        <el-form-item
+          label="two_factor_recovery_codes"
+          prop="two_factor_recovery_codes"
+        >
+          <el-input v-model="editData.two_factor_recovery_codes" />
+        </el-form-item>
+        <el-form-item
+          label="remember_token"
+          prop="remember_token"
+        >
+          <el-input v-model="editData.remember_token" />
+        </el-form-item>
+        <el-form-item
+          label="avatar"
+          prop="avatar"
+        >
+          <el-input v-model="editData.avatar" />
+        </el-form-item>
+        <el-form-item
+          label="user_path"
+          prop="user_path"
+        >
+          <el-input v-model="editData.user_path" />
+        </el-form-item>
+        <el-form-item
+          label="debug_enable"
+          prop="debug_enable"
+        >
+          <el-input v-model="editData.debug_enable" />
+        </el-form-item>
+        <el-form-item
+          label="roles"
+          prop="roles"
+        >
+          <el-input v-model="editData.roles" />
         </el-form-item>
         <el-form-item label="updatetime">
           <el-date-picker
@@ -301,7 +403,18 @@
       <el-descriptions :column="1">
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="menu">{{ detailData.menu }}</el-descriptions-item>
+        <el-descriptions-item label="username">{{ detailData.username }}</el-descriptions-item>
+        <el-descriptions-item label="password">{{ detailData.password }}</el-descriptions-item>
+        <el-descriptions-item label="nickname">{{ detailData.nickname }}</el-descriptions-item>
+        <el-descriptions-item label="login_type">{{ detailData.login_type }}</el-descriptions-item>
+        <el-descriptions-item label="email">{{ detailData.email }}</el-descriptions-item>
+        <el-descriptions-item label="email_verified_at">{{ detailData.email_verified_at }}</el-descriptions-item>
+        <el-descriptions-item label="two_factor_recovery_codes">{{ detailData.two_factor_recovery_codes }}</el-descriptions-item>
+        <el-descriptions-item label="remember_token">{{ detailData.remember_token }}</el-descriptions-item>
+        <el-descriptions-item label="avatar">{{ detailData.avatar }}</el-descriptions-item>
+        <el-descriptions-item label="user_path">{{ detailData.user_path }}</el-descriptions-item>
+        <el-descriptions-item label="debug_enable">{{ detailData.debug_enable }}</el-descriptions-item>
+        <el-descriptions-item label="roles">{{ detailData.roles }}</el-descriptions-item>
         <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
         <el-descriptions-item label="updatetime">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
@@ -315,14 +428,14 @@
 
 <script>
 // eslint-disable-next-line
-import { insert, del, update, select } from '/src/api/table/menu'
+import { insert, del, update, select } from '/src/api/table/user'
 // 过滤表单模块
 import filterForm from './components/filterForm.vue'
 // 表格组件
 import tableModel from './components/tableModel.vue'
 // 分页组件
 import Pagination from './components/pagination.vue'
-import { getRoutes, updateRoutes } from '@/api/role_mock'
+import { getRoutes } from '@/api/role_mock'
 
 export default {
   // name: "User",
@@ -343,9 +456,7 @@ export default {
       }
     }
     return {
-      expandedKeys: JSON.parse(localStorage.getItem('el-tree-expandedKeys')) || [],
       searchValue: '',
-      editor: null,
       loading: true,
       detailData: [],
       orgImgs: [],
@@ -378,24 +489,108 @@ export default {
           sortable: 'custom'
         },
         {
-          prop: 'menu',
-          label: 'menu',
+          prop: 'username',
+          label: 'username',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
+          prop: 'password',
+          label: 'password',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'nickname',
+          label: 'nickname',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'nickname',
+          label: 'nickname',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'login_type',
+          label: 'login_type',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'email',
+          label: 'email',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'email_verified_at',
+          label: 'email_verified_at',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'two_factor_recovery_codes',
+          label: 'two_factor_recovery_codes',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'remember_token',
+          label: 'remember_token',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'avatar',
+          label: 'avatar',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'user_path',
+          label: 'user_path',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'debug_enable',
+          label: 'debug_enable',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
+          prop: 'roles',
+          label: 'roles',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: 'custom'
+        },
+        {
           prop: 'createtime',
           label: 'createtime',
           width: 200,
-          showOverflowTooltip: false,
+          showOverflowTooltip: true,
           sortable: 'custom'
         },
         {
           prop: 'updatetime',
           label: 'updatetime',
           width: 200,
-          showOverflowTooltip: false,
+          showOverflowTooltip: true,
           sortable: 'custom'
         }
       ],
@@ -403,7 +598,6 @@ export default {
       // 新增数据
       addDataDefault: {
         uuid: null,
-        menu: null,
         createtime: new Date().Format('yyyy-MM-dd HH:mm:ss'),
         updatetime: new Date().Format('yyyy-MM-dd HH:mm:ss')
       },
@@ -470,12 +664,7 @@ export default {
       // 点击编辑获取的已上传的图片
       picArr: [],
       // 所在城市代码
-      updatetimeCode: null,
-      treeData: [],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      }
+      updatetimeCode: null
     }
   },
   created() {
@@ -488,37 +677,6 @@ export default {
     this.fileCatalog.path = date.getFullYear() + '/' + nowMonth + '/' + date.getDate()
   },
   mounted() {
-    getRoutes().then(res => {
-      console.log(res.data)
-      function test(list) {
-        list.map((v, k) => {
-          list[k].label = v.path
-          list[k].id = v.uuid
-          if (v.children instanceof Array) {
-            test(v.children)
-          }
-        })
-      }
-      test(res.data)
-      this.treeData = res.data
-    })
-
-    ace.config.set('basePath', '/libs/ace-builds-master/src/')
-    // var beautiful = ace.require('ace/ext/beautify')
-    ace.require('ace/ext/language_tools')
-    this.editor = ace.edit(this.$refs['editor'])
-    ace.require('ace/ext/settings_menu').init(this.editor)
-    this.editor.getSession().setMode({ path: 'ace/mode/javascript', inline: true })
-    this.editor.setPrintMarginColumn(80)
-    this.editor.setShowPrintMargin(false)
-    this.editor.setTheme('ace/theme/monokai')
-    this.editor.getSession().setTabSize(2)
-    // enable autocompletion and snippets
-    this.editor.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true
-    })
     this.selectList(this.listQuery)
   },
   activated() {
@@ -651,6 +809,7 @@ export default {
     },
     // 增
     insertList(data) {
+      console.log(data)
       // 表单校验
       this.$refs.addForm.validate(async valid => {
         if (valid) {
@@ -729,8 +888,6 @@ export default {
     },
     // 打开编辑窗口
     editPageOpen() {
-      console.log(new Function(this.editData.menu || '')())
-      this.editor.getSession().setValue(this.editData.menu || '')
       this.$refs.content.style.display = 'none'
       this.$refs.editPage.style.display = 'block'
     },
@@ -760,7 +917,6 @@ export default {
         if (valid) {
           const tmpEditData = Object.assign({}, this.editData)
           delete tmpEditData.updatetime
-          tmpEditData.menu = this.editor.getSession().getValue()
           const res = await update(this.formatDataBase(tmpEditData))
           if (res.data.code && res.data.code === 50014) {
             this.$message({
@@ -939,47 +1095,7 @@ export default {
         })
         .catch(_ => { })
     },
-    nodeExpand(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      this.expandedKeys.push(obj.id)
-      localStorage.setItem('el-tree-expandedKeys', JSON.stringify(this.expandedKeys))
-    },
-    nodeCollapse(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      localStorage.setItem('el-tree-expandedKeys', JSON.stringify(this.expandedKeys))
-    },
-    nodeClick(obj, node, root) {
-      this.searchValue = obj.uuid
-      this.searchList(this.searchValue)
-    },
     nodeContextmenu(event, obj, node, root) {
-    },
-    handleDragStart(node, ev) {
-      console.log('drag start', node)
-    },
-    handleDragEnter(draggingNode, dropNode, ev) {
-      console.log('tree drag enter: ', dropNode.label)
-    },
-    handleDragLeave(draggingNode, dropNode, ev) {
-      console.log('tree drag leave: ', dropNode.label)
-    },
-    handleDragOver(draggingNode, dropNode, ev) {
-      console.log('tree drag over: ', dropNode.label)
-    },
-    handleDragEnd(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drag end: ', dropNode && dropNode.label, dropType)
-      updateRoutes(this.treeData)
-    },
-    handleDrop(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drop: ', dropNode.label, dropType)
     },
     allowDrop(draggingNode, dropNode, type) {
       // if (dropNode.data.label === '二级 3-1') {
