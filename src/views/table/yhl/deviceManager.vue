@@ -135,10 +135,10 @@
     <!-- 新增窗口 -->
     <div
       ref="addPage"
-      class="add-page"
+      class="add-page crud-page"
     >
       <div class="page-title">
-        新增窗口
+        新增
       </div>
       <el-form
         ref="addForm"
@@ -147,9 +147,9 @@
         :model="addData"
         :rules="addDataRules"
       >
-        <div class="title">
+        <!-- <div class="title">
           基本信息
-        </div>
+        </div> -->
         <el-form-item
           label="id"
           prop="id"
@@ -262,10 +262,10 @@
     <!-- 编辑窗口 -->
     <div
       ref="editPage"
-      class="edit-page"
+      class="edit-page crud-page"
     >
       <div class="page-title">
-        编辑窗口
+        编辑
       </div>
       <el-form
         ref="editForm"
@@ -274,9 +274,9 @@
         :model="editData"
         :rules="editDataRules"
       >
-        <div class="title">
+        <!-- <div class="title">
           基本信息
-        </div>
+        </div> -->
         <el-form-item
           label="id"
           prop="id"
@@ -383,12 +383,15 @@
     <!-- 详情窗口 -->
     <div
       ref="detailPage"
-      class="detail-page"
+      class="detail-page crud-page"
     >
       <div class="page-title">
         详情
       </div>
-      <el-descriptions :column="1">
+      <el-descriptions
+        :column="1"
+        border
+      >
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
         <el-descriptions-item label="device_name">{{ detailData.device_name }}</el-descriptions-item>
@@ -1146,81 +1149,6 @@ body {
           line-height: 28px;
         }
       }
-    }
-  }
-  .add-page,
-  .edit-page,
-  .detail-page {
-    display: none;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    .title,
-    .el-descriptions__title,
-    .page-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: @text-color;
-    }
-    .page-title {
-      font-size: 24px;
-      font-weight: 400;
-    }
-    .button {
-      display: flex;
-      justify-content: flex-end; //弹性盒子元素将向结束位置对齐
-      align-items: center; //侧轴居中
-    }
-    .el-input,
-    .el-textarea {
-      width: 50%;
-    }
-    .el-date-editor {
-      width: 220px;
-    }
-    .el-select,
-    .el-input-number,
-    .el-date-editor,
-    .el-cascader {
-      .el-input {
-        width: 100%;
-      }
-    }
-    .avatar-uploader .el-upload {
-      border: 1px dashed @border-color;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .avatar {
-      width: 178px;
-      height: 178px;
-      display: block;
-    }
-    // 图片格式
-    .orgImgs {
-      display: inline;
-      padding: 0px 4px;
-      .el-image {
-        width: 120px;
-        height: 120px;
-      }
-    }
-    .title,
-    .el-descriptions__title {
-      border-left: 4px solid @primary-color;
-      padding-left: 8px;
-    }
-    // description样式
-    .el-descriptions-item__label {
-      display: block;
-      width: 120px;
-      text-align: right;
-    }
-    .el-descriptions-item__content {
-      font-weight: 600;
     }
   }
 }
