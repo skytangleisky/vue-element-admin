@@ -2,7 +2,7 @@
 const path = require('path')
 const defaultSettings = require('./src/settings.js')
 require('events').EventEmitter.defaultMaxListeners = 0
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
@@ -46,35 +46,49 @@ module.exports = {
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         // logLevel: 'silent', // debug|silent|warn
-        target: 'http://127.0.0.1:9988', // 你请求的第三方接口
+        target: 'http://websocket.tanglei.top', // 你请求的第三方接口
         changeOrigin: true,
         pathRewrite: { // 路径重写
           ['^' + process.env.VUE_APP_BASE_API]: '' // 替换的请求地址
         }
       },
+      'qt/': {
+        target: 'http://qt.tanglei.top',
+        changeOrgin: true,
+        pathRewrite: {
+          'qt/': ''
+        }
+      },
+      'qtimage/': {
+        target: 'http://qtimage.tanglei.top',
+        changeOrgin: true,
+        pathRewrite: {
+          'qtimage/': ''
+        }
+      },
       'map/': {
-        target: 'http://127.0.0.1:8000',
+        target: 'http://192.168.0.105:8000',
         changeOrgin: true,
         pathRewrite: {
           'map/': ''
         }
       },
       'prod-mock/': {
-        target: 'http://127.0.0.1:9988',
+        target: 'http://websocket.tanglei.top',
         changeOrgin: true,
         pathRewrite: {
           'dev-mock/': ''
         }
       },
       'dev-mock/': {
-        target: 'http://127.0.0.1:9988',
+        target: 'http://websocket.tanglei.top',
         changeOrgin: true,
         pathRewrite: {
           'dev-mock/': ''
         }
       },
       'tanglei/': {
-        target: 'http://127.0.0.1:81',
+        target: 'http://192.168.0.105:81',
         changeOrgin: true,
         pathRewrite: {
           'tanglei/': ''
@@ -109,7 +123,7 @@ module.exports = {
         }
       },
       'tl/': {
-        target: 'http://127.0.0.1:9500',
+        target: 'http://192.168.0.105:9500',
         changeOrgin: true,
         pathRewrite: {
           'tl/': ''
@@ -136,7 +150,7 @@ module.exports = {
       'AMap': 'AMap'
     }
   },
-  chainWebpack(config) {
+  chainWebpack (config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
@@ -176,7 +190,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()
