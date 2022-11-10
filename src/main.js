@@ -50,8 +50,10 @@ Vue.use(Element, {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
-Vue.config.productionTip = false
+const isDebug_mode = process.env.NODE_ENV !== 'production'
+Vue.config.debug = isDebug_mode
+Vue.config.devtools = isDebug_mode
+Vue.config.productionTip = isDebug_mode
 VueAMap.initAMapApiLoader({
   key: '3f4258cd53f015306c14a758158f8d29',
   plugin: [ // 按照你的需要，引入地图的哪些功能，不需要下面这么多

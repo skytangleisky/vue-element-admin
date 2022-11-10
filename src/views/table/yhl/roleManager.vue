@@ -135,10 +135,10 @@
     <!-- 新增窗口 -->
     <div
       ref="addPage"
-      class="add-page crud-page"
+      class="add-page"
     >
       <div class="page-title">
-        新增
+        新增窗口
       </div>
       <el-form
         ref="addForm"
@@ -147,9 +147,9 @@
         :model="addData"
         :rules="addDataRules"
       >
-        <!-- <div class="title">
+        <div class="title">
           基本信息
-        </div> -->
+        </div>
         <el-form-item
           label="id"
           prop="id"
@@ -163,76 +163,28 @@
           <el-input v-model="addData.uuid" />
         </el-form-item>
         <el-form-item
-          label="username"
-          prop="username"
+          label="note"
+          prop="note"
         >
-          <el-input v-model="addData.username" />
+          <el-input v-model="addData.note" />
         </el-form-item>
         <el-form-item
-          label="password"
-          prop="password"
+          label="menus"
+          prop="menus"
         >
-          <el-input v-model="addData.password" />
+          <el-input v-model="addData.menus" />
         </el-form-item>
         <el-form-item
-          label="nickname"
-          prop="nickname"
+          label="role_name"
+          prop="role_name"
         >
-          <el-input v-model="addData.nickname" />
+          <el-input v-model="addData.role_name" />
         </el-form-item>
         <el-form-item
-          label="login_type"
-          prop="login_type"
+          label="state"
+          prop="state"
         >
-          <el-input v-model="addData.login_type" />
-        </el-form-item>
-        <el-form-item
-          label="email"
-          prop="email"
-        >
-          <el-input v-model="addData.email" />
-        </el-form-item>
-        <el-form-item
-          label="email_verified_at"
-          prop="email_verified_at"
-        >
-          <el-input v-model="addData.email_verified_at" />
-        </el-form-item>
-        <el-form-item
-          label="two_factor_recovery_codes"
-          prop="two_factor_recovery_codes"
-        >
-          <el-input v-model="addData.two_factor_recovery_codes" />
-        </el-form-item>
-        <el-form-item
-          label="remember_token"
-          prop="remember_token"
-        >
-          <el-input v-model="addData.remember_token" />
-        </el-form-item>
-        <el-form-item
-          label="avatar"
-          prop="avatar"
-        >
-          <el-input v-model="addData.avatar" />
-        </el-form-item>
-        <el-form-item
-          label="user_path"
-          prop="user_path"
-        >
-          <el-input v-model="addData.user_path" />
-        </el-form-item>
-        <el-form-item
-          label="debug_enable"
-          prop="debug_enable"
-        >
-          <el-input v-model="addData.debug_enable" />
-        </el-form-item>
-        <el-form-item
-          label="roles"
-          prop="roles"
-        >
-          <role-select v-model="addData.roles" />
+          <el-input v-model="addData.state" />
         </el-form-item>
         <el-form-item
           label="createtime"
@@ -268,10 +220,10 @@
     <!-- 编辑窗口 -->
     <div
       ref="editPage"
-      class="edit-page crud-page"
+      class="edit-page"
     >
       <div class="page-title">
-        编辑
+        编辑窗口
       </div>
       <el-form
         ref="editForm"
@@ -280,9 +232,9 @@
         :model="editData"
         :rules="editDataRules"
       >
-        <!-- <div class="title">
+        <div class="title">
           基本信息
-        </div> -->
+        </div>
         <el-form-item
           label="id"
           prop="id"
@@ -296,76 +248,28 @@
           <el-input v-model="editData.uuid" />
         </el-form-item>
         <el-form-item
-          label="username"
-          prop="username"
+          label="note"
+          prop="note"
         >
-          <el-input v-model="editData.username" />
+          <el-input v-model="editData.note" />
         </el-form-item>
         <el-form-item
-          label="password"
-          prop="password"
+          label="menus"
+          prop="menus"
         >
-          <el-input v-model="editData.password" />
+          <el-input v-model="editData.menus" />
         </el-form-item>
         <el-form-item
-          label="nickname"
-          prop="nickname"
+          label="role_name"
+          prop="role_name"
         >
-          <el-input v-model="editData.nickname" />
+          <el-input v-model="editData.role_name" />
         </el-form-item>
         <el-form-item
-          label="login_type"
-          prop="login_type"
+          label="state"
+          prop="state"
         >
-          <el-input v-model="editData.login_type" />
-        </el-form-item>
-        <el-form-item
-          label="altiude"
-          prop="altiude"
-        >
-          <el-input v-model="editData.email" />
-        </el-form-item>
-        <el-form-item
-          label="email_verified_at"
-          prop="email_verified_at"
-        >
-          <el-input v-model="editData.email_verified_at" />
-        </el-form-item>
-        <el-form-item
-          label="two_factor_recovery_codes"
-          prop="two_factor_recovery_codes"
-        >
-          <el-input v-model="editData.two_factor_recovery_codes" />
-        </el-form-item>
-        <el-form-item
-          label="remember_token"
-          prop="remember_token"
-        >
-          <el-input v-model="editData.remember_token" />
-        </el-form-item>
-        <el-form-item
-          label="avatar"
-          prop="avatar"
-        >
-          <el-input v-model="editData.avatar" />
-        </el-form-item>
-        <el-form-item
-          label="user_path"
-          prop="user_path"
-        >
-          <el-input v-model="editData.user_path" />
-        </el-form-item>
-        <el-form-item
-          label="debug_enable"
-          prop="debug_enable"
-        >
-          <el-input v-model="editData.debug_enable" />
-        </el-form-item>
-        <el-form-item
-          label="roles"
-          prop="roles"
-        >
-          <role-select v-model="editData.roles" />
+          <el-input v-model="editData.state" />
         </el-form-item>
         <el-form-item label="updatetime">
           <el-date-picker
@@ -395,29 +299,18 @@
     <!-- 详情窗口 -->
     <div
       ref="detailPage"
-      class="detail-page crud-page"
+      class="detail-page"
     >
       <div class="page-title">
         详情
       </div>
-      <el-descriptions
-        :column="1"
-        border
-      >
+      <el-descriptions :column="1">
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="username">{{ detailData.username }}</el-descriptions-item>
-        <el-descriptions-item label="password">{{ detailData.password }}</el-descriptions-item>
-        <el-descriptions-item label="nickname">{{ detailData.nickname }}</el-descriptions-item>
-        <el-descriptions-item label="login_type">{{ detailData.login_type }}</el-descriptions-item>
-        <el-descriptions-item label="email">{{ detailData.email }}</el-descriptions-item>
-        <el-descriptions-item label="email_verified_at">{{ detailData.email_verified_at }}</el-descriptions-item>
-        <el-descriptions-item label="two_factor_recovery_codes">{{ detailData.two_factor_recovery_codes }}</el-descriptions-item>
-        <el-descriptions-item label="remember_token">{{ detailData.remember_token }}</el-descriptions-item>
-        <el-descriptions-item label="avatar">{{ detailData.avatar }}</el-descriptions-item>
-        <el-descriptions-item label="user_path">{{ detailData.user_path }}</el-descriptions-item>
-        <el-descriptions-item label="debug_enable">{{ detailData.debug_enable }}</el-descriptions-item>
-        <el-descriptions-item label="roles">{{ detailData.roles }}</el-descriptions-item>
+        <el-descriptions-item label="note">{{ detailData.note }}</el-descriptions-item>
+        <el-descriptions-item label="note">{{ detailData.menus }}</el-descriptions-item>
+        <el-descriptions-item label="role_name">{{ detailData.role_name }}</el-descriptions-item>
+        <el-descriptions-item label="state">{{ detailData.state }}</el-descriptions-item>
         <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
         <el-descriptions-item label="updatetime">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
@@ -431,7 +324,7 @@
 
 <script>
 // eslint-disable-next-line
-import { insert, del, update, select } from '/src/api/table/user'
+import { insert, del, update, select } from '/src/api/table/role'
 // 过滤表单模块
 import filterForm from './components/filterForm.vue'
 // 表格组件
@@ -439,12 +332,11 @@ import tableModel from './components/tableModel.vue'
 // 分页组件
 import Pagination from './components/pagination.vue'
 import { getRoutes } from '@/api/role_mock'
-import roleSelect from './components/roleSelect.vue'
 
 export default {
   // name: "User",
   components: {
-    filterForm, tableModel, Pagination, roleSelect
+    filterForm, tableModel, Pagination
   },
   data() {
     var idValidator = async(rule, value, callback) => {
@@ -493,88 +385,32 @@ export default {
           sortable: 'custom'
         },
         {
-          prop: 'username',
-          label: 'username',
+          prop: 'note',
+          label: 'note',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
-          prop: 'password',
-          label: 'password',
+          prop: 'menus',
+          label: 'menus',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
-          prop: 'nickname',
-          label: 'nickname',
+          prop: 'role_name',
+          label: 'role_name',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
-          prop: 'login_type',
-          label: 'login_type',
+          prop: 'state',
+          label: 'state',
           width: 200,
           showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'email',
-          label: 'email',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'email_verified_at',
-          label: 'email_verified_at',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'two_factor_recovery_codes',
-          label: 'two_factor_recovery_codes',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'remember_token',
-          label: 'remember_token',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'avatar',
-          label: 'avatar',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'user_path',
-          label: 'user_path',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'debug_enable',
-          label: 'debug_enable',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'roles',
-          label: 'roles',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
+          sortable: false
         },
         {
           prop: 'createtime',
@@ -906,7 +742,6 @@ export default {
       this.editData = Object.assign({}, data)
       this.editPageOpen()
     },
-
     // 改
     updateList() {
       // 表单校验
@@ -1158,8 +993,80 @@ body {
       }
     }
   }
-}
-.role-select {
-  width: 50%;
+  .add-page,
+  .edit-page,
+  .detail-page {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    .title,
+    .el-descriptions__title,
+    .page-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: @text-color;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 400;
+    }
+    .button {
+      display: flex;
+      justify-content: flex-end; //弹性盒子元素将向结束位置对齐
+      align-items: center; //侧轴居中
+    }
+    .el-input,
+    .el-textarea {
+      width: 50%;
+    }
+    .el-date-editor {
+      width: 220px;
+    }
+    .el-select,
+    .el-input-number,
+    .el-date-editor,
+    .el-cascader {
+      .el-input {
+        width: 100%;
+      }
+    }
+    .avatar-uploader .el-upload {
+      border: 1px dashed @border-color;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar {
+      width: 178px;
+      height: 178px;
+      display: block;
+    }
+    // 图片格式
+    .orgImgs {
+      display: inline;
+      padding: 0px 4px;
+      .el-image {
+        width: 120px;
+        height: 120px;
+      }
+    }
+    .title,
+    .el-descriptions__title {
+      border-left: 4px solid @primary-color;
+      padding-left: 8px;
+    }
+    // description样式
+    .el-descriptions-item__label {
+      display: block;
+      width: 120px;
+      text-align: right;
+    }
+    .el-descriptions-item__content {
+      font-weight: 600;
+    }
+  }
 }
 </style>
