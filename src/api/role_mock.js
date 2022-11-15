@@ -1,9 +1,10 @@
 import request from '@/utils/request_mock'
 
-export function getRoutes() {
+export function getRoutes(data) {
   return request({
     url: '/vue-element-admin/routes',
-    method: 'get'
+    method: 'post',
+    data
   })
 }
 

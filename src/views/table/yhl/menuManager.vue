@@ -131,42 +131,6 @@
         :page-size="listQuery.pageSize"
         @pagination="pagination"
       />
-      <el-tree
-        :data="treeData"
-        node-key="id"
-        :props="defaultProps"
-        :expand-on-click-node="false"
-        :default-expand-all="false"
-        :highlight-current="true"
-        :default-expanded-keys="expandedKeys"
-        :draggable="true"
-        :allow-drop="!allowDrop"
-        :allow-drag="!allowDrag"
-        @node-click="nodeClick"
-        @node-drag-start="handleDragStart"
-        @node-drag-enter="handleDragEnter"
-        @node-drag-leave="handleDragLeave"
-        @node-drag-over="handleDragOver"
-        @node-drag-end="handleDragEnd"
-        @node-drop="handleDrop"
-        @node-expand="nodeExpand"
-        @node-collapse="nodeCollapse"
-      >
-        <template slot-scope="{ node, data }">
-          <span :style="{'font-size':'12px','color':data.hidden?'red':'green'}">
-            <i
-              v-if="data.meta&&data.meta.icon&&data.meta.icon.includes('el-icon')"
-              :class="[data.meta.icon,'sub-el-icon']"
-            />
-            <svg-icon
-              v-else-if="data.meta&&data.meta.icon"
-              :icon-class="data.meta.icon"
-            />
-            &emsp;
-            <span>{{ node.label }}</span>
-          </span>
-        </template>
-      </el-tree>
     </div>
     <!-- 新增窗口 -->
     <div
@@ -334,7 +298,6 @@ import filterForm from './components/filterForm.vue'
 import tableModel from './components/tableModel.vue'
 // 分页组件
 import Pagination from './components/pagination.vue'
-import { getRoutes, updateRoutes } from '@/api/role_mock'
 
 export default {
   // name: "User",
@@ -355,7 +318,6 @@ export default {
       }
     }
     return {
-      expandedKeys: JSON.parse(localStorage.getItem('el-tree-expandedKeys')) || [],
       searchValue: '',
       editor: null,
       loading: true,
@@ -482,12 +444,7 @@ export default {
       // 点击编辑获取的已上传的图片
       picArr: [],
       // 所在城市代码
-      updatetimeCode: null,
-      treeData: [],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      }
+      updatetimeCode: null
     }
   },
   created() {
@@ -500,21 +457,6 @@ export default {
     this.fileCatalog.path = date.getFullYear() + '/' + nowMonth + '/' + date.getDate()
   },
   mounted() {
-    getRoutes().then(res => {
-      console.log(res.data)
-      function test(list) {
-        list.map((v, k) => {
-          list[k].label = v.path
-          list[k].id = v.uuid
-          if (v.children instanceof Array) {
-            test(v.children)
-          }
-        })
-      }
-      test(res.data)
-      this.treeData = res.data
-    })
-
     ace.config.set('basePath', '/libs/ace-builds-master/src/')
     // var beautiful = ace.require('ace/ext/beautify')
     ace.require('ace/ext/language_tools')
@@ -741,8 +683,8 @@ export default {
     },
     // 打开编辑窗口
     editPageOpen() {
-      console.log(new Function(this.editData.menu || '')())
-      this.editor.getSession().setValue(this.editData.menu || '')
+      // console.log(new Function(this.editData.menu || 'return {}')())
+      this.editor.getSession().setValue(this.editData.menu || 'return {}')
       this.$refs.content.style.display = 'none'
       this.$refs.editPage.style.display = 'block'
     },
@@ -786,18 +728,6 @@ export default {
                 type: 'success'
               })
               this.selectList(this.listQuery)
-              getRoutes().then(res => {
-                function test(list) {
-                  list.map((v, k) => {
-                    list[k].label = v.path
-                    if (v.children instanceof Array) {
-                      test(v.children)
-                    }
-                  })
-                }
-                test(res.data)
-                this.treeData = res.data
-              })
             } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
               this.$message({
                 message: '数据未修改',
@@ -950,58 +880,6 @@ export default {
           done()
         })
         .catch(_ => { })
-    },
-    nodeExpand(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      this.expandedKeys.push(obj.id)
-      localStorage.setItem('el-tree-expandedKeys', JSON.stringify(this.expandedKeys))
-    },
-    nodeCollapse(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      localStorage.setItem('el-tree-expandedKeys', JSON.stringify(this.expandedKeys))
-    },
-    nodeClick(obj, node, root) {
-      this.searchValue = obj.uuid
-      this.searchList(this.searchValue)
-    },
-    nodeContextmenu(event, obj, node, root) {
-    },
-    handleDragStart(node, ev) {
-      console.log('drag start', node)
-    },
-    handleDragEnter(draggingNode, dropNode, ev) {
-      console.log('tree drag enter: ', dropNode.label)
-    },
-    handleDragLeave(draggingNode, dropNode, ev) {
-      console.log('tree drag leave: ', dropNode.label)
-    },
-    handleDragOver(draggingNode, dropNode, ev) {
-      console.log('tree drag over: ', dropNode.label)
-    },
-    handleDragEnd(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drag end: ', dropNode && dropNode.label, dropType)
-      updateRoutes(this.treeData)
-    },
-    handleDrop(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drop: ', dropNode.label, dropType)
-    },
-    allowDrop(draggingNode, dropNode, type) {
-      // if (dropNode.data.label === '二级 3-1') {
-      //   return type !== 'inner'
-      // } else {
-      //   return true
-      // }
-    },
-    allowDrag(draggingNode) {
-      // return draggingNode.data.label.indexOf('三级 3-2-2') === -1
     }
   }
 }

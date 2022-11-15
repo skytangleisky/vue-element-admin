@@ -257,7 +257,8 @@
           label="menus"
           prop="menus"
         >
-          <el-input v-model="editData.menus" />
+          <!-- <el-input v-model="editData.menus" /> -->
+          <menus-tree v-model="editData.menus" />
         </el-form-item>
         <el-form-item
           label="role_name"
@@ -311,7 +312,7 @@
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
         <el-descriptions-item label="note">{{ detailData.note }}</el-descriptions-item>
-        <el-descriptions-item label="note">{{ detailData.menus }}</el-descriptions-item>
+        <el-descriptions-item label="menus">{{ detailData.menus }}</el-descriptions-item>
         <el-descriptions-item label="role_name">{{ detailData.role_name }}</el-descriptions-item>
         <el-descriptions-item label="state">{{ detailData.state }}</el-descriptions-item>
         <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
@@ -334,12 +335,12 @@ import filterForm from './components/filterForm.vue'
 import tableModel from './components/tableModel.vue'
 // 分页组件
 import Pagination from './components/pagination.vue'
-import { getRoutes } from '@/api/role_mock'
+import menusTree from './components/menusTree.vue'
 
 export default {
   // name: "User",
   components: {
-    filterForm, tableModel, Pagination
+    filterForm, tableModel, Pagination, menusTree
   },
   data() {
     var idValidator = async(rule, value, callback) => {
@@ -753,30 +754,19 @@ export default {
           const tmpEditData = Object.assign({}, this.editData)
           delete tmpEditData.updatetime
           const res = await update(this.formatDataBase(tmpEditData))
+          console.log(res)
           if (res.data.code && res.data.code === 50014) {
             this.$message({
               message: res.data.err[0].reason.errno + ' - ' + res.data.err[0].reason.sqlMessage,
               type: 'error'
             })
           } else {
-            if (res.data.results[0].affectedRows === 2 && res.data.results[0].insertId > 0) {
+            if (res.data.results[0].affectedRows === 2 /* && res.data.results[0].insertId > 0*/) { // 如果修改的是唯一索引，insertId=0，否则insertId>0
               this.$message({
                 message: '修改成功',
                 type: 'success'
               })
               this.selectList(this.listQuery)
-              getRoutes().then(res => {
-                function test(list) {
-                  list.map((v, k) => {
-                    list[k].label = v.path
-                    if (v.children instanceof Array) {
-                      test(v.children)
-                    }
-                  })
-                }
-                test(res.data)
-                this.treeData = res.data
-              })
             } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
               this.$message({
                 message: '数据未修改',

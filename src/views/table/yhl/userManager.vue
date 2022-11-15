@@ -438,7 +438,6 @@ import filterForm from './components/filterForm.vue'
 import tableModel from './components/tableModel.vue'
 // 分页组件
 import Pagination from './components/pagination.vue'
-import { getRoutes } from '@/api/role_mock'
 import roleSelect from './components/roleSelect.vue'
 
 export default {
@@ -927,18 +926,6 @@ export default {
                 type: 'success'
               })
               this.selectList(this.listQuery)
-              getRoutes().then(res => {
-                function test(list) {
-                  list.map((v, k) => {
-                    list[k].label = v.path
-                    if (v.children instanceof Array) {
-                      test(v.children)
-                    }
-                  })
-                }
-                test(res.data)
-                this.treeData = res.data
-              })
             } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
               this.$message({
                 message: '数据未修改',
