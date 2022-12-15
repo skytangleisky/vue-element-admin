@@ -1,7 +1,7 @@
 <template>
   <el-tree
+    ref="tree"
     :data="treeData"
-    node-key="id"
     :props="defaultProps"
     :expand-on-click-node="false"
     :default-expand-all="false"
@@ -34,6 +34,7 @@
         <span>{{ node.label }}&emsp;</span><span style="color:black;border:1px solid grey;background:orange;border-radius:4px;">{{ data.uuid }}</span>
         &emsp;
         <el-button v-clipboard:copy="data.uuid" v-clipboard:success="clipboardSuccess" v-clipboard:error="clipboardError" size="mini" round type="primary" icon="el-icon-document" style="padding:3px 6px" />
+        <el-button size="mini" round type="primary" icon="el-icon-delete" style="padding:3px 6px" @click="delClick(node)" />
       </span>
     </template>
   </el-tree>
@@ -85,7 +86,6 @@ export default {
     value: {
       immediate: true,
       async handler(newVal, oldVal) {
-        this.treeData = []
         const routeIndex = new Function(newVal || 'return []')() // 路由索引
         const { results } = (await select({})).data// 路由菜单
         function test(list) { // 将路由索引和路由菜单关联成索引菜单
@@ -102,11 +102,17 @@ export default {
           })
         }
         test(routeIndex)
-
+        const where = []
         function test2(list) { // 将路由菜单和树形控件对应
           list.map((v, k) => {
             list[k].label = v.path
             list[k].id = v.uuid
+            where.push({
+              relation: 'AND',
+              field: 'uuid',
+              relationship: '!=',
+              condition: v.uuid
+            })
             if (v.children instanceof Array) {
               test2(v.children)
             }
@@ -114,12 +120,17 @@ export default {
         }
         test2(routeIndex)
         this.treeData = routeIndex
+        const results2 = (await select({ where })).data.results
+        console.log(results2)
       }
     }
   },
-  async mounted() {
-  },
+  async mounted() {},
   methods: {
+    delClick(node) {
+      this.$refs.tree.remove(node)
+      this.change()
+    },
     clipboardError() {
       console.error('copy error')
     },
@@ -167,6 +178,22 @@ export default {
     },
     handleDragEnd(draggingNode, dropNode, dropType, ev) {
       console.log('tree drag end: ', dropNode && dropNode.label, dropType)
+      this.change()
+    },
+    handleDrop(draggingNode, dropNode, dropType, ev) {
+      console.log('tree drop: ', dropNode.label, dropType)
+    },
+    allowDrop(draggingNode, dropNode, type) {
+      // if (dropNode.data.label === '二级 3-1') {
+      //   return type !== 'inner'
+      // } else {
+      //   return true
+      // }
+    },
+    allowDrag(draggingNode) {
+      // return draggingNode.data.label.indexOf('三级 3-2-2') === -1
+    },
+    change() {
       const routeIndex = JSON.parse(JSON.stringify(this.treeData))
       function test(list) { // 将路由菜单精简为路由索引
         list.map((v, k) => {
@@ -183,20 +210,6 @@ export default {
       test(routeIndex)
       this.value = 'return ' + JSON.stringify(this.treeData)
       this.$emit('change', this.value)
-      console.log('>>', routeIndex)
-    },
-    handleDrop(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drop: ', dropNode.label, dropType)
-    },
-    allowDrop(draggingNode, dropNode, type) {
-      // if (dropNode.data.label === '二级 3-1') {
-      //   return type !== 'inner'
-      // } else {
-      //   return true
-      // }
-    },
-    allowDrag(draggingNode) {
-      // return draggingNode.data.label.indexOf('三级 3-2-2') === -1
     }
   }
 }

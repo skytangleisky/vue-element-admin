@@ -1682,7 +1682,7 @@ export default {
 
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 @border-color: #e4e7ed;
 @background-color: #f5f7fa;
 @primary-color: #409eff;
@@ -1797,7 +1797,6 @@ body {
     }
     // description样式
     .el-descriptions-item__label {
-      display: block;
       width: 120px;
       text-align: right;
     }

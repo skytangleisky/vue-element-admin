@@ -152,60 +152,52 @@
         </div> -->
         <el-form-item
           label="id"
-          prop="id"
         >
           <el-input v-model="addData.id" />
         </el-form-item>
         <el-form-item
           label="uuid"
-          prop="uuid"
         >
           <el-input v-model="addData.uuid" />
         </el-form-item>
         <el-form-item
-          label="note"
-          prop="note"
+          label="备注"
         >
           <el-input v-model="addData.note" />
         </el-form-item>
         <el-form-item
-          label="menus"
-          prop="menus"
+          label="菜单"
         >
           <el-input v-model="addData.menus" />
         </el-form-item>
         <el-form-item
-          label="role_name"
-          prop="role_name"
+          label="角色名称"
         >
           <el-input v-model="addData.role_name" />
         </el-form-item>
         <el-form-item
-          label="state"
-          prop="state"
+          label="状态"
         >
           <el-input v-model="addData.state" />
         </el-form-item>
         <el-form-item
-          label="createtime"
-          prop="createtime"
+          label="创建时间"
         >
           <el-date-picker
             v-model="addData.createtime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择开始时间"
+            placeholder="选择创建时间"
           />
         </el-form-item>
         <el-form-item
-          label="updatetime"
-          prop="updatetime"
+          label="更新时间"
         >
           <el-date-picker
             v-model="addData.updatetime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择修改时间"
+            placeholder="更新时间"
           />
         </el-form-item>
       </el-form>
@@ -237,55 +229,49 @@
         </div> -->
         <el-form-item
           label="id"
-          prop="id"
         >
           <el-input v-model="editData.id" />
         </el-form-item>
         <el-form-item
           label="uuid"
-          prop="uuid"
         >
           <el-input v-model="editData.uuid" />
         </el-form-item>
         <el-form-item
-          label="note"
-          prop="note"
+          label="备注"
         >
           <el-input v-model="editData.note" />
         </el-form-item>
         <el-form-item
-          label="menus"
-          prop="menus"
+          label="菜单"
         >
-          <!-- <el-input v-model="editData.menus" /> -->
+          <el-input v-model="editData.menus" />
           <menus-tree v-model="editData.menus" />
         </el-form-item>
         <el-form-item
-          label="role_name"
-          prop="role_name"
+          label="角色名称"
         >
           <el-input v-model="editData.role_name" />
         </el-form-item>
         <el-form-item
-          label="state"
-          prop="state"
+          label="状态"
         >
           <el-input v-model="editData.state" />
         </el-form-item>
-        <el-form-item label="updatetime">
-          <el-date-picker
-            v-model="editData.updatetime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="修改时间"
-          />
-        </el-form-item>
-        <el-form-item label="createtime">
+        <el-form-item label="创建时间">
           <el-date-picker
             v-model="editData.createtime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="创建时间"
+          />
+        </el-form-item>
+        <el-form-item label="更新时间">
+          <el-date-picker
+            v-model="editData.updatetime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="更新时间"
           />
         </el-form-item>
       </el-form>
@@ -311,12 +297,12 @@
       >
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="note">{{ detailData.note }}</el-descriptions-item>
-        <el-descriptions-item label="menus">{{ detailData.menus }}</el-descriptions-item>
-        <el-descriptions-item label="role_name">{{ detailData.role_name }}</el-descriptions-item>
-        <el-descriptions-item label="state">{{ detailData.state }}</el-descriptions-item>
-        <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
-        <el-descriptions-item label="updatetime">{{ detailData.updatetime }}</el-descriptions-item>
+        <el-descriptions-item label="备注">{{ detailData.note }}</el-descriptions-item>
+        <el-descriptions-item label="菜单">{{ detailData.menus }}</el-descriptions-item>
+        <el-descriptions-item label="角色名称">{{ detailData.role_name }}</el-descriptions-item>
+        <el-descriptions-item label="状态">{{ detailData.state }}</el-descriptions-item>
+        <el-descriptions-item label="创建时间">{{ detailData.createtime }}</el-descriptions-item>
+        <el-descriptions-item label="更新时间">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
 
       <div class="button">
@@ -390,42 +376,42 @@ export default {
         },
         {
           prop: 'note',
-          label: 'note',
+          label: '备注',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'menus',
-          label: 'menus',
+          label: '菜单',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'role_name',
-          label: 'role_name',
+          label: '角色名称',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'state',
-          label: 'state',
+          label: '状态',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'createtime',
-          label: 'createtime',
+          label: '创建时间',
           width: 200,
           showOverflowTooltip: true,
           sortable: 'custom'
         },
         {
           prop: 'updatetime',
-          label: 'updatetime',
+          label: '更新时间',
           width: 200,
           showOverflowTooltip: true,
           sortable: 'custom'
@@ -448,7 +434,7 @@ export default {
       // 查询条件
       listQuery: {
         currentPage: 1,
-        pageSize: 5,
+        pageSize: 10,
         field: '',
         order: '',
         where: [
@@ -466,14 +452,12 @@ export default {
         {
           relation: 'OR',
           field: 'uuid',
-          relationship: 'LIKE',
-          condition: ''
+          relationship: 'LIKE'
         },
         {
           relation: 'OR',
-          field: 'menu',
-          relationship: 'LIKE',
-          condition: ''
+          field: 'role_name',
+          relationship: 'LIKE'
         }
       ],
       // 分类搜索表单
@@ -504,6 +488,11 @@ export default {
       updatetimeCode: null
     }
   },
+  computed: {
+    roles() {
+      return this.$store.getters.roles
+    }
+  },
   created() {
     /* 获取当前年月日，作为文件上传的目录 */
     const date = new Date()
@@ -514,6 +503,16 @@ export default {
     this.fileCatalog.path = date.getFullYear() + '/' + nowMonth + '/' + date.getDate()
   },
   mounted() {
+    const where = []
+    this.roles.map((v, k) => {
+      where.push({
+        relation: 'OR',
+        field: 'role_name',
+        relationship: '=',
+        condition: v
+      })
+    })
+    this.listQuery.where = where
     this.selectList(this.listQuery)
   },
   activated() {

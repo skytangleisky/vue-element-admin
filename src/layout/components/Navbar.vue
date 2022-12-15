@@ -42,6 +42,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <span style="margin-right: 30px;color:white" v-text="nickname||username" />
     </div>
   </div>
 </template>
@@ -69,7 +70,9 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar',
-      'device'
+      'device',
+      'nickname',
+      'username'
     ])
   },
   methods: {
@@ -119,7 +122,11 @@ export default {
   }
 
   .right-menu {
+    display: flex;
     float: right;
+    flex-direction: row;
+    justify-content: left;
+    align-items: middle;
     height: 100%;
     line-height: 50px;
 
@@ -146,7 +153,6 @@ export default {
     }
 
     .avatar-container {
-      margin-right: 30px;
 
       .avatar-wrapper {
         margin-top: 5px;

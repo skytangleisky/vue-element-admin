@@ -94,12 +94,12 @@ export default {
   },
   created() {
     // Mock: get all routes and roles list from server
-    this.getRoutes()
+    this.getRoutes(['admin'])
     this.getRoles()
   },
   methods: {
-    async getRoutes() {
-      const res = await getRoutes()
+    async getRoutes(data) {
+      const res = await getRoutes(data)
       this.serviceRoutes = res.data
       // this.routes = res.data
       this.routes = this.generateRoutes(res.data)

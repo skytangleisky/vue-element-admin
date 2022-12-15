@@ -150,112 +150,147 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-form-item
-          label="id"
-          prop="id"
-        >
-          <el-input v-model="addData.id" />
-        </el-form-item>
-        <el-form-item
-          label="uuid"
-          prop="uuid"
-        >
-          <el-input v-model="addData.uuid" />
-        </el-form-item>
-        <el-form-item
-          label="username"
-          prop="username"
-        >
-          <el-input v-model="addData.username" />
-        </el-form-item>
-        <el-form-item
-          label="password"
-          prop="password"
-        >
-          <el-input v-model="addData.password" />
-        </el-form-item>
-        <el-form-item
-          label="nickname"
-          prop="nickname"
-        >
-          <el-input v-model="addData.nickname" />
-        </el-form-item>
-        <el-form-item
-          label="login_type"
-          prop="login_type"
-        >
-          <el-input v-model="addData.login_type" />
-        </el-form-item>
-        <el-form-item
-          label="email"
-          prop="email"
-        >
-          <el-input v-model="addData.email" />
-        </el-form-item>
-        <el-form-item
-          label="email_verified_at"
-          prop="email_verified_at"
-        >
-          <el-input v-model="addData.email_verified_at" />
-        </el-form-item>
-        <el-form-item
-          label="two_factor_recovery_codes"
-          prop="two_factor_recovery_codes"
-        >
-          <el-input v-model="addData.two_factor_recovery_codes" />
-        </el-form-item>
-        <el-form-item
-          label="remember_token"
-          prop="remember_token"
-        >
-          <el-input v-model="addData.remember_token" />
-        </el-form-item>
-        <el-form-item
-          label="avatar"
-          prop="avatar"
-        >
-          <el-input v-model="addData.avatar" />
-        </el-form-item>
-        <el-form-item
-          label="user_path"
-          prop="user_path"
-        >
-          <el-input v-model="addData.user_path" />
-        </el-form-item>
-        <el-form-item
-          label="debug_enable"
-          prop="debug_enable"
-        >
-          <el-input v-model="addData.debug_enable" />
-        </el-form-item>
-        <el-form-item
-          label="roles"
-          prop="roles"
-        >
-          <role-select v-model="addData.roles" />
-        </el-form-item>
-        <el-form-item
-          label="createtime"
-          prop="createtime"
-        >
-          <el-date-picker
-            v-model="addData.createtime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择开始时间"
-          />
-        </el-form-item>
-        <el-form-item
-          label="updatetime"
-          prop="updatetime"
-        >
-          <el-date-picker
-            v-model="addData.updatetime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择修改时间"
-          />
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="id"
+            >
+              <el-input v-model="addData.id" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="uuid"
+            >
+              <el-input v-model="addData.uuid" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="用户名"
+            >
+              <el-input v-model="addData.username" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="密码"
+            >
+              <el-input v-model="addData.password" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="昵称"
+            >
+              <el-input v-model="addData.nickname" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
+            <el-form-item
+              label="登录方式"
+            >
+              <el-input v-model="addData.login_type" style="width:100%" />
+            </el-form-item>
+          </el-col> -->
+        </el-row>
+        <!-- <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="邮箱"
+            >
+              <el-input v-model="addData.email" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="邮箱确认"
+            >
+              <el-input v-model="addData.email_verified_at" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row> -->
+        <!-- <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="双因子恢复码"
+            >
+              <el-input v-model="addData.two_factor_recovery_codes" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="登录TOKEN"
+            >
+              <el-input v-model="addData.remember_token" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row> -->
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="头像"
+            >
+              <el-input v-model="addData.avatar" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
+            <el-form-item
+              label="数据路径"
+            >
+              <el-input v-model="addData.user_path" style="width:100%" />
+            </el-form-item>
+          </el-col> -->
+        </el-row>
+        <el-row>
+          <!-- <el-col :span="12">
+            <el-form-item
+              label="调试"
+            >
+              <el-input v-model="addData.debug_enable" style="width:100%" />
+            </el-form-item>
+          </el-col> -->
+          <el-col :span="12">
+            <el-form-item
+              label="角色"
+            >
+              <role-select v-model="addData.roles" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="创建时间"
+            >
+              <el-date-picker
+                v-model="addData.createtime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="选择创建时间"
+                style="width:100%"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="更新时间"
+            >
+              <el-date-picker
+                v-model="addData.updatetime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="更新时间"
+                style="width:100%"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
       </el-form>
       <div class="button">
         <el-button @click="addPageClose()">取消</el-button>
@@ -283,106 +318,142 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-form-item
-          label="id"
-          prop="id"
-        >
-          <el-input v-model="editData.id" />
-        </el-form-item>
-        <el-form-item
-          label="uuid"
-          prop="uuid"
-        >
-          <el-input v-model="editData.uuid" />
-        </el-form-item>
-        <el-form-item
-          label="username"
-          prop="username"
-        >
-          <el-input v-model="editData.username" />
-        </el-form-item>
-        <el-form-item
-          label="password"
-          prop="password"
-        >
-          <el-input v-model="editData.password" />
-        </el-form-item>
-        <el-form-item
-          label="nickname"
-          prop="nickname"
-        >
-          <el-input v-model="editData.nickname" />
-        </el-form-item>
-        <el-form-item
-          label="login_type"
-          prop="login_type"
-        >
-          <el-input v-model="editData.login_type" />
-        </el-form-item>
-        <el-form-item
-          label="altiude"
-          prop="altiude"
-        >
-          <el-input v-model="editData.email" />
-        </el-form-item>
-        <el-form-item
-          label="email_verified_at"
-          prop="email_verified_at"
-        >
-          <el-input v-model="editData.email_verified_at" />
-        </el-form-item>
-        <el-form-item
-          label="two_factor_recovery_codes"
-          prop="two_factor_recovery_codes"
-        >
-          <el-input v-model="editData.two_factor_recovery_codes" />
-        </el-form-item>
-        <el-form-item
-          label="remember_token"
-          prop="remember_token"
-        >
-          <el-input v-model="editData.remember_token" />
-        </el-form-item>
-        <el-form-item
-          label="avatar"
-          prop="avatar"
-        >
-          <el-input v-model="editData.avatar" />
-        </el-form-item>
-        <el-form-item
-          label="user_path"
-          prop="user_path"
-        >
-          <el-input v-model="editData.user_path" />
-        </el-form-item>
-        <el-form-item
-          label="debug_enable"
-          prop="debug_enable"
-        >
-          <el-input v-model="editData.debug_enable" />
-        </el-form-item>
-        <el-form-item
-          label="roles"
-          prop="roles"
-        >
-          <role-select v-model="editData.roles" />
-        </el-form-item>
-        <el-form-item label="updatetime">
-          <el-date-picker
-            v-model="editData.updatetime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="修改时间"
-          />
-        </el-form-item>
-        <el-form-item label="createtime">
-          <el-date-picker
-            v-model="editData.createtime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="创建时间"
-          />
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="id"
+            >
+              <el-input v-model="editData.id" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="uuid"
+            >
+              <el-input v-model="editData.uuid" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="用户名"
+            >
+              <el-input v-model="editData.username" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="密码"
+            >
+              <el-input v-model="editData.password" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="昵称"
+            >
+              <el-input v-model="editData.nickname" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
+            <el-form-item
+              label="登录方式"
+            >
+              <el-input v-model="editData.login_type" style="width:100%" />
+            </el-form-item>
+          </el-col> -->
+        </el-row>
+        <!-- <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="邮箱"
+            >
+              <el-input v-model="editData.email" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="邮箱确认"
+            >
+              <el-input v-model="editData.email_verified_at" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row> -->
+        <!-- <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="双因子恢复码"
+            >
+              <el-input v-model="editData.two_factor_recovery_codes" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="登录TOKEN"
+            >
+              <el-input v-model="editData.remember_token" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row> -->
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="头像"
+            >
+              <el-input v-model="editData.avatar" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
+            <el-form-item
+              label="数据路径"
+            >
+              <el-input v-model="editData.user_path" style="width:100%" />
+            </el-form-item>
+          </el-col> -->
+        </el-row>
+        <el-row>
+          <!-- <el-col :span="12">
+            <el-form-item
+              label="调试"
+            >
+              <el-input v-model="editData.debug_enable" style="width:100%" />
+            </el-form-item>
+          </el-col> -->
+          <el-col :span="12">
+            <el-form-item
+              label="角色"
+            >
+              <role-select v-model="editData.roles" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="创建时间">
+              <el-date-picker
+                v-model="editData.createtime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="创建时间"
+                style="width:100%"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="更新时间">
+              <el-date-picker
+                v-model="editData.updatetime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="更新时间"
+                style="width:100%"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div class="button">
         <el-button @click="cancelEdit()">取消</el-button>
@@ -406,20 +477,20 @@
       >
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="username">{{ detailData.username }}</el-descriptions-item>
-        <el-descriptions-item label="password">{{ detailData.password }}</el-descriptions-item>
-        <el-descriptions-item label="nickname">{{ detailData.nickname }}</el-descriptions-item>
-        <el-descriptions-item label="login_type">{{ detailData.login_type }}</el-descriptions-item>
-        <el-descriptions-item label="email">{{ detailData.email }}</el-descriptions-item>
-        <el-descriptions-item label="email_verified_at">{{ detailData.email_verified_at }}</el-descriptions-item>
-        <el-descriptions-item label="two_factor_recovery_codes">{{ detailData.two_factor_recovery_codes }}</el-descriptions-item>
-        <el-descriptions-item label="remember_token">{{ detailData.remember_token }}</el-descriptions-item>
-        <el-descriptions-item label="avatar">{{ detailData.avatar }}</el-descriptions-item>
-        <el-descriptions-item label="user_path">{{ detailData.user_path }}</el-descriptions-item>
-        <el-descriptions-item label="debug_enable">{{ detailData.debug_enable }}</el-descriptions-item>
-        <el-descriptions-item label="roles">{{ detailData.roles }}</el-descriptions-item>
-        <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
-        <el-descriptions-item label="updatetime">{{ detailData.updatetime }}</el-descriptions-item>
+        <el-descriptions-item label="用户名">{{ detailData.username }}</el-descriptions-item>
+        <el-descriptions-item label="密码">{{ detailData.password }}</el-descriptions-item>
+        <el-descriptions-item label="昵称">{{ detailData.nickname }}</el-descriptions-item>
+        <!-- <el-descriptions-item label="登录方式">{{ detailData.login_type }}</el-descriptions-item> -->
+        <!-- <el-descriptions-item label="邮箱">{{ detailData.email }}</el-descriptions-item> -->
+        <!-- <el-descriptions-item label="邮箱确认">{{ detailData.email_verified_at }}</el-descriptions-item> -->
+        <!-- <el-descriptions-item label="双因子恢复码">{{ detailData.two_factor_recovery_codes }}</el-descriptions-item> -->
+        <!-- <el-descriptions-item label="登录TOKEN">{{ detailData.remember_token }}</el-descriptions-item> -->
+        <el-descriptions-item label="头像">{{ detailData.avatar }}</el-descriptions-item>
+        <!-- <el-descriptions-item label="数据路径">{{ detailData.user_path }}</el-descriptions-item> -->
+        <!-- <el-descriptions-item label="调试">{{ detailData.debug_enable }}</el-descriptions-item> -->
+        <el-descriptions-item label="角色">{{ detailData.roles }}</el-descriptions-item>
+        <el-descriptions-item label="创建时间">{{ detailData.createtime }}</el-descriptions-item>
+        <el-descriptions-item label="更新时间">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
 
       <div class="button">
@@ -493,98 +564,98 @@ export default {
         },
         {
           prop: 'username',
-          label: 'username',
+          label: '用户名',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'password',
-          label: 'password',
+          label: '密码',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'nickname',
-          label: 'nickname',
+          label: '昵称',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
-        {
-          prop: 'login_type',
-          label: 'login_type',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'email',
-          label: 'email',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'email_verified_at',
-          label: 'email_verified_at',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'two_factor_recovery_codes',
-          label: 'two_factor_recovery_codes',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'remember_token',
-          label: 'remember_token',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
+        // {
+        //   prop: 'login_type',
+        //   label: '登录方式',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
+        // {
+        //   prop: 'email',
+        //   label: '邮箱',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
+        // {
+        //   prop: 'email_verified_at',
+        //   label: '邮箱确认',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
+        // {
+        //   prop: 'two_factor_recovery_codes',
+        //   label: '双因子恢复码',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
+        // {
+        //   prop: 'remember_token',
+        //   label: '登录TOKEN',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
         {
           prop: 'avatar',
-          label: 'avatar',
+          label: '头像',
           width: 200,
           showOverflowTooltip: true,
           sortable: 'custom'
         },
-        {
-          prop: 'user_path',
-          label: 'user_path',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'debug_enable',
-          label: 'debug_enable',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
+        // {
+        //   prop: 'user_path',
+        //   label: '数据路径',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
+        // {
+        //   prop: 'debug_enable',
+        //   label: '调试',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
         {
           prop: 'roles',
-          label: 'roles',
+          label: '角色',
           width: 200,
           showOverflowTooltip: true,
           sortable: 'custom'
         },
         {
           prop: 'createtime',
-          label: 'createtime',
+          label: '创建时间',
           width: 200,
           showOverflowTooltip: true,
           sortable: 'custom'
         },
         {
           prop: 'updatetime',
-          label: 'updatetime',
+          label: '更新时间',
           width: 200,
           showOverflowTooltip: true,
           sortable: 'custom'
@@ -607,7 +678,7 @@ export default {
       // 查询条件
       listQuery: {
         currentPage: 1,
-        pageSize: 5,
+        pageSize: 10,
         field: '',
         order: '',
         where: [
@@ -625,14 +696,17 @@ export default {
         {
           relation: 'OR',
           field: 'uuid',
-          relationship: 'LIKE',
-          condition: ''
+          relationship: 'LIKE'
         },
         {
           relation: 'OR',
-          field: 'menu',
-          relationship: 'LIKE',
-          condition: ''
+          field: 'username',
+          relationship: 'LIKE'
+        },
+        {
+          relation: 'OR',
+          field: 'roles',
+          relationship: 'LIKE'
         }
       ],
       // 分类搜索表单

@@ -6,6 +6,8 @@ import router, { resetRouter } from '@/router'
 const state = {
   token: getToken(),
   name: '',
+  username: '',
+  nickname: '',
   avatar: '',
   introduction: '',
   roles: []
@@ -18,8 +20,11 @@ const mutations = {
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
   },
-  SET_NAME: (state, name) => {
-    state.name = name
+  SET_USERNAME: (state, username) => {
+    state.username = username
+  },
+  SET_NICKNAME: (state, nickname) => {
+    state.nickname = nickname
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -55,16 +60,15 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
-
-        const { roles, name, avatar, introduction } = data
+        const { roles, nickname, avatar, introduction, username } = data
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
-
         commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
+        commit('SET_NICKNAME', nickname)
+        commit('SET_USERNAME', username)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)
         resolve(data)
@@ -106,18 +110,30 @@ const actions = {
   },
 
   // dynamically modify permissions
+  // async changeRoles({ commit, dispatch }, role) {
+  //   const token = role + '-token'
+
+  //   commit('SET_TOKEN', token)
+  //   setToken(token)
+
+  //   const { roles } = await dispatch('getInfo')
+
+  //   resetRouter()
+
+  //   // generate accessible routes map based on roles
+  //   const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+  //   // dynamically add accessible routes
+  //   router.addRoutes(accessRoutes)
+
+  //   // reset visited views and cached views
+  //   dispatch('tagsView/delAllViews', null, { root: true })
+  // }
   async changeRoles({ commit, dispatch }, role) {
-    const token = role + '-token'
-
-    commit('SET_TOKEN', token)
-    setToken(token)
-
-    const { roles } = await dispatch('getInfo')
-
     resetRouter()
 
     // generate accessible routes map based on roles
-    const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
+    const accessRoutes = await dispatch('permission/generateRoutes', [role], { root: true })
+    console.log(accessRoutes)
     // dynamically add accessible routes
     router.addRoutes(accessRoutes)
 

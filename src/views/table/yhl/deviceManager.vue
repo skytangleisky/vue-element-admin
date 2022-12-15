@@ -150,106 +150,139 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-form-item
-          label="id"
-          prop="id"
-        >
-          <el-input v-model="addData.id" />
-        </el-form-item>
-        <el-form-item
-          label="uuid"
-          prop="uuid"
-        >
-          <el-input v-model="addData.uuid" />
-        </el-form-item>
-        <el-form-item
-          label="device_name"
-          prop="device_name"
-        >
-          <el-input v-model="addData.device_name" />
-        </el-form-item>
-        <el-form-item
-          label="device_type"
-          prop="device_type"
-        >
-          <el-input v-model="addData.device_type" />
-        </el-form-item>
-        <el-form-item
-          label="lng"
-          prop="lng"
-        >
-          <el-input v-model="addData.lng" />
-        </el-form-item>
-        <el-form-item
-          label="lat"
-          prop="lat"
-        >
-          <el-input v-model="addData.lat" />
-        </el-form-item>
-        <el-form-item
-          label="altitude"
-          prop="altitude"
-        >
-          <el-input v-model="addData.altitude" />
-        </el-form-item>
-        <el-form-item
-          label="height"
-          prop="height"
-        >
-          <el-input v-model="addData.height" />
-        </el-form-item>
-        <el-form-item
-          label="data_path"
-          prop="data_path"
-        >
-          <el-input v-model="addData.data_path" />
-        </el-form-item>
-        <el-form-item
-          label="color"
-          prop="color"
-        >
-          <el-input v-model="addData.color" />
-        </el-form-item>
-        <el-form-item
-          label="status"
-          prop="status"
-        >
-          <el-input v-model="addData.status" />
-        </el-form-item>
-        <el-form-item
-          label="speed"
-          prop="speed"
-        >
-          <el-input v-model="addData.speed" />
-        </el-form-item>
-        <el-form-item
-          label="orientation"
-          prop="orientation"
-        >
-          <el-input v-model="addData.orientation" />
-        </el-form-item>
-        <el-form-item
-          label="createtime"
-          prop="createtime"
-        >
-          <el-date-picker
-            v-model="addData.createtime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择开始时间"
-          />
-        </el-form-item>
-        <el-form-item
-          label="updatetime"
-          prop="updatetime"
-        >
-          <el-date-picker
-            v-model="addData.updatetime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择修改时间"
-          />
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="id"
+              prop="id"
+            >
+              <el-input v-model="addData.id" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="uuid"
+              prop="uuid"
+            >
+              <el-input v-model="addData.uuid" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="设备名"
+            >
+              <el-input v-model="addData.device_name" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="设备类型"
+            >
+              <el-input v-model="addData.device_type" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="经度"
+            >
+              <el-input v-model="addData.lng" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="纬度"
+            >
+              <el-input v-model="addData.lat" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="海拔高"
+            >
+              <el-input v-model="addData.altitude" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="气压高"
+            >
+              <el-input v-model="addData.height" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="数据路径"
+            >
+              <el-input v-model="addData.data_path" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="站点颜色"
+            >
+              <el-input v-model="addData.color" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="站点状态"
+            >
+              <el-input v-model="addData.status" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="风速"
+            >
+              <el-input v-model="addData.speed" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="风向"
+            >
+              <el-input v-model="addData.orientation" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="创建时间"
+            >
+              <el-date-picker
+                v-model="addData.createtime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="选择开始时间"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="更新时间"
+            >
+              <el-date-picker
+                v-model="addData.updatetime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="选择更新时间"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div class="button">
         <el-button @click="addPageClose()">取消</el-button>
@@ -277,100 +310,133 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-form-item
-          label="id"
-          prop="id"
-        >
-          <el-input v-model="editData.id" />
-        </el-form-item>
-        <el-form-item
-          label="uuid"
-          prop="uuid"
-        >
-          <el-input v-model="editData.uuid" />
-        </el-form-item>
-        <el-form-item
-          label="device_name"
-          prop="device_name"
-        >
-          <el-input v-model="editData.device_name" />
-        </el-form-item>
-        <el-form-item
-          label="device_type"
-          prop="device_type"
-        >
-          <el-input v-model="editData.device_type" />
-        </el-form-item>
-        <el-form-item
-          label="lng"
-          prop="lng"
-        >
-          <el-input v-model="editData.lng" />
-        </el-form-item>
-        <el-form-item
-          label="lat"
-          prop="lat"
-        >
-          <el-input v-model="editData.lat" />
-        </el-form-item>
-        <el-form-item
-          label="altiude"
-          prop="altiude"
-        >
-          <el-input v-model="editData.altitude" />
-        </el-form-item>
-        <el-form-item
-          label="height"
-          prop="height"
-        >
-          <el-input v-model="editData.height" />
-        </el-form-item>
-        <el-form-item
-          label="data_path"
-          prop="data_path"
-        >
-          <el-input v-model="editData.data_path" />
-        </el-form-item>
-        <el-form-item
-          label="color"
-          prop="color"
-        >
-          <el-input v-model="editData.color" />
-        </el-form-item>
-        <el-form-item
-          label="status"
-          prop="status"
-        >
-          <el-input v-model="editData.status" />
-        </el-form-item>
-        <el-form-item
-          label="speed"
-          prop="speed"
-        >
-          <el-input v-model="editData.speed" />
-        </el-form-item>
-        <el-form-item
-          label="orientation"
-          prop="orientation"
-        >
-          <el-input v-model="editData.orientation" />
-        </el-form-item>
-        <el-form-item label="updatetime">
-          <el-date-picker
-            v-model="editData.updatetime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="修改时间"
-          />
-        </el-form-item>
-        <el-form-item label="createtime">
-          <el-date-picker
-            v-model="editData.createtime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="创建时间"
-          />
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="id"
+            >
+              <el-input v-model="editData.id" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="uuid"
+            >
+              <el-input v-model="editData.uuid" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="设备名"
+            >
+              <el-input v-model="editData.device_name" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="设备类型"
+            >
+              <el-input v-model="editData.device_type" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="经度"
+            >
+              <el-input v-model="editData.lng" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="纬度"
+            >
+              <el-input v-model="editData.lat" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="海拔高"
+            >
+              <el-input v-model="editData.altitude" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="气压高"
+            >
+              <el-input v-model="editData.height" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="数据路径"
+            >
+              <el-input v-model="editData.data_path" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="站点颜色"
+            >
+              <el-input v-model="editData.color" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="站点状态"
+            >
+              <el-input v-model="editData.status" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="风速"
+            >
+              <el-input v-model="editData.speed" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="风向"
+            >
+              <el-input v-model="editData.orientation" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="创建时间" style="width:100%">
+              <el-date-picker
+                v-model="editData.createtime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="创建时间"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="更新时间" style="width:100%">
+              <el-date-picker
+                v-model="editData.updatetime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="更新时间"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div class="button">
         <el-button @click="cancelEdit()">取消</el-button>
@@ -394,19 +460,19 @@
       >
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="device_name">{{ detailData.device_name }}</el-descriptions-item>
-        <el-descriptions-item label="device_type">{{ detailData.device_type }}</el-descriptions-item>
-        <el-descriptions-item label="lng">{{ detailData.lng }}</el-descriptions-item>
-        <el-descriptions-item label="lat">{{ detailData.lat }}</el-descriptions-item>
-        <el-descriptions-item label="altitude">{{ detailData.altitude }}</el-descriptions-item>
-        <el-descriptions-item label="height">{{ detailData.height }}</el-descriptions-item>
-        <el-descriptions-item label="data_path">{{ detailData.data_path }}</el-descriptions-item>
-        <el-descriptions-item label="color">{{ detailData.color }}</el-descriptions-item>
-        <el-descriptions-item label="status">{{ detailData.status }}</el-descriptions-item>
-        <el-descriptions-item label="speed">{{ detailData.speed }}</el-descriptions-item>
-        <el-descriptions-item label="orientation">{{ detailData.orientation }}</el-descriptions-item>
-        <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
-        <el-descriptions-item label="updatetime">{{ detailData.updatetime }}</el-descriptions-item>
+        <el-descriptions-item label="设备名">{{ detailData.device_name }}</el-descriptions-item>
+        <el-descriptions-item label="设备类型">{{ detailData.device_type }}</el-descriptions-item>
+        <el-descriptions-item label="经度">{{ detailData.lng }}</el-descriptions-item>
+        <el-descriptions-item label="纬度">{{ detailData.lat }}</el-descriptions-item>
+        <el-descriptions-item label="海拔高">{{ detailData.altitude }}</el-descriptions-item>
+        <el-descriptions-item label="气压高">{{ detailData.height }}</el-descriptions-item>
+        <el-descriptions-item label="数据路径">{{ detailData.data_path }}</el-descriptions-item>
+        <el-descriptions-item label="站点颜色">{{ detailData.color }}</el-descriptions-item>
+        <el-descriptions-item label="站点状态">{{ detailData.status }}</el-descriptions-item>
+        <el-descriptions-item label="风速">{{ detailData.speed }}</el-descriptions-item>
+        <el-descriptions-item label="风向">{{ detailData.orientation }}</el-descriptions-item>
+        <el-descriptions-item label="创建时间">{{ detailData.createtime }}</el-descriptions-item>
+        <el-descriptions-item label="更新时间">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
 
       <div class="button">
@@ -479,98 +545,84 @@ export default {
         },
         {
           prop: 'device_name',
-          label: 'device_name',
+          label: '设备名',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'device_type',
-          label: 'device_type',
+          label: '设备类型',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'lng',
-          label: 'lng',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: false
-        },
-        {
-          prop: 'lng',
-          label: 'lng',
+          label: '经度',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'lat',
-          label: 'lat',
-          width: 200,
-          showOverflowTooltip: false,
-          sortable: 'custom'
-        },
-        {
-          prop: 'lat',
-          label: 'lat',
+          label: '纬度',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'altitude',
-          label: 'altitude',
+          label: '海拔高',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'height',
-          label: 'height',
+          label: '气压高',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'data_path',
-          label: 'data_path',
+          label: '数据路径',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'color',
-          label: 'color',
+          label: '站点颜色',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'status',
-          label: 'status',
+          label: '站点状态',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'speed',
-          label: 'speed',
+          label: '风速',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'orientation',
-          label: 'orientation',
+          label: '风向',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'createtime',
-          label: 'createtime',
+          label: '创建时间',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
@@ -600,7 +652,7 @@ export default {
       // 查询条件
       listQuery: {
         currentPage: 1,
-        pageSize: 5,
+        pageSize: 10,
         field: '',
         order: '',
         where: [
@@ -618,14 +670,17 @@ export default {
         {
           relation: 'OR',
           field: 'uuid',
-          relationship: 'LIKE',
-          condition: ''
+          relationship: 'LIKE'
         },
         {
           relation: 'OR',
-          field: 'menu',
-          relationship: 'LIKE',
-          condition: ''
+          field: 'device_name',
+          relationship: 'LIKE'
+        },
+        {
+          relation: 'OR',
+          field: 'device_type',
+          relationship: 'LIKE'
         }
       ],
       // 分类搜索表单

@@ -3351,7 +3351,6 @@ body {
     }
     // description样式
     .el-descriptions-item__label {
-      display: block;
       width: 100px;
       text-align: right;
     }

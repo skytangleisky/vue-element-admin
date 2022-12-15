@@ -75,11 +75,8 @@
                 label="警官证"
                 :value="4"
               />
-
             </el-select>
-
           </el-form-item>
-
           <el-form-item label="是否启用:">
             <el-select
               v-model="searchForm.updatetime"
@@ -152,42 +149,37 @@
         </div> -->
         <el-form-item
           label="id"
-          prop="id"
         >
           <el-input v-model="addData.id" />
         </el-form-item>
         <el-form-item
           label="uuid"
-          prop="uuid"
         >
           <el-input v-model="addData.uuid" />
         </el-form-item>
         <el-form-item
-          label="menu"
-          prop="menu"
+          label="菜单"
         >
           <el-input v-model="addData.menu" />
         </el-form-item>
         <el-form-item
-          label="createtime"
-          prop="createtime"
+          label="创建时间"
         >
           <el-date-picker
             v-model="addData.createtime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择开始时间"
+            placeholder="选择创建时间"
           />
         </el-form-item>
         <el-form-item
-          label="updatetime"
-          prop="updatetime"
+          label="更新时间"
         >
           <el-date-picker
             v-model="addData.updatetime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="选择修改时间"
+            placeholder="选择更新时间"
           />
         </el-form-item>
       </el-form>
@@ -219,39 +211,37 @@
         </div> -->
         <el-form-item
           label="id"
-          prop="id"
         >
           <el-input v-model="editData.id" />
         </el-form-item>
         <el-form-item
           label="uuid"
-          prop="uuid"
         >
           <el-input v-model="editData.uuid" />
         </el-form-item>
         <el-form-item
-          label="menu"
-          prop="menu"
+          label="菜单"
         >
           <div
             ref="editor"
             style="width:100%;height:150px;border-radius:16px;border:1px solid #2b2b2b;"
           />
         </el-form-item>
-        <el-form-item label="updatetime">
-          <el-date-picker
-            v-model="editData.updatetime"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="修改时间"
-          />
-        </el-form-item>
-        <el-form-item label="createtime">
+
+        <el-form-item label="创建时间">
           <el-date-picker
             v-model="editData.createtime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="创建时间"
+          />
+        </el-form-item>
+        <el-form-item label="更新时间">
+          <el-date-picker
+            v-model="editData.updatetime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="更新时间"
           />
         </el-form-item>
       </el-form>
@@ -277,9 +267,9 @@
       >
         <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
         <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
-        <el-descriptions-item label="menu">{{ detailData.menu }}</el-descriptions-item>
-        <el-descriptions-item label="createtime">{{ detailData.createtime }}</el-descriptions-item>
-        <el-descriptions-item label="updatetime">{{ detailData.updatetime }}</el-descriptions-item>
+        <el-descriptions-item label="菜单">{{ detailData.menu }}</el-descriptions-item>
+        <el-descriptions-item label="创建时间">{{ detailData.createtime }}</el-descriptions-item>
+        <el-descriptions-item label="更新时间">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
 
       <div class="button">
@@ -353,21 +343,21 @@ export default {
         },
         {
           prop: 'menu',
-          label: 'menu',
+          label: '菜单',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
         },
         {
           prop: 'createtime',
-          label: 'createtime',
+          label: '创建时间',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
         },
         {
           prop: 'updatetime',
-          label: 'updatetime',
+          label: '更新时间',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
@@ -391,7 +381,7 @@ export default {
       // 查询条件
       listQuery: {
         currentPage: 1,
-        pageSize: 5,
+        pageSize: 10,
         field: '',
         order: '',
         where: [

@@ -61,3 +61,11 @@ export function select(query) {
   })
 }
 
+export function paging(data) {
+  return request({
+    url,
+    headers,
+    method: 'post',
+    data
+  })
+}
