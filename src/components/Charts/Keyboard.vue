@@ -53,7 +53,7 @@ export default {
         // data.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5)
         // data2.push((Math.sin(i / 5) * (i / 5 + 10) + i / 6) * 3)
       }
-      data = [10023.14,8246.11,8318,8710.27,7669.23,7970.56]
+      data = [10023.14,8246.11,8318,8710.27,7669.23,7970.56,8159.56]
       this.chart.setOption({
         backgroundColor: '#08263a',
         grid: {
