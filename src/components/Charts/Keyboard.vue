@@ -48,12 +48,12 @@ export default {
       const xAxisData = []
       let data = []
       const data2 = []
-      for (let i = 0; i < 6; i++) {
+      data = [10023.14,8246.11,8318,8710.27,7669.23,7970.56,8159.56]
+      for (let i = 0; i < data.length; i++) {
         xAxisData.push(i+6)
         // data.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5)
         // data2.push((Math.sin(i / 5) * (i / 5 + 10) + i / 6) * 3)
       }
-      data = [10023.14,8246.11,8318,8710.27,7669.23,7970.56,8159.56]
       this.chart.setOption({
         backgroundColor: '#08263a',
         grid: {
