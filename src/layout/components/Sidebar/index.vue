@@ -3,11 +3,12 @@
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar ref="scrollbar" wrap-class="scrollbar-wrapper">
       <el-menu
+        :default-openeds="defaultOpends"
         :default-active="activeMenu"
         :collapse="isCollapse"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
-        :unique-opened="true"
+        :unique-opened="false"
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
@@ -31,6 +32,21 @@ export default {
       'permission_routes',
       'sidebar'
     ]),
+    defaultOpends: function() {
+      const opends = []
+      var recursion = list => {
+        list.map((v, k) => {
+          if (v.opened) {
+            opends.push(v.uuid)
+          }
+          if (v.children instanceof Array) {
+            recursion(v.children)
+          }
+        })
+      }
+      recursion(this.permission_routes)
+      return opends
+    },
     activeMenu() {
       const route = this.$route
       const { meta, path } = route

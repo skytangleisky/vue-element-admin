@@ -319,7 +319,7 @@ $light_gray: #eee;
   // background-image: url('../../assets/images/bg03/5.jpg');
   // background-image: url('../../assets/images/bg04/7.jpg');
   // background-size: cover;
-  background: url(../../assets/images/bg05/9.png) bottom no-repeat;
+  background: url(../../assets/images/bg06/11.png) bottom no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -332,7 +332,7 @@ $light_gray: #eee;
 
   .loginImgDiv {
     height: 600px;
-    background: url(../../assets/images/bg05/10.png) bottom no-repeat;
+    background: url(../../assets/images/bg06/12.png) bottom no-repeat;
 
     font-family: 'SourceHanSansSC-Bold';
     font-weight: 600;
