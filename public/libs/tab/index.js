@@ -1,6 +1,6 @@
-(function($) {
+(function ($) {
 
-  $.fn.dragsort = function(options) {
+  $.fn.dragsort = function (options) {
     let opts = $.extend({}, $.fn.dragsort.defaults, options);
     let lists = new Array();
     let list = null;
@@ -8,7 +8,7 @@
     let that = this;
 
 
-    this.each(function(i, cont) {
+    this.each(function (i, cont) {
       let newList = {
         draggedItem: null,
         placeHolderItem: null,
@@ -16,13 +16,14 @@
         offset: null,
         offsetLimit: null,
         container: cont,
-        cursorPos:null,
-        scrollPos:null,
+        cursorPos: null,
+        scrollPos: null,
 
-        init: function() {
+        init: function () {
+          $(this.container).find(opts.dragSelector).unbind()
           $(this.container).attr("listIdx", i).find(opts.dragSelector).css("cursor", "default").mousedown(this.grabItem);
         },
-        grabItem: function(e) {
+        grabItem: function (e) {
           if (e.button == 2)
             return;
           if (list != null && list.draggedItem != null)
@@ -36,16 +37,27 @@
           list.offset.top = e.pageY - list.offset.top;
           list.offset.left = e.pageX - list.offset.left;
 
-          let containerHeight = $(list.container).outerHeight(true) == 0 ?Math.max(1, Math.round(0.5 +$(list.container).find(opts.itemSelector).size() *list.draggedItem.outerWidth(true) / $(list.container).outerWidth(true))) *list.draggedItem.outerHeight(true) : $(list.container).outerHeight(true);
+          let containerHeight = $(list.container).outerHeight(true) == 0 ? Math.max(1, Math.round(0.5 + $(list.container).find(opts.itemSelector).size() * list.draggedItem.outerWidth(true) / $(list.container).outerWidth(true))) * list.draggedItem.outerHeight(true) : $(list.container).outerHeight(true);
           list.offsetLimit = $(list.container).offset();
           list.offsetLimit.right = list.offsetLimit.left + $(list.container).outerWidth(true) - list.draggedItem.outerWidth(true);
           list.offsetLimit.bottom = list.offsetLimit.top + containerHeight - list.draggedItem.outerHeight(true);
 
-          list.placeHolderItem =list.draggedItem.clone().css({ visibility: "hidden",height: list.draggedItem.height(),"pointer-events":"none",'z-index':0 }).attr("placeHolder", true);
+          list.placeHolderItem = list.draggedItem.clone().css({
+            visibility: "hidden",
+            height: list.draggedItem.height(),
+            "pointer-events": "none",
+            'z-index': 0
+          }).attr("placeHolder", true);
           list.draggedItem.after(list.placeHolderItem);
-          list.draggedItem.css({ position: "absolute", opacity: 1.0});
+          list.draggedItem.css({
+            position: "absolute",
+            opacity: 1.0
+          });
 
-          $(lists).each(function(i, l) { l.ensureNotEmpty(); l.buildPositionTable(); });
+          $(lists).each(function (i, l) {
+            l.ensureNotEmpty();
+            l.buildPositionTable();
+          });
 
           list.setPos(e);
           $(document).bind("selectstart", list.stopBubble); //stop ie text selection
@@ -53,25 +65,29 @@
           $(document).bind("mouseup", list.dropItem);
           return false; //stop moz text selection
         },
-        setPos: function(e) {
+        setPos: function (e) {
           let x = e.pageX;
           let y = e.pageY;
-          if(opts.vertical){
+          if (opts.vertical) {
             let top = y - this.offset.top - $(that).offset().top;
-            opts.dragBetween&&(top = Math.min(this.offsetLimit.bottom - $(that).offset().top, Math.max(top, this.offsetLimit.top - $(that).offset().top)));
-            this.draggedItem.css({ top: top});
+            opts.dragBetween && (top = Math.min(this.offsetLimit.bottom - $(that).offset().top, Math.max(top, this.offsetLimit.top - $(that).offset().top)));
+            this.draggedItem.css({
+              top: top
+            });
           }
-          if(opts.horizontal){
+          if (opts.horizontal) {
             let left = x - this.offset.left - $(that).offset().left - $(that).parent().scrollLeft();
-            opts.dragBetween&&(left = Math.min(this.offsetLimit.right  - $(that).offset().left - $(that).parent().scrollLeft(), Math.max(left, this.offsetLimit.left+Number(this.draggedItem.parent().css('padding-left').replace('px','')) - $(that).offset().left - $(that).parent().scrollLeft())));
-            this.draggedItem.css({ left: left});
+            opts.dragBetween && (left = Math.min(this.offsetLimit.right - $(that).offset().left - $(that).parent().scrollLeft(), Math.max(left, this.offsetLimit.left + Number(this.draggedItem.parent().css('padding-left').replace('px', '')) - $(that).offset().left - $(that).parent().scrollLeft())));
+            this.draggedItem.css({
+              left: left
+            });
           }
         },
 
-        buildPositionTable: function() {
+        buildPositionTable: function () {
           let item = this.draggedItem == null ? null : this.draggedItem.get(0);
           let pos = new Array();
-          $(this.container).find(opts.itemSelector).each(function(i, elm) {
+          $(this.container).find(opts.itemSelector).each(function (i, elm) {
             if (elm != item) {
               let loc = $(elm).offset();
               loc.right = loc.left + $(elm).outerWidth(true);
@@ -83,15 +99,22 @@
           this.pos = pos;
         },
 
-        dropItem: function() {
+        dropItem: function () {
           if (list.draggedItem == null)
             return;
-          $("iframe").css({"pointer-events":"auto"});
+          $("iframe").css({
+            "pointer-events": "auto"
+          });
 
           $(list.container).find(opts.dragSelector).css("cursor", "default");
           list.placeHolderItem.before(list.draggedItem);
 
-          list.draggedItem.css({ position: "", top: "", left: "", opacity: ""});
+          list.draggedItem.css({
+            position: "",
+            top: "",
+            left: "",
+            opacity: ""
+          });
           list.placeHolderItem.remove();
 
           $("*[emptyPlaceHolder]").remove();
@@ -104,12 +127,16 @@
           return false;
         },
 
-        stopBubble: function() { return false; },
+        stopBubble: function () {
+          return false;
+        },
 
-        swapItems: function(e) {
+        swapItems: function (e) {
           if (list.draggedItem == null)
             return false;
-          $("iframe").css({"pointer-events":"none"});
+          $("iframe").css({
+            "pointer-events": "none"
+          });
           list.setPos(e);
           let ei = list.findPos(e.pageX, e.pageY);
           let nlist = list;
@@ -125,44 +152,47 @@
           else
             $(nlist.pos[ei].elm).after(list.placeHolderItem);
 
-          $(lists).each(function(i, l) { l.ensureNotEmpty(); l.buildPositionTable(); });
+          $(lists).each(function (i, l) {
+            l.ensureNotEmpty();
+            l.buildPositionTable();
+          });
           lastPos = list.draggedItem.offset();
           return false;
         },
 
-        findPos: function(x, y) {
-          let H=0;//判断水平移动的方向
-          let V=0;//判断垂直移动的方向
-          if(list.cursorPos==undefined){
-            list.cursorPos=[x,y]
-          }else{
+        findPos: function (x, y) {
+          let H = 0; //判断水平移动的方向
+          let V = 0; //判断垂直移动的方向
+          if (list.cursorPos == undefined) {
+            list.cursorPos = [x, y]
+          } else {
             H = x - list.cursorPos[0];
-            V= y - list.cursorPos[1];
-            list.cursorPos=[x,y]
+            V = y - list.cursorPos[1];
+            list.cursorPos = [x, y]
           }
 
-          if(opts.horizontal&&opts.vertical){
+          if (opts.horizontal && opts.vertical) {
             for (let i = 0; i < this.pos.length; i++) {
-              if (this.pos[i].left < x && this.pos[i].right > x&& this.pos[i].top < y && this.pos[i].bottom > y)
+              if (this.pos[i].left < x && this.pos[i].right > x && this.pos[i].top < y && this.pos[i].bottom > y)
                 return i;
             }
-          }else if(opts.horizontal&&!opts.vertical){//已经优化
+          } else if (opts.horizontal && !opts.vertical) { //已经优化
             let L = list.draggedItem.offset().left;
-            let R = L+list.draggedItem.outerWidth(true);
-            if(H>0){
-              for (let i = this.pos.length-1; i >=0; i--) {
-                if(R>(this.pos[i].left+this.pos[i].right)/2){
+            let R = L + list.draggedItem.outerWidth(true);
+            if (H > 0) {
+              for (let i = this.pos.length - 1; i >= 0; i--) {
+                if (R > (this.pos[i].left + this.pos[i].right) / 2) {
                   return i;
                 }
               }
-            }else if(H<0){
+            } else if (H < 0) {
               for (let i = 0; i < this.pos.length; i++) {
-                if((this.pos[i].right+this.pos[i].left)/2<L){
+                if ((this.pos[i].right + this.pos[i].left) / 2 < L) {
                   continue;
-                }else return i;
+                } else return i;
               }
             }
-          }else if(!opts.horizontal&&opts.vertical){
+          } else if (!opts.horizontal && opts.vertical) {
             for (let i = 0; i < this.pos.length; i++) {
               if (this.pos[i].top < y && this.pos[i].bottom > y)
                 return i;
@@ -171,14 +201,15 @@
           return -1;
         },
 
-        ensureNotEmpty: function() {
+        ensureNotEmpty: function () {
           if (opts.dragBetween)
             return;
 
           let item = this.draggedItem == null ? null : this.draggedItem.get(0);
-          let emptyPH = null, empty = true;
+          let emptyPH = null,
+            empty = true;
 
-          $(this.container).find(opts.itemSelector).each(function(i, elm) {
+          $(this.container).find(opts.itemSelector).each(function (i, elm) {
             if ($(elm).attr("emptyPlaceHolder"))
               emptyPH = elm;
             else if (elm != item)
@@ -201,10 +232,10 @@
   $.fn.dragsort.defaults = {
     itemSelector: "li",
     dragSelector: "li",
-    dragEnd: function() { },
+    dragEnd: function () {},
     dragBetween: true,
-    horizontal:true,
-    vertical:false,
+    horizontal: true,
+    vertical: false,
   };
 
 })(jQuery);

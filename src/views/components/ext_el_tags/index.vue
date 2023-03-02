@@ -236,22 +236,22 @@ export default {
     liMousedown($e) {
       const that = this
       if ($e.which === 1) {
-        for (const item of that.filenames) {
-          if (item.filename === $($e.currentTarget).attr('tt')) {
-            item.show = true
+        for (let i = 0; i < that.filenames.length; i++) {
+          if (that.filenames[i].filename === $($e.currentTarget).attr('tt')) {
+            that.filenames[i].show = true
           } else {
-            item.show = false
+            that.filenames[i].show = false
           }
         }
         $(that.$refs['tab-menu']).css({ 'display': 'none' })
       } else if ($e.which === 3) {
         $e.stopPropagation()
         $e.preventDefault()
-        for (const item of that.filenames) {
-          if (item.filename === $($e.currentTarget).attr('tt')) {
-            item.show = true
+        for (let i = 0; i < that.filenames.length; i++) {
+          if (that.filenames[i].filename === $($e.currentTarget).attr('tt')) {
+            that.filenames[i].show = true
           } else {
-            item.show = false
+            that.filenames[i].show = false
           }
         }
         let x = $e.clientX
@@ -272,12 +272,11 @@ export default {
       $e.stopPropagation()
       $e.preventDefault()
       const that = this
-      if (that.flag) {
-        for (let i = 0; i < that.filenames.length; i++) {
-          if (that.filenames[i].affix && that.filenames[i].filename === $($e.currentTarget).closest('li').attr('tt')) { return }
-        }
-      }
-
+      // if (that.flag) {
+      //   for (let i = 0; i < that.filenames.length; i++) {
+      //     if (that.filenames[i].affix && that.filenames[i].filename === $($e.currentTarget).closest('li').attr('tt')) { return }
+      //   }
+      // }
       that.remove($($e.currentTarget).closest('li').attr('tt'))
     },
     remove($id) {
@@ -290,19 +289,22 @@ export default {
       } else if (prev.length) {
         id = prev.attr('tt')
       }
-      let tmp = false
+      let exist = false
+      let show = false
       for (let i = 0; i < that.filenames.length; i++) {
         if (that.filenames[i].filename === $id) {
-          tmp = true
+          exist = true
+          show = that.filenames[i].show
         }
       }
-      if (!tmp) return // 移除的 文件或文件夹 不在ext_el_tags中，不做处理。
-
+      if (!exist) return // 移除的 文件或文件夹 不在ext_el_tags中，不做处理。
       for (let i = 0; i < that.filenames.length; i++) {
-        if (that.filenames[i].filename === id) {
-          that.filenames[i].show = true
-        } else {
-          that.filenames[i].show = false
+        if (show) {
+          if (that.filenames[i].filename === id) {
+            that.filenames[i].show = true
+          } else {
+            that.filenames[i].show = false
+          }
         }
         if (that.filenames[i].filename === $id) {
           if (that.flag) {
