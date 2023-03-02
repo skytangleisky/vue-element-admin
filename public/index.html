@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="/libs/markdown/css/editormd.css">
     <script src="/libs/tab/index.js"></script>
     <link rel="stylesheet" href="/libs/tab/index.css">
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script> -->
-    <script type="text/javascript" src="/libs/echarts/echarts.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.1/echarts.min.js"></script> -->
+    <script type="text/javascript" src="/libs/echarts/index.min.js"></script>
     <script src="//at.alicdn.com/t/font_2524885_awpqrzv87sb.js"></script>
     <link href="//at.alicdn.com/t/font_2524885_awpqrzv87sb.css" rel="stylesheet">
 <!--    <script src="/libs/terminal/index.js"></script>-->
@@ -73,7 +73,7 @@ var ws;
 connect();
 function connect(){
     // ws = new WebSocket("ws://websocket.tanglei.top");
-    ws = new WebSocket("ws://tanglei.top:9988");
+    ws = new WebSocket("ws://"+window.location.host+"/websocket");
     ws.onopen = function () {
       ws.send(JSON.stringify({'type': 'login', 'content': Math.ceil(Math.random()*10000)}));
     };
