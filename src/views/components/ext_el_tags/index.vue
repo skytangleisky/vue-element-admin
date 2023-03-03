@@ -2,7 +2,7 @@
   <el-container direction="vertical" style="position:relative;height:100%;">
     <div ref="tab" class="tab round" style="width: 100%;overflow: auto;" @mousewheel="handleScroll">
       <ul ref="tags" oncontextmenu="return false;">
-        <li v-for="(item,index) in filenames" :id="id" :key="index" :tt="item.filename" :class="item.show==true?'active':''" @mousedown="liMousedown">{{ item.filename }}<i class="fa fa-close" @mousedown="iMousedown" /></li>
+        <li v-for="(item,index) in filenames" :id="id" :key="filenames[index].filename" :tt="item.filename" :class="item.show==true?'active':''" @mousedown="liMousedown">{{ item.filename }}<i class="fa fa-close" @mousedown="iMousedown" /></li>
       </ul>
     </div>
 
