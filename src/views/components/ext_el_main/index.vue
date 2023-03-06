@@ -1,6 +1,6 @@
 <template>
-  <el-main>
-    <div class="block">
+  <div>
+    <div>
       <el-carousel trigger="click" style="border-radius:8px;overflow:hidden;">
         <el-carousel-item v-for="(item,index) in images" :key="index" style="display:flex;justify-content:center;align-items:center">
           <img :src="item.url" style="display:block;-webkit-user-drag:none;">
@@ -58,7 +58,7 @@
     </el-radio-group>
     <table-users v-show="radio=='Users'" msg="Hello Vue in CodeSandbox!" />
     <table-datas v-show="radio=='Datas'" msg="Hello Vue in CodeSandbox!" />
-  </el-main>
+  </div>
 </template>
 <script>
 // import '//at.alicdn.com/t/font_2524885_sglv1aoqywb.js'
