@@ -42,7 +42,6 @@
                 label="个人"
                 :value="2"
               />
-
             </el-select>
           </el-form-item>
           <el-form-item label="证件类型:">
@@ -75,11 +74,8 @@
                 label="警官证"
                 :value="4"
               />
-
             </el-select>
-
           </el-form-item>
-
           <el-form-item label="是否启用:">
             <el-select
               v-model="searchForm.updatetime"
@@ -99,7 +95,6 @@
               />
             </el-select>
           </el-form-item>
-
         </el-form>
       </div>
       <!--
@@ -120,7 +115,6 @@
         @tableSort="tableSort"
         @deleteList="deleteList"
       />
-
       <!--
       @pagination:currentPage 与 pageSize 值变化时更新界面数据
       -->
@@ -150,7 +144,7 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-row>
+        <el-row style="display:none">
           <el-col :span="12">
             <el-form-item
               label="id"
@@ -290,7 +284,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-
       </el-form>
       <div class="button">
         <el-button @click="addPageClose()">取消</el-button>
@@ -318,7 +311,7 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-row>
+        <el-row style="display:none">
           <el-col :span="12">
             <el-form-item
               label="id"
@@ -475,8 +468,8 @@
         :column="1"
         border
       >
-        <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
-        <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
+        <!-- <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item> -->
+        <!-- <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item> -->
         <el-descriptions-item label="用户名">{{ detailData.username }}</el-descriptions-item>
         <el-descriptions-item label="密码">{{ detailData.password }}</el-descriptions-item>
         <el-descriptions-item label="昵称">{{ detailData.nickname }}</el-descriptions-item>
@@ -492,7 +485,6 @@
         <el-descriptions-item label="创建时间">{{ detailData.createtime }}</el-descriptions-item>
         <el-descriptions-item label="更新时间">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
-
       <div class="button">
         <el-button @click="detailPageClose()">关闭</el-button>
       </div>
@@ -548,20 +540,20 @@ export default {
       uploadDialogVisible: false,
       // 表格每列展示的数据
       tableCol: [
-        {
-          prop: 'id',
-          label: 'id',
-          width: 80,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'uuid',
-          label: 'uuid',
-          width: 200,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
+        // {
+        //   prop: 'id',
+        //   label: 'id',
+        //   width: 80,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
+        // {
+        //   prop: 'uuid',
+        //   label: 'uuid',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
         {
           prop: 'username',
           label: '用户名',
@@ -899,7 +891,6 @@ export default {
             if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId > 0) {
               // 添加数据完成之后恢复菜单
               this.addData = Object.assign({}, this.addDataDefault)
-
               this.addPageClose()
               const tmpListQuery = Object.assign({}, this.listQuery)
               tmpListQuery['select'] = ['id']
@@ -918,7 +909,6 @@ export default {
                   break
                 }
               }
-
               // 计算新增数据在多少页,多少行
               this.selectList(this.listQuery)
             } else if (res.data.results[0].affectedRows === 1 && res.data.results[0].insertId === 0) {
@@ -979,7 +969,6 @@ export default {
       this.editData = Object.assign({}, data)
       this.editPageOpen()
     },
-
     // 改
     updateList() {
       // 表单校验
@@ -1167,60 +1156,4 @@ export default {
     }
   }
 }
-
 </script>
-
-<style lang='less'>
-@border-color: #e4e7ed;
-@background-color: #f5f7fa;
-@primary-color: #409eff;
-@text-color: #606266;
-.fr {
-  float: right;
-}
-body {
-  background-color: @background-color;
-  overflow: auto;
-}
-#user {
-  height: 100%;
-  background: @background-color;
-  overflow: auto;
-  padding: 24px;
-  width: 100%;
-  box-sizing: border-box;
-  .content,
-  #filter-form {
-    border-radius: 8px;
-  }
-  #filter-form,
-  #pagination,
-  .search,
-  #table-model {
-    padding: 16px;
-    background-color: #fff;
-  }
-  #filter-form {
-    margin-bottom: 16px;
-  }
-  .search,
-  #table-model {
-    padding-bottom: 0;
-  }
-  .search {
-    display: none;
-    .el-form {
-      .el-form-item {
-        margin-bottom: 0px;
-        .el-form-item__label {
-          padding: 0px;
-          line-height: 28px;
-        }
-      }
-    }
-  }
-}
-.role-select {
-  width: 50%;
-}
-</style>

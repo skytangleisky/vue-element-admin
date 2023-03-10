@@ -150,7 +150,7 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-row>
+        <el-row style="display:none">
           <el-col :span="12">
             <el-form-item
               label="id"
@@ -169,18 +169,57 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
+            <el-form-item
+              label="编号"
+            >
+              <el-input v-model="addData.no" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
             <el-form-item
               label="设备名"
             >
               <el-input v-model="addData.device_name" style="width:100%" />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item
               label="设备类型"
             >
               <el-input v-model="addData.device_type" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="设备编号"
+            >
+              <el-input v-model="addData.device_no" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="设备型号"
+            >
+              <el-input v-model="addData.device_model" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="厂商"
+            >
+              <el-input v-model="addData.manufacturer" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="地址"
+            >
+              <el-input v-model="addData.address" style="width:100%" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -256,6 +295,13 @@
               <el-input v-model="addData.orientation" style="width:100%" />
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="隐藏"
+            >
+              <el-input v-model="addData.hide" style="width:100%" />
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -310,7 +356,7 @@
         <!-- <div class="title">
           基本信息
         </div> -->
-        <el-row>
+        <el-row style="display:none">
           <el-col :span="12">
             <el-form-item
               label="id"
@@ -327,18 +373,57 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
+            <el-form-item
+              label="编号"
+            >
+              <el-input v-model="editData.no" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
             <el-form-item
               label="设备名"
             >
               <el-input v-model="editData.device_name" style="width:100%" />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item
               label="设备类型"
             >
               <el-input v-model="editData.device_type" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="设备编号"
+            >
+              <el-input v-model="editData.device_no" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="设备型号"
+            >
+              <el-input v-model="editData.device_model" style="width:100%" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              label="厂商"
+            >
+              <el-input v-model="editData.manufacturer" style="width:100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="地址"
+            >
+              <el-input v-model="editData.address" style="width:100%" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -414,6 +499,13 @@
               <el-input v-model="editData.orientation" style="width:100%" />
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="隐藏"
+            >
+              <el-input v-model="editData.hide" style="width:100%" />
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -458,10 +550,15 @@
         :column="1"
         border
       >
-        <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item>
-        <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item>
+        <!-- <el-descriptions-item label="id">{{ detailData.id }}</el-descriptions-item> -->
+        <!-- <el-descriptions-item label="uuid">{{ detailData.uuid }}</el-descriptions-item> -->
+        <el-descriptions-item label="编号">{{ detailData.no }}</el-descriptions-item>
         <el-descriptions-item label="设备名">{{ detailData.device_name }}</el-descriptions-item>
         <el-descriptions-item label="设备类型">{{ detailData.device_type }}</el-descriptions-item>
+        <el-descriptions-item label="设备编号">{{ detailData.device_no }}</el-descriptions-item>
+        <el-descriptions-item label="设备型号">{{ detailData.device_model }}</el-descriptions-item>
+        <el-descriptions-item label="厂商">{{ detailData.manufacturer }}</el-descriptions-item>
+        <el-descriptions-item label="地址">{{ detailData.address }}</el-descriptions-item>
         <el-descriptions-item label="经度">{{ detailData.lng }}</el-descriptions-item>
         <el-descriptions-item label="纬度">{{ detailData.lat }}</el-descriptions-item>
         <el-descriptions-item label="海拔高">{{ detailData.altitude }}</el-descriptions-item>
@@ -471,6 +568,7 @@
         <el-descriptions-item label="站点状态">{{ detailData.status }}</el-descriptions-item>
         <el-descriptions-item label="风速">{{ detailData.speed }}</el-descriptions-item>
         <el-descriptions-item label="风向">{{ detailData.orientation }}</el-descriptions-item>
+        <el-descriptions-item label="隐藏">{{ detailData.hide }}</el-descriptions-item>
         <el-descriptions-item label="创建时间">{{ detailData.createtime }}</el-descriptions-item>
         <el-descriptions-item label="更新时间">{{ detailData.updatetime }}</el-descriptions-item>
       </el-descriptions>
@@ -529,19 +627,26 @@ export default {
       uploadDialogVisible: false,
       // 表格每列展示的数据
       tableCol: [
+        // {
+        //   prop: 'id',
+        //   label: 'id',
+        //   width: 80,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
+        // {
+        //   prop: 'uuid',
+        //   label: 'uuid',
+        //   width: 200,
+        //   showOverflowTooltip: true,
+        //   sortable: 'custom'
+        // },
         {
-          prop: 'id',
-          label: 'id',
-          width: 80,
-          showOverflowTooltip: true,
-          sortable: 'custom'
-        },
-        {
-          prop: 'uuid',
-          label: 'uuid',
+          prop: 'no',
+          label: '编号',
           width: 200,
           showOverflowTooltip: true,
-          sortable: 'custom'
+          sortable: false
         },
         {
           prop: 'device_name',
@@ -551,8 +656,36 @@ export default {
           sortable: false
         },
         {
+          prop: 'device_no',
+          label: '设备编号',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
           prop: 'device_type',
           label: '设备类型',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'device_model',
+          label: '设备型号',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'manufacturer',
+          label: '厂商',
+          width: 200,
+          showOverflowTooltip: true,
+          sortable: false
+        },
+        {
+          prop: 'address',
+          label: '地址',
           width: 200,
           showOverflowTooltip: true,
           sortable: false
@@ -621,6 +754,13 @@ export default {
           sortable: 'custom'
         },
         {
+          prop: 'hide',
+          label: '隐藏',
+          width: 200,
+          showOverflowTooltip: false,
+          sortable: 'custom'
+        },
+        {
           prop: 'createtime',
           label: '创建时间',
           width: 200,
@@ -629,7 +769,7 @@ export default {
         },
         {
           prop: 'updatetime',
-          label: 'updatetime',
+          label: '更新时间',
           width: 200,
           showOverflowTooltip: false,
           sortable: 'custom'
@@ -675,6 +815,11 @@ export default {
         {
           relation: 'OR',
           field: 'device_name',
+          relationship: 'LIKE'
+        },
+        {
+          relation: 'OR',
+          field: 'no',
           relationship: 'LIKE'
         },
         {
@@ -1143,55 +1288,3 @@ export default {
 }
 
 </script>
-
-<style lang='less'>
-@border-color: #e4e7ed;
-@background-color: #f5f7fa;
-@primary-color: #409eff;
-@text-color: #606266;
-.fr {
-  float: right;
-}
-body {
-  background-color: @background-color;
-  overflow: auto;
-}
-#user {
-  height: 100%;
-  background: @background-color;
-  overflow: auto;
-  padding: 24px;
-  width: 100%;
-  box-sizing: border-box;
-  .content,
-  #filter-form {
-    border-radius: 8px;
-  }
-  #filter-form,
-  #pagination,
-  .search,
-  #table-model {
-    padding: 16px;
-    background-color: #fff;
-  }
-  #filter-form {
-    margin-bottom: 16px;
-  }
-  .search,
-  #table-model {
-    padding-bottom: 0;
-  }
-  .search {
-    display: none;
-    .el-form {
-      .el-form-item {
-        margin-bottom: 0px;
-        .el-form-item__label {
-          padding: 0px;
-          line-height: 28px;
-        }
-      }
-    }
-  }
-}
-</style>

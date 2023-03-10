@@ -2,10 +2,8 @@
 
 @mixin colorBtn($color) {
   background: $color;
-
   &:hover {
     color: $color;
-
     &:before,
     &:after {
       background: $color;
@@ -89,6 +87,7 @@
   background: #fff;
   color: #fff;
   -webkit-appearance: none;
+  appearance: none;
   text-align: center;
   box-sizing: border-box;
   outline: 0;

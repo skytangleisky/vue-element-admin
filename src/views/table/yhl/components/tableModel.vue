@@ -15,6 +15,9 @@
       @sort-change="sortChange"
       @selection-change="selectionChange"
     >
+      <template slot="empty">
+        <el-empty :image-size="100" description="暂无数据" />
+      </template>
       <!-- 复选框 -->
       <el-table-column
         type="selection"

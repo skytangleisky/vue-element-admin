@@ -15,20 +15,12 @@
       :current-page="currentPage"
       :page-size="pageSize"
       :page-sizes="[5, 10, 20, 30]"
+      style="width:100%;"
       @size-change="sizeChange"
       @current-change="currentChange"
     />
   </div>
 </template>
-
-<style lang='less' scoped>
-#pagination {
-  // position: relative;
-  display: flex;
-  justify-content: flex-end; //弹性盒子元素将向结束位置对齐
-  align-items: center; //侧轴居中
-}
-</style>
 
 <script>
 export default {

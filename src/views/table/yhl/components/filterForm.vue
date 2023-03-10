@@ -23,10 +23,10 @@
       </el-col>
 
       <el-col
-        class="fr"
         :xs="10"
         :sm="8"
         :md="5"
+        style="float:right"
       >
         <!-- @input:在 Input 值改变时触发 -->
         <el-input
@@ -43,9 +43,6 @@
 </template>
 
 <style lang='less' scoped>
-.fr {
-  float: right;
-}
 .el-autocomplete {
   width: 100%;
 }

@@ -1219,13 +1219,6 @@ export default {
 @background-color: #f5f7fa;
 @primary-color: #409eff;
 @text-color: #606266;
-.fr {
-  float: right;
-}
-body {
-  background-color: @background-color;
-  overflow: auto;
-}
 #airspace-manage {
   height: 100%;
   background: @background-color;

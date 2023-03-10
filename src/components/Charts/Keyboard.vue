@@ -48,7 +48,7 @@ export default {
       const xAxisData = []
       let data = []
       const data2 = []
-      data = [10023.14,8246.11,8318,8710.27,7669.23,7970.56,8159.56]
+      data = [10023.14,8246.11,8318,8710.27,7669.23,7970.56,8159.56,8033.56,8170.56]
       for (let i = 0; i < data.length; i++) {
         xAxisData.push(i+6)
         // data.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5)

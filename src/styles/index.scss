@@ -1,12 +1,12 @@
-@import './variables.scss';
+@import './light/variables.scss';
+@import './light/element-variables.scss';
 @import './mixin.scss';
 @import './transition.scss';
 @import './element-ui.scss';
-@import './sidebar.scss';
-@import './btn.scss';
-@import "./element-variables.scss";
+
 
 body {
+  overscroll-behavior: none;
   height: 100%;
   overflow: auto;
   -moz-osx-font-smoothing: grayscale;
@@ -14,16 +14,9 @@ body {
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
-
 label {
   font-weight: 700;
 }
-
-html {
-  height: 100%;
-  box-sizing: border-box;
-}
-
 #app {
   height: 100%;
 }
@@ -101,7 +94,7 @@ div:focus {
 
 aside {
   background: #eef1f6;
-  padding: 8px 24px;
+  // padding: 8px 24px;
   margin-bottom: 20px;
   border-radius: 2px;
   display: block;
@@ -213,7 +206,6 @@ aside {
   opacity: 1.0;
   position: relative;
   width:100%;
-  color: black;
   height: calc(100vh - 50px);
   max-height: calc(100vh - 50px);
 }
@@ -240,149 +232,58 @@ aside {
   content: '⨂';
 }
 
-
-
-.detail-page.crud-page{
-  // 页面标题
-.page-title {
-  width: 70%;
-  margin: 0 auto 24px;
-}
-  .button{
-    margin-left: 0;
-    display: flex;
-    justify-content: flex-end; //弹性盒子元素将向结束位置对齐
-    align-items: center; //侧轴居中
-    width: 85%;
-  }
-
-}
-
-// 增删改查界面样式
-.crud-page{
-  display: none;
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 8px;
-
-
-.el-form{
-  .el-form-item__label{
-    font-weight: 400;
-  }
-}
-
-
-// 页面标题
-.page-title {
-  font-size: 24px;
-  margin-bottom:24px;
-  color:$--color-text-primary;
-
-}
-// 模块小标题
-.title,
-.el-descriptions__title {
-  border-left: 4px solid $--color-primary;
-  padding-left: 8px;
+html{
+  @import './light/element-variables.scss';
+  @import './light/variables.scss';
+  @import './light/sidebar.scss';
+  @import './light/btn.scss';
+  @import './light/breadcrumb.scss';
+  @import './light/hamburger.scss';
+  @import './light/logo.scss';
+  @import './light/navbar.scss';
+  @import './light/navmenu.scss';
+  @import './light/table.scss';
+  height: 100%;
   box-sizing: border-box;
-  font-size: 16px;
-  font-weight: 400;
-  color:$--color-text-primary;
-}
-.title,
-.el-descriptions__header{
-  margin-bottom: 16px;
-}
-// description样式
-.el-descriptions {
-  width: 70%;
-  margin: 0 auto;
-  span.el-descriptions-item__label.has-colon {
-    width: 100px;
-    text-align: right;
+  .fixed-container{
+    background-color: #fff
   }
-  th.el-descriptions-item__cell.el-descriptions-item__label.is-bordered-label {
-    text-align: right;
-    width: 160px;
+}
+html.dark{
+  @import './dark/element-variables.scss';
+  @import './dark/variables.scss';
+  @import './dark/sidebar.scss';
+  @import './dark/btn.scss';
+  @import './dark/breadcrumb.scss';
+  @import './dark/hamburger.scss';
+  @import './dark/logo.scss';
+  @import './dark/navbar.scss';
+  @import './dark/navmenu.scss';
+  @import './dark/table.scss';
+  height: 100%;
+  box-sizing: border-box;
+  .fixed-container{
+    background-color: #2b2b2b
   }
-  // .el-descriptions__header{
-  //   .el-descriptions__extra{
-  //     // margin-bottom: 16px;
-  //   }
-  // }
-  // .el-descriptions-item__content {
-  //   font-weight: 600;
-  //   width: 100%;
-  // }
 }
 
-  // 底部按钮
-  .button {
-    margin-top: 24px;
-    margin-left: 140px;
-    // display: flex;
-    // justify-content: flex-end; //弹性盒子元素将向结束位置对齐
-    // align-items: center; //侧轴居中
-  }
-  // 表单控件长度
-  .el-input,
-  .el-textarea {
-    width: 50%;
-  }
-  .el-select,
-  .el-input-number,
-  .el-date-editor,
-  .el-cascader {
-    .el-input {
-      width: 100%;
-    }
-  }
-  // 上传组件样式
-  .avatar-uploader .el-upload {
-    border: 1px dashed $--border-color-base;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar {
-    width: 148px;
-    height: 148px;
-    display: block;
-  }
-  .idPhoto{
-    // width: 148px;
-    height: 180px;
-    display: block;
-  }
-  .idPhotoShow{
-    height: 120px;
-  }
-  // 图片格式
-  .orgImgs {
-    display: inline;
-    padding: 0px 4px;
-    .el-image {
-      width: 120px;
-      height: 120px;
-    }
-  }
-  // 日志
-  .timeLine {
-    max-height: 1160px;
-    overflow: auto;
-    ul{
-      padding-left: 4px;
-    }
-  }
-  .little-table {
-    padding: 16px;
-    margin: 0px 0px 24px 140px;
-    border: 1px solid $--border-color-base;
-    border-radius: 4px;
-    #table-model{
-      margin: 0;
-    }
-  }
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+  theme: $--color-primary;
 }
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+// :export {
+//   theme: $--color-primary;
+// }

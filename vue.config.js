@@ -49,7 +49,22 @@ module.exports = {
         target: 'http://websocket.tanglei.top', // 你请求的第三方接口
         changeOrigin: true,
         pathRewrite: { // 路径重写
-          ['^' + process.env.VUE_APP_BASE_API]: '' // 替换的请求地址
+          [`^${process.env.VUE_APP_BASE_API}`]: '' // 替换的请求地址
+        }
+      },
+      'websocket/': {
+        target: 'http://websocket.tanglei.top',
+        changeOrgin: true,
+        ws: true,
+        pathRewrite: {
+          '^websocket/': ''
+        }
+      },
+      'amap/': {
+        target: 'https://webst04.is.autonavi.com',
+        changeOrgin: true,
+        pathRewrite: {
+          'amap/': ''
         }
       },
       'qt/': {
@@ -64,6 +79,13 @@ module.exports = {
         changeOrgin: true,
         pathRewrite: {
           'qtimage/': ''
+        }
+      },
+      'maps/': {
+        target: 'http://tanglei.top:5050',
+        changeOrgin: true,
+        pathRewrite: {
+          'maps/': ''
         }
       },
       'map/': {

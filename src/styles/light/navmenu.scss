@@ -1,0 +1,18 @@
+.el-menu-item{
+  background-color:rgb(255, 255, 255) !important;
+  color:grey !important;
+  &> .el-submenu__title:hover,&.el-menu-item:hover{
+    background-color: rgba(76, 132, 255, 0.3) !important;
+  }
+}
+.el-menu-item.is-active{
+  color:#fff !important;
+  background-color: #257BE6 !important;
+}
+.el-submenu__title{
+  color:grey !important;
+  background-color: rgb(255, 255, 255) !important;
+  &:hover{
+    background-color: rgba(76,132,255, 0.3) !important;
+  }
+}
