@@ -10,9 +10,9 @@
     <el-button size="mini" round @click="server">server</el-button>
     <div style="display:flex;flex-direction:row;flex-wrap:wrap">
       <!--<el-col :span="6" v-for="(o, index) in 10" :key="o" :offset="index > 0 ? 2 : 0" style="padding:10px">-->
-      <div v-for="(o, index) in list2" :key="index" style="padding:10px;">
+      <div v-for="(o, index) in list2" :key="index" style="padding:5px;">
         <div class="card" style="position:relative;border-radius:8px;border:0px solid #00000044;box-shadow: 0px 0px 10px #909090;overflow:hidden;">
-          <a target="_blank" :href="baseURL+'/'+o.product_root+o.product_url"><img :src="baseURL+'/'+o.product_root+o.product_image" style="user-drag:none;display:block;"></a>
+          <a target="_blank" :href="baseURL+'/'+o.product_root+o.product_url"><img :src="baseURL+'/'+o.product_root+o.product_image" :style="'user-drag:none;display:block;width:'+(o.width||240)+'px;height:'+(o.height||135)+'px;'"></a>
           <div class="describe-top">
             <div style="display:flex;flex-direction:row;">
               <img :src="baseURL + '/emoji/经典表情245/12/害羞.png'">

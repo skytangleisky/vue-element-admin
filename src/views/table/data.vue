@@ -74,6 +74,16 @@
           <span>{{ row.updatetime }}</span>
         </template>
       </el-table-column>
+      <el-table-column width="110px" align="center" label="宽度">
+        <template slot-scope="{row}">
+          <span>{{ row.width }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="110px" align="center" label="高度">
+        <template slot-scope="{row}">
+          <span>{{ row.height }}</span>
+        </template>
+      </el-table-column>
       <el-table-column width="110px" align="center" label="账户名">
         <template slot-scope="{row}">
           <span>{{ row.username }}</span>
@@ -154,6 +164,16 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="100px">
+        <el-col :span="12">
+          <el-form-item label="width" prop="width" :span="12">
+            <el-input v-model="temp.width" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="height" prop="height" :span="12">
+            <el-input v-model="temp.height" />
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item label="username" prop="username" :span="12">
             <el-input v-model="temp.username" />
