@@ -1,10 +1,11 @@
 <template>
   <div>
-    <el-button @click="click" />
+    <el-button @click="click_sub">del</el-button>
+    <el-button @click="click_add">add</el-button>
     <textarea id="nestable-output" style="width: 100%" />
     <div id="nestable" class="dd">
       <ol class="dd-list">
-        <li id="abc" class="dd-item" data-id="1">
+        <!-- <li id="abc" class="dd-item" data-id="1">
           <div class="dd-handle">Item 1</div>
         </li>
         <li class="dd-item" data-id="2">
@@ -43,7 +44,7 @@
         </li>
         <li class="dd-item" data-id="12">
           <div class="dd-handle">Item 12</div>
-        </li>
+        </li> -->
       </ol>
     </div>
   </div>
@@ -137,7 +138,7 @@ export default {
       async handler(newVal, oldVal) {
         const routeIndex = new Function(newVal || 'return []')() // 路由索引
         const { results } = (await select({})).data // 路由菜单
-        function test(list) {
+        function recursive(list) {
           // 将路由索引和路由菜单关联成索引菜单
           list.map((v, k) => {
             for (let i = 0; i < results.length; i++) {
@@ -147,13 +148,18 @@ export default {
               }
             }
             if (v.children instanceof Array) {
-              test(v.children)
+              recursive(v.children)
             }
           })
         }
-        test(routeIndex)
+        recursive(routeIndex)
+
+
+
+
+        let dd_list = $('#nestable>.dd-list')
         const where = []
-        function test2(list) {
+        function test2(list,dd_list) {
           // 将路由菜单和树形控件对应
           list.map((v, k) => {
             list[k].label = v.path
@@ -165,11 +171,26 @@ export default {
               condition: v.uuid
             })
             if (v.children instanceof Array) {
-              test2(v.children)
+              let container = $(`<li class="dd-item" data-id="${list[k].id}"><div class="dd-handle">${list[k].label}</div></li>`)
+              let _list = $(`<ol class="dd-list"/>`)
+              container.append(_list)
+              dd_list.append(container)
+              test2(v.children, _list)
+            }else{
+              dd_list.append(`<li id="abc" class="dd-item" data-id="${list[k].id}">
+                <div class="dd-handle">${list[k].label}</div>
+              </li>`)
             }
           })
         }
-        test2(routeIndex)
+        test2(routeIndex,dd_list)
+        console.log($('#nestable'))
+    this.updateOutput($('#nestable').data('output', $('#nestable-output')))
+    $('#nestable')
+    .nestable({
+      group: 1
+    })
+    .on('change', this.updateOutput)
         this.treeData = routeIndex
         const results2 = (await select({ where })).data.results
         console.log(results2)
@@ -177,7 +198,9 @@ export default {
     }
   },
   async mounted() {
-    var updateOutput = function(e) {
+  },
+  methods: {
+    updateOutput(e) {
       var list = e.length ? e : $(e.target)
       var output = list.data('output')
       if (window.JSON) {
@@ -185,102 +208,21 @@ export default {
       } else {
         output.val('JSON browser support required for this demo.')
       }
-    }
-    $('#nestable')
-      .nestable({
-        group: 1
-      })
-      .on('change', updateOutput)
-    updateOutput($('#nestable').data('output', $('#nestable-output')))
-  },
-  methods: {
-    click() {
-      $('#abc').remove()
+    },
+    click_add() {
+      $('#nestable>.dd-list').prepend(`<li id="abc" class="dd-item" data-id="1">
+          <div class="dd-handle">Item 1</div>
+        </li>`)
+
+      $('#nestable').data('output').val(window.JSON.stringify($('#nestable').nestable('serialize')))
+    },
+    click_sub() {
+      $('#nestable>.dd-list>#abc')[0]?.remove()
       $('#nestable').data('output').val(window.JSON.stringify($('#nestable').nestable('serialize')))
     },
     delClick(node) {
       this.$refs.tree.remove(node)
       this.change()
-    },
-    clipboardError() {
-      console.error('copy error')
-    },
-    clipboardSuccess(v) {
-      this.$message({
-        message: v.text + ' copied!',
-        type: 'success',
-        duration: 1500
-      })
-    },
-    nodeExpand(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      this.expandedKeys.push(obj.id)
-      // localStorage.setItem('menusTree', JSON.stringify(this.expandedKeys))
-    },
-    nodeCollapse(obj, node, root) {
-      for (let i = 0; i < this.expandedKeys.length; i++) {
-        if (this.expandedKeys[i] === obj.id) {
-          this.expandedKeys.splice(i, 1)
-        }
-      }
-      // localStorage.setItem('menusTree', JSON.stringify(this.expandedKeys))
-    },
-    nodeClick(obj, node, root) {
-      this.searchValue = obj.uuid
-      // this.searchList(this.searchValue)
-    },
-    nodeContextmenu(event, obj, node, root) {},
-    handleDragStart(node, ev) {
-      console.log('drag start', node)
-    },
-    handleDragEnter(draggingNode, dropNode, ev) {
-      console.log('tree drag enter: ', dropNode.label)
-    },
-    handleDragLeave(draggingNode, dropNode, ev) {
-      console.log('tree drag leave: ', dropNode.label)
-    },
-    handleDragOver(draggingNode, dropNode, ev) {
-      console.log('tree drag over: ', dropNode.label)
-    },
-    handleDragEnd(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drag end: ', dropNode && dropNode.label, dropType)
-      this.change()
-    },
-    handleDrop(draggingNode, dropNode, dropType, ev) {
-      console.log('tree drop: ', dropNode.label, dropType)
-    },
-    allowDrop(draggingNode, dropNode, type) {
-      // if (dropNode.data.label === '二级 3-1') {
-      //   return type !== 'inner'
-      // } else {
-      //   return true
-      // }
-    },
-    allowDrag(draggingNode) {
-      // return draggingNode.data.label.indexOf('三级 3-2-2') === -1
-    },
-    change() {
-      const routeIndex = JSON.parse(JSON.stringify(this.treeData))
-      function test(list) {
-        // 将路由菜单精简为路由索引
-        list.map((v, k) => {
-          if (v.children) {
-            list[k] = { uuid: v.id, children: v.children }
-          } else {
-            list[k] = { uuid: v.id }
-          }
-          if (v.children instanceof Array) {
-            test(v.children)
-          }
-        })
-      }
-      test(routeIndex)
-      this.value = 'return ' + JSON.stringify(this.treeData)
-      this.$emit('change', this.value)
     }
   }
 }
@@ -339,7 +281,7 @@ export default {
   background: #fafafa;
   background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
   background: -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
-  background: linear-gradient(top, #fafafa 0%, #eee 100%);
+  /* background: linear-gradient(top, #fafafa 0%, #eee 100%); */
   -webkit-border-radius: 3px;
   border-radius: 3px;
   box-sizing: border-box;
