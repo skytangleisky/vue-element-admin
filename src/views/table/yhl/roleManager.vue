@@ -742,6 +742,7 @@ export default {
     },
     // 打开编辑窗口+获取编辑的数据
     async getEditData(data) {
+      console.log('打开编辑器')
       this.editData = Object.assign({}, data)
       this.editPageOpen()
     },

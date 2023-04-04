@@ -1,51 +1,13 @@
 <template>
   <div>
-    <el-button @click="click_sub">del</el-button>
-    <el-button @click="click_add">add</el-button>
     <textarea id="nestable-output" style="width: 100%" />
-    <div id="nestable" class="dd">
-      <ol class="dd-list">
-        <!-- <li id="abc" class="dd-item" data-id="1">
-          <div class="dd-handle">Item 1</div>
-        </li>
-        <li class="dd-item" data-id="2">
-          <div class="dd-handle">Item 2</div>
-          <ol class="dd-list">
-            <li class="dd-item" data-id="3">
-              <div class="dd-handle">Item 3</div>
-            </li>
-            <li class="dd-item" data-id="4">
-              <div class="dd-handle">Item 4</div>
-            </li>
-            <li class="dd-item" data-id="5">
-              <div class="dd-handle">Item 5</div>
-              <ol class="dd-list">
-                <li class="dd-item" data-id="6">
-                  <div class="dd-handle">Item 6</div>
-                </li>
-                <li class="dd-item" data-id="7">
-                  <div class="dd-handle">Item 7</div>
-                </li>
-                <li class="dd-item" data-id="8">
-                  <div class="dd-handle">Item 8</div>
-                </li>
-              </ol>
-            </li>
-            <li class="dd-item" data-id="9">
-              <div class="dd-handle">Item 9</div>
-            </li>
-            <li class="dd-item" data-id="10">
-              <div class="dd-handle">Item 10</div>
-            </li>
-          </ol>
-        </li>
-        <li class="dd-item" data-id="11">
-          <div class="dd-handle">Item 11</div>
-        </li>
-        <li class="dd-item" data-id="12">
-          <div class="dd-handle">Item 12</div>
-        </li> -->
-      </ol>
+    <div style="display:flex;flex-direction:row;width:100%;justify-content:space-between;">
+      <div ref="nestable3" class="dd" style="width:50%">
+        <ol class="dd-list" />
+      </div>
+      <div ref="abc" class="dd abc" style="width:50%">
+        <ol class="dd-list" />
+      </div>
     </div>
   </div>
   <!--<el-tree
@@ -93,6 +55,7 @@
 import { select } from '@/api/table/menu'
 import clipboard from '@/directive/clipboard/index.js' // use clipboard by v-directive
 export default {
+  name: 'MenusTree',
   directives: {
     clipboard
   },
@@ -136,6 +99,7 @@ export default {
     value: {
       immediate: true,
       async handler(newVal, oldVal) {
+        console.log('改变')
         const routeIndex = new Function(newVal || 'return []')() // 路由索引
         const { results } = (await select({})).data // 路由菜单
         function recursive(list) {
@@ -153,16 +117,11 @@ export default {
           })
         }
         recursive(routeIndex)
-
-
-
-
-        let dd_list = $('#nestable>.dd-list')
         const where = []
-        function test2(list,dd_list) {
-          // 将路由菜单和树形控件对应
-          list.map((v, k) => {
-            list[k].label = v.path
+        function test2(list) { // 将路由菜单和树形控件对应
+          for (let k = 0; k < list.length; k++) {
+            const v = list[k]
+            list[k].content = v.path
             list[k].id = v.uuid
             where.push({
               relation: 'AND',
@@ -171,29 +130,37 @@ export default {
               condition: v.uuid
             })
             if (v.children instanceof Array) {
-              let container = $(`<li class="dd-item" data-id="${list[k].id}"><div class="dd-handle">${list[k].label}</div></li>`)
-              let _list = $(`<ol class="dd-list"/>`)
-              container.append(_list)
-              dd_list.append(container)
-              test2(v.children, _list)
-            }else{
-              dd_list.append(`<li id="abc" class="dd-item" data-id="${list[k].id}">
-                <div class="dd-handle">${list[k].label}</div>
-              </li>`)
+              test2(v.children)
+            }
+          }
+        }
+        test2(routeIndex)
+        $(this.$refs.nestable3).off('change', this.updateOutput).off('lostItem', this.updateOutput).off('gainedItem', this.updateOutput).nestable('destroy')
+        $(this.$refs.nestable3).nestable({ json: routeIndex }).on('change', this.updateOutput).on('lostItem', this.updateOutput).on('gainedItem', this.updateOutput)
+        this.updateOutput($(this.$refs.nestable3))
+
+        // this.treeData = routeIndex;
+        const results2 = (await select({ where })).data.results
+        const arr = []
+        for (let i = 0; i < results2.length; i++) {
+          const menu = new Function(results2[i].menu)()
+          arr.push({ id: results2[i].uuid, content: menu.path })
+        }
+        $(this.$refs.abc).nestable('destroy')
+        $(this.$refs.abc).nestable({ selfDrag: false, json: arr, beforeDragStop: (l, e, p) => {
+          let has = false
+          p.parents().map(function() {
+            if ($(this).hasClass('abc')) {
+              has = true
             }
           })
-        }
-        test2(routeIndex,dd_list)
-        console.log($('#nestable'))
-    this.updateOutput($('#nestable').data('output', $('#nestable-output')))
-    $('#nestable')
-    .nestable({
-      group: 1
-    })
-    .on('change', this.updateOutput)
-        this.treeData = routeIndex
-        const results2 = (await select({ where })).data.results
-        console.log(results2)
+          console.log('++', has)
+          return !has
+        // l is the main container
+        // e is the element that was moved
+        // p is the place where element was moved.
+        } })
+        console.log('??', arr)
       }
     }
   },
@@ -201,192 +168,36 @@ export default {
   },
   methods: {
     updateOutput(e) {
+      function recursive(list) {
+        // 将路由索引和路由菜单关联成索引菜单
+        list.map((v, k) => {
+          if (v.children instanceof Array) {
+            recursive(v.children)
+          }
+          if (v.children) {
+            list[k] = { uuid: v.id, children: v.children }
+          } else {
+            list[k] = { uuid: v.id }
+          }
+        })
+      }
       var list = e.length ? e : $(e.target)
-      var output = list.data('output')
+      var output = $('#nestable-output')
       if (window.JSON) {
         output.val(window.JSON.stringify(list.nestable('serialize'))) //, null, 2));
+
+        const arr = list.nestable('serialize')
+        recursive(arr)
+        console.log('result', arr)
+        this.value = 'return ' + JSON.stringify(arr)
+        this.$emit('change', this.value)
       } else {
         output.val('JSON browser support required for this demo.')
       }
-    },
-    click_add() {
-      $('#nestable>.dd-list').prepend(`<li id="abc" class="dd-item" data-id="1">
-          <div class="dd-handle">Item 1</div>
-        </li>`)
-
-      $('#nestable').data('output').val(window.JSON.stringify($('#nestable').nestable('serialize')))
-    },
-    click_sub() {
-      $('#nestable>.dd-list>#abc')[0]?.remove()
-      $('#nestable').data('output').val(window.JSON.stringify($('#nestable').nestable('serialize')))
-    },
-    delClick(node) {
-      this.$refs.tree.remove(node)
-      this.change()
     }
   }
 }
 </script>
-<style>
-/**
- * Nestable
- */
-
-.dd {
-  position: relative;
-  display: block;
-  margin: 0;
-  padding: 0;
-  max-width: 600px;
-  list-style: none;
-  font-size: 13px;
-  line-height: 20px;
-}
-
-.dd-list {
-  display: block;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.dd-list .dd-list {
-  padding-left: 30px;
-}
-.dd-collapsed .dd-list {
-  display: none;
-}
-
-.dd-item,
-.dd-empty,
-.dd-placeholder {
-  display: block;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  min-height: 20px;
-  font-size: 13px;
-  line-height: 20px;
-}
-
-.dd-handle {
-  display: block;
-  height: 30px;
-  margin: 5px 0;
-  padding: 5px 10px;
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  border: 1px solid #ccc;
-  background: #fafafa;
-  background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
-  background: -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
-  /* background: linear-gradient(top, #fafafa 0%, #eee 100%); */
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-.dd-handle:hover {
-  color: #2ea8e5;
-  background: #fff;
-}
-
-.dd-item > button {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  float: left;
-  width: 25px;
-  height: 20px;
-  margin: 5px 0;
-  padding: 0;
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  border: 0;
-  background: transparent;
-  font-size: 12px;
-  line-height: 1;
-  text-align: center;
-  font-weight: bold;
-}
-.dd-item > button:before {
-  content: "+";
-  display: block;
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  text-indent: 0;
-}
-.dd-item > button[data-action="collapse"]:before {
-  content: "-";
-}
-
-.dd-placeholder,
-.dd-empty {
-  margin: 5px 0;
-  padding: 0;
-  min-height: 30px;
-  background: #f2fbff;
-  border: 1px dashed #b6bcbf;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-.dd-empty {
-  border: 1px dashed #bbb;
-  min-height: 100px;
-  background-color: #e5e5e5;
-  background-image: -webkit-linear-gradient(
-      45deg,
-      #fff 25%,
-      transparent 25%,
-      transparent 75%,
-      #fff 75%,
-      #fff
-    ),
-    -webkit-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff
-          75%, #fff);
-  background-image: -moz-linear-gradient(
-      45deg,
-      #fff 25%,
-      transparent 25%,
-      transparent 75%,
-      #fff 75%,
-      #fff
-    ),
-    -moz-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff
-          75%, #fff);
-  background-image: linear-gradient(
-      45deg,
-      #fff 25%,
-      transparent 25%,
-      transparent 75%,
-      #fff 75%,
-      #fff
-    ),
-    linear-gradient(
-      45deg,
-      #fff 25%,
-      transparent 25%,
-      transparent 75%,
-      #fff 75%,
-      #fff
-    );
-  background-size: 60px 60px;
-  background-position: 0 0, 30px 30px;
-}
-
-.dd-dragel {
-  position: absolute;
-  pointer-events: none;
-  z-index: 9999;
-}
-.dd-dragel > .dd-item .dd-handle {
-  margin-top: 0;
-}
-.dd-dragel .dd-handle {
-  -webkit-box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.1);
-}
+<style lang="scss">
+.dd{position:relative;display:block;margin:0;padding:0;max-width:600px;list-style:none;font-size:13px;line-height:20px}.dd-list{display:block;position:relative;margin:0;padding:0;list-style:none}.dd-list .dd-list{padding-left:30px}.dd-empty,.dd-item,.dd-placeholder{display:block;position:relative;margin:0;padding:0;min-height:20px;font-size:13px;line-height:20px}.dd-handle{display:block;height:30px;margin:5px 0;padding:5px 10px;color:#333;text-decoration:none;font-weight:700;border:1px solid #ccc;background:#fafafa;border-radius:3px;box-sizing:border-box}.dd-handle:hover{color:#2ea8e5;background:#fff}.dd-item>button{position:relative;cursor:pointer;float:left;width:25px;height:20px;margin:5px 0;padding:0;text-indent:100%;white-space:nowrap;overflow:hidden;border:0;background:0 0;font-size:12px;line-height:1;text-align:center;font-weight:700}.dd-item>button:before{display:block;position:absolute;width:100%;text-align:center;text-indent:0}.dd-item>button.dd-expand:before{content:'+'}.dd-item>button.dd-collapse:before{content:'-'}.dd-expand{display:none}.dd-collapsed .dd-collapse,.dd-collapsed .dd-list{display:none}.dd-collapsed .dd-expand{display:block}.dd-empty,.dd-placeholder{margin:5px 0;padding:0;min-height:30px;background:#f2fbff;border:1px dashed #b6bcbf;box-sizing:border-box;-moz-box-sizing:border-box}.dd-empty{border:1px dashed #bbb;min-height:100px;background-color:#e5e5e5;background-size:60px 60px;background-position:0 0,30px 30px}.dd-dragel{position:absolute;pointer-events:none;z-index:9999}.dd-dragel>.dd-item .dd-handle{margin-top:0}.dd-dragel .dd-handle{box-shadow:2px 4px 6px 0 rgba(0,0,0,.1)}.dd-nochildren .dd-placeholder{display:none}
 </style>

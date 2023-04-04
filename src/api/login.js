@@ -8,11 +8,10 @@ export function login(data) {
     data
   })
 }
-export function getInfo(token) {
+export function getInfo() {
   return request({
     url: 'libs/db/src/login.php',
     method: 'get'
-    // params: { token }
   })
 }
 export function logout() {

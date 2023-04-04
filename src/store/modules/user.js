@@ -1,10 +1,9 @@
 import { login, logout, getInfo } from '@/api/login'
 // import { login, logout, getInfo } from '@/api/login_mock'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+// import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
-  token: getToken(),
   name: '',
   username: '',
   nickname: '',
@@ -14,9 +13,6 @@ const state = {
 }
 
 const mutations = {
-  SET_TOKEN: (state, token) => {
-    state.token = token
-  },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
   },
@@ -40,13 +36,10 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        if (data) {
-          commit('SET_TOKEN', data.token)
-          setToken(data.token)
-        }
+        localStorage.setItem('isLogined', 'true')
         resolve()
       }).catch(error => {
+        localStorage.setItem('isLogined', 'false')
         reject(error)
       })
     })
@@ -70,6 +63,7 @@ const actions = {
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
+        localStorage.setItem('isLogined', 'true')
         commit('SET_ROLES', roles)
         commit('SET_NICKNAME', nickname)
         commit('SET_USERNAME', username)
@@ -86,9 +80,8 @@ const actions = {
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(async() => {
-        commit('SET_TOKEN', '')
+        localStorage.setItem('isLogined', 'false')
         commit('SET_ROLES', [])
-        removeToken()
 
         // reset visited views and cached views
         // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
@@ -106,9 +99,8 @@ const actions = {
   // remove token
   resetToken({ commit }) {
     return new Promise(resolve => {
-      commit('SET_TOKEN', '')
+      localStorage.setItem('isLogined', 'false')
       commit('SET_ROLES', [])
-      removeToken()
       resolve()
     })
   },
@@ -117,7 +109,6 @@ const actions = {
   // async changeRoles({ commit, dispatch }, role) {
   //   const token = role + '-token'
 
-  //   commit('SET_TOKEN', token)
   //   setToken(token)
 
   //   const { roles } = await dispatch('getInfo')
