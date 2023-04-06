@@ -1,6 +1,6 @@
 <template>
   <el-container direction="horizontal" style="height:100%">
-    <div ref="editor" contenteditable="true" style="position:relative;box-sizing: border-box;height:100%;font-family: Consolas;width:100%;outline:none;" />
+    <div ref="editor" contenteditable="true" style="font-family:Menlo;font-size:8px;position:relative;box-sizing: border-box;height:100%;width:100%;outline:none;" />
     <!--<textarea id="normal-editor" ref="normal-editor" style="width:50%;height:100%;outline:none;" readonly></textarea>-->
   </el-container>
 </template>
