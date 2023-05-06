@@ -29,11 +29,13 @@ export default {
 
     term.open(document.getElementById('terminal'))
     // term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
-
+    term.onKey(obj => {
+      ws.send(obj.key)
+    })
     var ws
     connect()
     function connect() {
-      ws = new WebSocket('ws://websocket.tanglei.top')
+      ws = new WebSocket('ws://tanglei.top:65535')
       // ws = new WebSocket("ws://websocket.tanglei.top");
       ws.onopen = function() {
       // $('#start').hide();$('#stop').show();

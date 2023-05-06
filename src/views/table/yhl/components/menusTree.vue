@@ -136,7 +136,17 @@ export default {
         }
         test2(routeIndex)
         $(this.$refs.nestable3).off('change', this.updateOutput).off('lostItem', this.updateOutput).off('gainedItem', this.updateOutput).nestable('destroy')
-        $(this.$refs.nestable3).nestable({ json: routeIndex }).on('change', this.updateOutput).on('lostItem', this.updateOutput).on('gainedItem', this.updateOutput)
+        $(this.$refs.nestable3).nestable({ json: routeIndex, contentCallback: function(item) {
+          let content = ''
+          if (item.meta && item.meta.icon && item.meta.icon.includes('el-icon')) {
+            content = `<i class="sub-el-icon ${item.meta.icon}"></i>`
+          } else if (item.meta && item.meta.icon) {
+            content = `<svg-icon icon-class="${item.meta.icon}"></svg-icon>`
+            console.log(item)
+          }
+          content += item.content
+          return content
+        } }).on('change', this.updateOutput).on('lostItem', this.updateOutput).on('gainedItem', this.updateOutput)
         this.updateOutput($(this.$refs.nestable3))
 
         // this.treeData = routeIndex;

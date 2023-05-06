@@ -46,7 +46,7 @@ Vue.use(Element, {
   size: Cookies.get('size') || 'default' // set element-ui default size
   // locale: enLang // 如果使用中文，无需设置，请删除
 })
-
+import '/src/directive/el-drag-dialog'
 // register global utility filters
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

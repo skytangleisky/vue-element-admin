@@ -34,7 +34,7 @@ module.exports = [
       if (!token) {
         return {
           code: 60204,
-          message: 'Account and password are incorrect.'
+          message: 'Account or password are incorrect.'
         }
       }
       res.cookie('Admin-Token', token)
